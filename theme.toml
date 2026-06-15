@@ -1,30 +1,24 @@
-name = "Theme Name"
+name = "ZeroDream Gallery"
 license = "MIT"
-licenselink = "Link to theme's license"
-description = "Theme description"
+licenselink = "https://github.com/zero-dream/hugo-zero/blob/main/LICENSE"
+description = "A uniquely styled Hugo photo gallery theme."
 
 # The home page of the theme, where the source can be found.
-homepage = "https://github.com/gohugoio/gohugoioTheme"
+homepage = "https://github.com/zero-dream/hugo-zero"
 
 # If you have a running demo of the theme.
-demosite = "https://gohugo.io"
+demosite = "https://zero-dream.github.io/hugo-zero"
 
-tags = ["blog", "company"]
-features = ["some", "awesome", "features"]
-
-# If the theme has multiple authors
-authors = [
-  {name = "Name of author", homepage = "Website of author"},
-  {name = "Name of author", homepage = "Website of author"}
-]
+tags = ["zerodream", "gallery", "uniquely", "responsive", "dark"]
+features = ["zerodream", "gallery", "uniquely", "responsive", "dark"]
 
 # If the theme has a single author
 [author]
-    name = "Your name"
-    homepage = "Your website"
+    name = "ZeroDream"
+    homepage = "https://github.com/zero-dream"
 
 # If porting an existing theme
 [original]
-    author = "Name of original author"
-    homepage = "Link to website of original author"
-    repo = "Link to source code of original theme"
+    author = "Nico Kaiser"
+    homepage = "https://github.com/nicokaiser"
+    repo = "https://github.com/nicokaiser/hugo-theme-gallery"
