@@ -1,15 +1,7 @@
-.prose {
-  all: initial;
-  display: block;
-  margin: 0 auto var(--gap-main);
+/*! tailwindcss v4.3.1 | MIT License | https://tailwindcss.com */
 
-  line-height: 1.5;
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  -webkit-text-size-adjust: 100%;
-  tab-size: 4;
-}
-
-/*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
+// @import "tailwindcss";
+// @plugin "@tailwindcss/typography";
 
 .prose {
   color: var(--tw-prose-body);
@@ -216,8 +208,8 @@
     font-family: inherit;
     color: var(--tw-prose-kbd);
     box-shadow:
-      0 0 0 1px rgb(var(--tw-prose-kbd-shadows) / 10%),
-      0 3px 0 rgb(var(--tw-prose-kbd-shadows) / 10%);
+      0 0 0 1px #{"rgb(var(--tw-prose-kbd-shadows) / 10%)"},
+      0 3px 0 #{"rgb(var(--tw-prose-kbd-shadows) / 10%)"};
     font-size: 0.875em;
     border-radius: 0.3125rem;
     padding-top: 0.1875em;
@@ -426,7 +418,6 @@
     margin-bottom: 0;
   }
 }
-
 .prose-invert {
   --tw-prose-body: var(--tw-prose-invert-body);
   --tw-prose-headings: var(--tw-prose-invert-headings);

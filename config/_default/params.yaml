@@ -1,6 +1,6 @@
 params:
   # General
-  defaultTheme: "auto" # value: auto; light; dark;
+  defaultTheme: "auto" # Value: auto; light; dark;
 
   # .Param
   downImage:

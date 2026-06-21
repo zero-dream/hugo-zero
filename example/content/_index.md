@@ -3,7 +3,7 @@ title: "Hugo Gallery"
 description: "A uniquely styled Hugo photo gallery theme."
 keywords: ["Hugo", "Gallery"]
 
-cascade: # Cascade front matter values to the home page and any of its descendants.
+cascade:
   build:
     publishResources: false # Do not include full images.
 

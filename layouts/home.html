@@ -2,7 +2,7 @@
 {{ partial "components/title.html" . }}
 {{ partial "components/categories.html" }}
 {{ partial "components/featured.html" . }}
-<section class="galleries">
+<section class="albums">
 	{{ range partial "data/pages.html" .Pages }}
 		{{ partial "components/album.html" . }}
 	{{ end }}
@@ -13,7 +13,7 @@
 {{ end }}
 
 {{ define "head-assets" }}
-{{ partial "import/css.html" (dict "path" "/css/prose.css") }}
+{{ partial "import/css.html" (dict "path" "/css/prose.scss") }}
 
 {{ $params := dict }}
 {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}

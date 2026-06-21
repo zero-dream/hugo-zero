@@ -33,9 +33,9 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 - Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
 - Photoswipe and lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
 - Lazy loader for images with [aFarkas/lazysizes](https://github.com/aFarkas/lazysizes)
-- Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
-- Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
 - Prose typography with [tailwindlabs/tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography)
+- Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
+- Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
 
 ## Hugo Modules
 
@@ -122,8 +122,8 @@ content/
 - `/about.md`: Not a PageBundle and does not have image resources. It is not displayed in the album list.
 - `/animals`: A BranchBundle (has `_index.md` and has children) => Displayed as album list (`list` layout).
 - `/nature`: A LeafBundle (has `index.md` and no children) => Displayed as gallery (`single` layout).
+- The list page must have an image.
 - Albums without an image are not shown.
-- Use the image with the param `cover: true` as thumbnail for album list; if not set, the first image will be used.
 
 ### Lightbox Action
 
@@ -132,15 +132,14 @@ content/
 `swipe left and right`: Switch to the previous/next slide.
 `swipe down`: Close the lightbox.
 
-### Front Matter
+## Front Matter
 
-- `date`: (string) The date associated with the page, typically the creation date.
-- `draft`: (bool) Whether to disable rendering unless you pass the --buildDrafts flag to the hugo command.
-- `title`: (string) Title of the album, shown in the album list and on the album page.
-- `description`: (string) Render on the page as `markdown`, and also add to the `meta` elements in the `head` element.
-- `weight`: (int) The page weight, used to order the page within a page collection.
-- `params.private`: (bool) Whether to display the album in the album overview.
-- `params.featured`: (bool) Whether to display the album on the homepage (even if private).
+`cascade`: (map) The key defined here can be inherited by any of its descendants, or it can be overridden.
+`draft`: (bool) Whether to disable rendering unless you pass the --buildDrafts flag to the hugo command.
+`date`: (string) The date associated with the page, typically the creation date.
+`title`: (string) Title of the album, shown in the album list and on the album page.
+`description`: (string) Render on the page as `markdown`, and also add to the `meta` elements in the `head` element.
+`weight`: (int) The page weight, used to order the page within a page collection.
 
 ### Draft
 
@@ -154,6 +153,32 @@ Reports whether the given page is a draft as defined in front matter.
 ---
 draft: true
 title: Draft Album
+---
+```
+
+### Categories
+
+**Support:** cascade;
+
+If you use categories in your albums, the homepage displays a list of categories.
+
+Make sure `term` is not included in `disableKinds` in the site config.
+
+```yaml
+---
+title: "Cats"
+categories: ["Animals"]
+---
+```
+
+By default, the "animals" category will have "Animals" as title and no description. You can have a custom title and description by simply creating `content/categories/<category>/_index.md`:
+
+content/categories/animals/\_index.md:
+
+```yaml
+---
+title: "Cute Animals"
+description: "This is the description text of the <animals> category."
 ---
 ```
 
@@ -173,7 +198,7 @@ params:
 ---
 ```
 
-### Featured Content on the Homepage
+### Featured Content On The Homepage
 
 **Support:** cascade;
 
@@ -187,7 +212,7 @@ params:
 ---
 ```
 
-When used in combination with `private: true` this album is only shown as featured album on the homepage, and not in any album list:
+When used in combination with `private` this album is only shown as featured album on the homepage, and not in any album list:
 
 ```yaml
 ---
@@ -225,33 +250,44 @@ resources:
 ---
 ```
 
-### Categories
+## Hugo Config
+
+The file is located at `config/_default/hugo.yaml`.
+
+### Exclude Original Images
 
 **Support:** cascade;
 
-If you use categories in your albums, the homepage displays a list of categories.
+Exclude all original images from the published site, you can use the `build.publishResources` configuration option. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
 
-Make sure `term` is not included in `disableKinds` in the site config.
-
-```yaml
----
-title: "Cats"
-categories: ["Animals"]
----
-```
-
-By default, the "animals" category will have "Animals" as title and no description. You can have a custom title and description by simply creating `content/categories/<category>/_index.md`:
-
-content/categories/animals/\_index.md:
+**Note: The original image may not be completely excluded.** Improper use of the `.Permalink`, `.RelPermalink` or `Publish` methods may result in it being included.
 
 ```yaml
----
-title: "Cute Animals"
-description: "This is the description text of the <animals> category."
----
+cascade:
+  - build:
+      publishResources: false
 ```
 
-### Album Sorting
+### Download Image
+
+**Support:** cascade;
+
+Explicitly set whether the download function is enabled.
+
+`enable`: (bool) Whether to enable the download feature.
+
+`imageSpec`: (string) If the value is an empty string `""`, use the value of the [`publishResources`](#exclude-original-images) field (when this value is `true`, download the original image; when `false`, download the lightbox image).
+
+```yaml
+params:
+  downImage:
+    enable: true
+    imageSpec: "fit 3200x3200"
+```
+
+### Album
+
+#### Sort
 
 The default sort order for page collections, follows this priority:
 
@@ -260,7 +296,9 @@ The default sort order for page collections, follows this priority:
 - linkTitle falling back to title (ascending)
 - logical path (ascending)
 
-### Sort gallery images
+### Gallery
+
+#### Sort
 
 **Support:** cascade;
 
@@ -302,48 +340,26 @@ resources:
 ---
 ```
 
-## Hugo Config
-
-The file is located at `config/_default/hugo.yaml`.
-
-### Exclude original images
+#### PhotoSwipe
 
 **Support:** cascade;
 
-Exclude all original images from the published site, you can use the `build.publishResources` configuration option. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
+PhotoSwipe lightbox settings.
 
-**Note: The original image may not be completely excluded.** Improper use of the `.Permalink`, `.RelPermalink` or `Publish` methods may result in it being included.
-
-```yaml
-cascade:
-  - build:
-      publishResources: false
-```
-
-### Download image
-
-**Support:** cascade;
-
-Explicitly set whether the download function is enabled.
-
-`enable`: (bool) Whether to enable the download feature.
-
-`imageSpec`: (string) If the value is an empty string `""`, use the value of the [`publishResources`](#exclude-original-images) field (when this value is `true`, download the original image; when `false`, download the lightbox image).
+`photoSwipe.enableCaption`: (float) Whether to display caption content on the lightbox.
 
 ```yaml
 params:
-  downImage:
-    enable: true
-    imageSpec: "fit 3200x3200"
+  gallery:
+    photoSwipe:
+      enableCaption: true
 ```
 
-### Gallery
+#### Justified
 
 **Support:** cascade;
 
-Gallery options.
-
-`photoSwipe.enableCaption`: (float) Whether to display caption content on the lightbox.
+Justified image gallery layout settings.
 
 `justified.gutterH`: (int) Horizontal spacing between items.
 
@@ -356,16 +372,11 @@ Gallery options.
 ```yaml
 params:
   gallery:
-    photoSwipe:
-      enableCaption: true
     justified:
       gutterH: 10
       gutterV: 10
       rowHeight: 320
       rowHeightTolerance: 0.25
-    imageSpec:
-      thumbnail: "fit 600x600"
-      lightbox: "fit 1600x1600"
 ```
 
 ### Watermark
@@ -403,7 +414,7 @@ params:
 
 Add social icons on the bottom of each page.
 
-`icons`: twitter instagram linkedin website mastodon pixelfed mixcloud flickr 500px
+`Icons`: twitter instagram linkedin website mastodon pixelfed mixcloud flickr 500px
 
 ```yaml
 params:

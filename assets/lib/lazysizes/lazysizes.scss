@@ -1,0 +1,15 @@
+/*! lazysizes v5.3.2 | https://github.com/aFarkas/lazysizes */
+
+.lazyload,
+.lazyloading {
+  opacity: 0;
+}
+
+.lazyloaded {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+img.lazyload:not([src]) {
+  visibility: hidden;
+}

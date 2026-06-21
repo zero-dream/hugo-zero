@@ -1,6 +1,4 @@
-/*!
-  * aFarkas/lazysizes 5.3.2 - https://github.com/aFarkas/lazysizes
-  */
+/*! lazysizes v5.3.2 | https://github.com/aFarkas/lazysizes */
 
 (function(window, factory) {
 	var lazySizes = factory(window, window.document, Date);

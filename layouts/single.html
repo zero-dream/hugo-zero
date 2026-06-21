@@ -8,13 +8,13 @@
 {{ end }}
 
 {{ define "head-assets" }}
-{{ partial "import/css.html" (dict "path" "/css/prose.css") }}
+{{ partial "import/css.html" (dict "path" "/css/prose.scss") }}
 
 {{ $params := dict
-	"gutterH" (.Param "gallery.justified.gutterH")
-	"gutterV" (.Param "gallery.justified.gutterV")
-	"rowHeight" (.Param "gallery.justified.rowHeight")
-	"rowHeightTolerance" (.Param "gallery.justified.rowHeightTolerance")
+	"gutterH" ($.Param "gallery.justified.gutterH")
+	"gutterV" ($.Param "gallery.justified.gutterV")
+	"rowHeight" ($.Param "gallery.justified.rowHeight")
+	"rowHeightTolerance" ($.Param "gallery.justified.rowHeightTolerance")
 }}
 {{ partial "import/css.html" (dict "path" "css/gallery.scss") }}
 {{ partial "import/js.html" (dict "path" "js/gallery.js" "format" "esm" "params" $params) }}
@@ -23,7 +23,7 @@
 {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
 {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "format" "esm" "params" $params) }}
 
-{{ $enableDownload := .Param "downImage.enable" }}
+{{ $enableDownload := $.Param "downImage.enable" }}
 {{ .Store.Set "enableDownload" $enableDownload }}
 {{ $params := dict
 	"closeTitle" (i18n "closeTitle")

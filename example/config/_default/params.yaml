@@ -5,7 +5,7 @@ params:
   author:
     name: "YourName"
     email: "user@example.com"
-  defaultTheme: "auto" # value: auto; light; dark;
+  defaultTheme: "auto" # Value: auto; light; dark;
 
   # .Param
   downImage:
@@ -48,4 +48,3 @@ params:
     youtube: "https://www.youtube.com/"
     email: "mailto:user@example.com"
     whatsapp: "1234567890"
-    # icons: twitter instagram linkedin website mastodon pixelfed mixcloud flickr 500px

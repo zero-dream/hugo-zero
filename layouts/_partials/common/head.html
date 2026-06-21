@@ -7,11 +7,11 @@
 <link rel="apple-touch-icon" sizes="180x180" href="{{ "images/apple-touch-icon.png" | relURL }}" />
 <meta name="description" content="{{ with .Description }}{{ . | markdownify | plainify }}{{ else }}{{ with site.Params.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}" />
 
-{{ if .Params.keywords }}
-	<meta name="keywords" content="{{ delimit .Params.keywords `, ` }}" />
+{{ if $.Keywords }}
+	<meta name="keywords" content="{{ delimit $.Params.Keywords `, ` }}" />
 {{ end }}
 
-{{ if .Params.private }}
+{{ if $.Params.private }}
 	<meta name="robots" content="noindex, nofollow" />
 {{ else }}
 	<meta name="robots" content="index, follow" />

@@ -1,4 +1,7 @@
-@import "normalize";
+@import "../../lib/tailwindcss/preflight";
+
+/*! hugo-gallery | https://github.com/zero-dream/hugo-gallery */
+
 @import "variable";
 @import "component";
 @import "styles";

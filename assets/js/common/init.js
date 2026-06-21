@@ -1,3 +1,5 @@
+/*! hugo-gallery | https://github.com/zero-dream/hugo-gallery */
+
 import params from "@params";
 
 // Params

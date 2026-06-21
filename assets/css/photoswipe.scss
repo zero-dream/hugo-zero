@@ -1,11 +1,12 @@
-@import "../lib/photoswipe/photoswipe";
-@import "../lib/photoswipe/photoswipe-dynamic-caption-plugin";
+@use "photoswipe/photoswipe";
 
 .pswp__top-bar > * {
   pointer-events: none;
 }
+
 .pswp--ui-visible .pswp__top-bar > * {
   pointer-events: auto;
+
   /* this makes transition significantly more smooth,
      even though inner elements are not animated */
   will-change: opacity;

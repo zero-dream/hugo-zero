@@ -1,0 +1,6 @@
+@import "../lib/tailwindcss/prose";
+
+.prose {
+  display: block;
+  margin: 0 auto var(--gap-main);
+}

@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
-<section class="galleries">
+<section class="albums">
 	{{ range partial "data/pages.html" .Pages }}
 		{{ partial "components/album.html" . }}
 	{{ end }}

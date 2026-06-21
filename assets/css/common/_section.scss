@@ -33,7 +33,7 @@ body > .pswp > section.pswp__scroll-wrap {
   }
 }
 
-body > main > section.galleries {
+body > main > section.albums {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   gap: 2rem 1.5rem;
@@ -163,6 +163,7 @@ body > main > section.terms {
   & > .terms-title {
     font-weight: bold;
     font-size: var(--text-2xl-font-size);
+    line-height: var(--text-2xl-line-height);
     margin-bottom: 1rem;
     color: var(--color-text-2);
   }
