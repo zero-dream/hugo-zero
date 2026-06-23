@@ -1,9 +1,0 @@
-{{ $path := .path }}
-{{ $format := .format | default "iife" }}
-{{ $params := .params | default dict }}
-{{ $js := resources.Get $path | js.Build (dict "format" $format "params" $params "minify" true) | resources.Fingerprint }}
-{{ if eq $format "iife" }}
-  <script src="{{ $js.RelPermalink }}"></script>
-{{ else if eq $format "esm" }}
-  <script type="module" src="{{ $js.RelPermalink }}"></script>
-{{ end }}

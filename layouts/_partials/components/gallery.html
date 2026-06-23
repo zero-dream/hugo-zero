@@ -1,6 +1,6 @@
 <section class="fj-gallery hidden" id="gallery">
 	{{ $images := slice }}
-	{{ range $image := partial "data/resources.html" (.Resources.ByType "image") }}
+	{{ range $image := partial "handle/resources.html" (.Resources.ByType "image") }}
 		{{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
 		{{ with $image.Params.date }}
 			{{ $date = time.AsTime . }}
@@ -30,7 +30,7 @@
 		{{ $name := .name }}
 		{{ $title := .title }}
 		{{ $params := .params }}
-		{{ $image = partial "handle/watermark.html" (dict "image" $image "page" $) }}
+		{{ $image = partial "funcs/image/watermark.html" (dict "image" $image "page" $) }}
 		{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
 		{{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
 		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}

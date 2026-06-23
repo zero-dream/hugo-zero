@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
 <section class="albums">
-	{{ range partial "data/pages.html" .Pages }}
+	{{ range partial "handle/pages.html" .Pages }}
 		{{ partial "components/album.html" . }}
 	{{ end }}
 </section>
@@ -17,5 +17,5 @@
 {{ $vars := dict }}
 {{ $params := dict }}
 {{ partial "import/css-sass.html" (dict "path" "css/lazysizes.scss" "vars" $vars) }}
-{{ partial "import/js.html" (dict "path" "js/lazysizes.js" "format" "esm" "params" $params) }}
+{{ partial "import/js-esm.html" (dict "path" "js/lazysizes.js" "params" $params) }}
 {{ end }}

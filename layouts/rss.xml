@@ -22,9 +22,9 @@
 {{- if .IsHome }}{{ $pctx = .Site }}{{ end }}
 {{- $pages := slice }}
 {{- if or $.IsHome $.IsSection }}
-	{{- $pages = partial "data/pages.html" $pctx.RegularPages }}
+	{{- $pages = partial "handle/pages.html" $pctx.RegularPages }}
 {{- else }}
-	{{- $pages = partial "data/pages.html" $pctx.Pages }}
+	{{- $pages = partial "handle/pages.html" $pctx.Pages }}
 {{- end }}
 {{- $pages = where $pages "Params.rss_ignore" "!=" true }}
 {{- $limit := .Site.Config.Services.RSS.Limit }}
@@ -64,7 +64,7 @@
 				{{ with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
 				<guid>{{ .Permalink }}</guid>
 
-				{{ $albumData := partial "data/album.html" . }}
+				{{ $albumData := partial "handle/album.html" . }}
 				{{ $description := (.Params.description | default .Summary) | transform.XMLEscape | safeHTML }}
 				{{ if $albumData.cover }}
 					{{ $rssCoverSpec := site.Params.imageSpec.rssCover }}

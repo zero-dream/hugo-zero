@@ -1,4 +1,4 @@
-{{ $related := partial "data/pages.html" (site.RegularPages.Related .) | first 3 }}
+{{ $related := partial "handle/pages.html" (site.RegularPages.Related .) | first 3 }}
 {{ with $related }}
 	<hgroup style="margin-top: 8rem">
 		<h2>{{ T "relatedAlbums" }}</h2>

@@ -1,0 +1,21 @@
+{{ $path := .path }}
+{{ $params := .params | default dict }}
+{{ $baseName := path.BaseName $path }}
+{{ $targetPath := printf "js/%s.js" $baseName }}
+{{ with resources.Get $path }}
+	{{ $opts := dict
+		"format" "esm"
+		"minify" (cond hugo.IsDevelopment false true)
+		"targetPath" $targetPath
+		"params" $params
+	}}
+	{{ with . | js.Build $opts }}
+		{{ if hugo.IsDevelopment }}
+			<script type="module" src="{{ .RelPermalink }}"></script>
+		{{ else }}
+			{{ with . | resources.Fingerprint }}
+      <script type="module" src="{{ .RelPermalink }}"></script>
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}

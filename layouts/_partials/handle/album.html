@@ -1,22 +1,22 @@
 {{ $albumData := dict }}
 
 {{ $resources := .Resources.ByType "image" }}
-{{ $images := partial "data/resources.html" $resources }}
+{{ $images := partial "handle/resources.html" $resources }}
 {{ if gt (len $images) 0 }}
 	{{ $cover := index $images 0 }}
 	{{ range first 1 (where $resources "Params.cover" "==" true) }}
 		{{ $cover = . }}
 	{{ end }}
-	{{ $cover = partial "handle/watermark.html" (dict "image" $cover "page" $) }}
+	{{ $cover = partial "funcs/image/watermark.html" (dict "image" $cover "page" $) }}
 
 	{{ $albumCount := 0 }}
 	{{ $imageCount := 0 }}
 	{{ if .IsPage }}
 		{{ $imageCount = len $images }}
 	{{ else }}
-		{{ range partial "data/pages.html" .RegularPagesRecursive }}
+		{{ range partial "handle/pages.html" .RegularPagesRecursive }}
 			{{ $albumCount = add $albumCount 1 }}
-			{{ $imageCount = add $imageCount (len (partial "data/resources.html" (.Resources.ByType "image"))) }}
+			{{ $imageCount = add $imageCount (len (partial "handle/resources.html" (.Resources.ByType "image"))) }}
 		{{ end }}
 	{{ end }}
 

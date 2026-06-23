@@ -1,4 +1,4 @@
-{{ $albumData := partial "data/album.html" . }}
+{{ $albumData := partial "handle/album.html" . }}
 {{ with $albumData }}
 	{{ $thumbnailSpec := $.Param "album.imageSpec.thumbnail" }}
 	{{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}

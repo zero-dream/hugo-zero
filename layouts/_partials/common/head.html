@@ -28,8 +28,8 @@
 {{ partial "import/css-sass.html" (dict "path" "css/common/custom.scss" "vars" $vars) }}
 
 {{ $params := dict "buildTime" now.Unix "defaultTheme" site.Params.defaultTheme }}
-{{ partial "import/js.html" (dict "path" "js/common/init.js" "format" "iife" "params" $params) }}
+{{ partial "import/js-iife.html" (dict "path" "js/common/init.js" "params" $params) }}
 
 {{ $params := dict }}
-{{ partial "import/js.html" (dict "path" "js/common/main.js" "format" "esm" "params" $params) }}
-{{ partial "import/js.html" (dict "path" "js/common/custom.js" "format" "esm" "params" $params) }}
+{{ partial "import/js-esm.html" (dict "path" "js/common/main.js" "params" $params) }}
+{{ partial "import/js-esm.html" (dict "path" "js/common/custom.js" "params" $params) }}

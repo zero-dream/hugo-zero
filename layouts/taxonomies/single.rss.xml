@@ -85,7 +85,7 @@
 					{{ with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
 					<guid>{{ .Permalink }}</guid>
 
-					{{ $albumData := partial "data/album.html" . }}
+					{{ $albumData := partial "handle/album.html" . }}
 					{{ $description := (.Params.description | default .Summary) | transform.XMLEscape | safeHTML }}
 					{{ if $albumData.cover }}
 						{{ $rssCoverSpec := site.Params.imageSpec.rssCover }}

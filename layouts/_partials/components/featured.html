@@ -1,5 +1,5 @@
 {{ range where site.Pages.ByDate.Reverse "Params.featured" "==" true }}
-	{{ $albumData := partial "data/album.html" . }}
+	{{ $albumData := partial "handle/album.html" . }}
 	{{ if $albumData }}
 		{{ $thumbnailSpec := site.Params.imageSpec.featured }}
 		{{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
