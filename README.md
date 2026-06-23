@@ -466,9 +466,9 @@ related:
 
 You can add additional `head` elements in `layouts/_partials/common/head-custom.html`.
 
-### Custom CSS
+### Custom SCSS
 
-CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/common/custom.scss`.
+CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/scss/common/custom.scss`.
 
 ### Custom JavaScript
 

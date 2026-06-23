@@ -9,7 +9,7 @@
 
 {{ define "head-assets" }}
 {{ $vars := dict }}
-{{ partial "import/css-sass.html" (dict "path" "css/prose.scss" "vars" $vars) }}
+{{ partial "import/css-sass.html" (dict "path" "scss/prose.scss" "vars" $vars) }}
 
 {{ $vars := dict }}
 {{ $params := dict
@@ -18,12 +18,12 @@
 	"rowHeight" ($.Param "gallery.justified.rowHeight")
 	"rowHeightTolerance" ($.Param "gallery.justified.rowHeightTolerance")
 }}
-{{ partial "import/css-sass.html" (dict "path" "css/gallery.scss" "vars" $vars) }}
+{{ partial "import/css-sass.html" (dict "path" "scss/gallery.scss" "vars" $vars) }}
 {{ partial "import/js-esm.html" (dict "path" "js/gallery.js" "params" $params) }}
 
 {{ $vars := dict }}
 {{ $params := dict }}
-{{ partial "import/css-sass.html" (dict "path" "css/lazysizes.scss" "vars" $vars) }}
+{{ partial "import/css-sass.html" (dict "path" "scss/lazysizes.scss" "vars" $vars) }}
 {{ partial "import/js-esm.html" (dict "path" "js/lazysizes.js" "params" $params) }}
 
 {{ $enableDownload := $.Param "downImage.enable" }}
@@ -38,6 +38,6 @@
 	"downloadTitle" (i18n "downloadTitle")
 	"enableDownload" $enableDownload
 }}
-{{ partial "import/css-sass.html" (dict "path" "css/photoswipe.scss" "vars" $vars) }}
+{{ partial "import/css-sass.html" (dict "path" "scss/photoswipe.scss" "vars" $vars) }}
 {{ partial "import/js-esm.html" (dict "path" "js/photoswipe.js" "params" $params) }}
 {{ end }}
