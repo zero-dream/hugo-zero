@@ -33,13 +33,21 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 - Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
 - Photoswipe and lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
 - Lazy loader for images with [aFarkas/lazysizes](https://github.com/aFarkas/lazysizes)
+
 - Prose typography with [tailwindlabs/tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography)
 - Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
 - Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
 
 ## Hugo Modules
 
-This theme requires Hugo Extended >= 0.162.0. Dependencies are bundled, so no Node.js/NPM and PostCSS is needed.
+### Prerequisites
+
+Although not required in all cases, Git, Go, and Dart Sass are commonly used when working with Hugo.
+
+- [Hugo Extended >= 0.162.0](https://gohugo.io/installation/)
+
+- [Dart Sass](https://gohugo.io/functions/css/sass/#dart-sass)
+- [Go](https://go.dev/doc/install)
 
 ### Installation
 

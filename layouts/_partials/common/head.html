@@ -23,8 +23,9 @@
 
 {{ partial "common/opengraph.html" . }}
 
-{{ partial "import/css.html" (dict "path" "/css/common/main.scss") }}
-{{ partial "import/css.html" (dict "path" "/css/common/custom.scss") }}
+{{ $vars := dict }}
+{{ partial "import/css-sass.html" (dict "path" "css/common/main.scss" "vars" $vars) }}
+{{ partial "import/css-sass.html" (dict "path" "css/common/custom.scss" "vars" $vars) }}
 
 {{ $params := dict "buildTime" now.Unix "defaultTheme" site.Params.defaultTheme }}
 {{ partial "import/js.html" (dict "path" "js/common/init.js" "format" "iife" "params" $params) }}

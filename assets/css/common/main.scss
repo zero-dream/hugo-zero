@@ -1,8 +1,8 @@
-@import "../../lib/tailwindcss/preflight";
+@use "tailwindcss/preflight";
 
 /*! hugo-gallery | https://github.com/zero-dream/hugo-gallery */
 
-@import "variable";
-@import "component";
-@import "styles";
-@import "section";
+@use "variable";
+@use "component";
+@use "styles";
+@use "section";

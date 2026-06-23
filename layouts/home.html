@@ -13,9 +13,11 @@
 {{ end }}
 
 {{ define "head-assets" }}
-{{ partial "import/css.html" (dict "path" "/css/prose.scss") }}
+{{ $vars := dict }}
+{{ partial "import/css-sass.html" (dict "path" "css/prose.scss" "vars" $vars) }}
 
+{{ $vars := dict }}
 {{ $params := dict }}
-{{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
+{{ partial "import/css-sass.html" (dict "path" "css/lazysizes.scss" "vars" $vars) }}
 {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "format" "esm" "params" $params) }}
 {{ end }}

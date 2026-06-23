@@ -8,23 +8,27 @@
 {{ end }}
 
 {{ define "head-assets" }}
-{{ partial "import/css.html" (dict "path" "/css/prose.scss") }}
+{{ $vars := dict }}
+{{ partial "import/css-sass.html" (dict "path" "css/prose.scss" "vars" $vars) }}
 
+{{ $vars := dict }}
 {{ $params := dict
 	"gutterH" ($.Param "gallery.justified.gutterH")
 	"gutterV" ($.Param "gallery.justified.gutterV")
 	"rowHeight" ($.Param "gallery.justified.rowHeight")
 	"rowHeightTolerance" ($.Param "gallery.justified.rowHeightTolerance")
 }}
-{{ partial "import/css.html" (dict "path" "css/gallery.scss") }}
+{{ partial "import/css-sass.html" (dict "path" "css/gallery.scss" "vars" $vars) }}
 {{ partial "import/js.html" (dict "path" "js/gallery.js" "format" "esm" "params" $params) }}
 
+{{ $vars := dict }}
 {{ $params := dict }}
-{{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
+{{ partial "import/css-sass.html" (dict "path" "css/lazysizes.scss" "vars" $vars) }}
 {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "format" "esm" "params" $params) }}
 
 {{ $enableDownload := $.Param "downImage.enable" }}
 {{ .Store.Set "enableDownload" $enableDownload }}
+{{ $vars := dict }}
 {{ $params := dict
 	"closeTitle" (i18n "closeTitle")
 	"zoomTitle" (i18n "zoomTitle")
@@ -34,6 +38,6 @@
 	"downloadTitle" (i18n "downloadTitle")
 	"enableDownload" $enableDownload
 }}
-{{ partial "import/css.html" (dict "path" "css/photoswipe.scss") }}
+{{ partial "import/css-sass.html" (dict "path" "css/photoswipe.scss" "vars" $vars) }}
 {{ partial "import/js.html" (dict "path" "js/photoswipe.js" "format" "esm" "params" $params) }}
 {{ end }}
