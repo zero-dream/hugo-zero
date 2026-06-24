@@ -5,6 +5,10 @@
   "explorer.fileNesting.patterns": {
     "*index.md": "*.avif, *.bmp, *.gif, *.heic, *.heif, *.jpeg, *.jpg, *.png, *.tiff, *.tif, *.webp"
   },
+  "search.exclude": {
+    "**/node_modules/**": true,
+    "**/assets/lib/**": true
+  },
   "[html]": {
     "editor.defaultFormatter": "gohugoio.gotmplfmt"
   },
