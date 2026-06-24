@@ -15,10 +15,10 @@
   flex-shrink: 0;
 
   font-weight: 600;
-  font-size: var(--text-sm-font-size);
+  font-size: var(--text-font-size-sm);
   height: 2.5rem;
   padding-inline: 1rem;
-  border-radius: 9999rem;
+  border-radius: var(--border-radius-infinity);
   border: 1px solid var(--color-border-1);
   background-color: var(--color-bg-1);
   outline-offset: 2px;
@@ -46,7 +46,7 @@
     width: 2.5rem;
     height: 2.5rem;
     padding-inline: 0;
-    border-radius: 9999rem;
+    border-radius: var(--border-radius-infinity);
   }
 
   &.btn-text {

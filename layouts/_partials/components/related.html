@@ -1,6 +1,6 @@
 {{ $related := partial "handle/pages.html" (site.RegularPages.Related .) | first 3 }}
 {{ with $related }}
-	<hgroup style="margin-top: 8rem">
+	<hgroup class="hgroup-h2">
 		<h2>{{ T "relatedAlbums" }}</h2>
 	</hgroup>
 	<section class="albums">

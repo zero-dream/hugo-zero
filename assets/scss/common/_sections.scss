@@ -6,7 +6,7 @@ body > main > section.fj-gallery {
   & > .fj-gallery-item {
     cursor: zoom-in;
     overflow: hidden;
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius-1);
 
     & > figure {
       margin: 0;
@@ -36,11 +36,10 @@ body > .pswp > section.pswp__scroll-wrap {
 body > main > section.albums {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 2rem 1.5rem;
+  gap: var(--gap-4) var(--gap-3);
 
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 3rem;
   }
 
   @media (min-width: 1024px) {
@@ -55,10 +54,9 @@ body > main > section.albums {
     & > figure {
       aspect-ratio: 3/2;
       width: 100%;
-      border-radius: 1rem;
+      border-radius: var(--border-radius-2);
       overflow: hidden;
-      box-shadow: var(--box-shadow-lg);
-      transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+      transition: transform 0.3s var(--transition-func-01);
 
       & > img {
         display: block;
@@ -82,14 +80,14 @@ body > main > section.albums {
 
       & > h2 {
         font-weight: 600;
-        font-size: var(--text-lg-font-size);
-        line-height: var(--text-lg-line-height);
+        font-size: var(--text-font-size-lg);
+        line-height: var(--text-line-height-lg);
       }
 
       & > p {
         color: var(--color-text-2);
-        font-size: var(--text-sm-font-size);
-        line-height: var(--text-sm-line-height);
+        font-size: var(--text-font-size-sm);
+        line-height: var(--text-line-height-sm);
       }
     }
   }
@@ -101,7 +99,7 @@ body > main > section.featured {
   & > .featured-card {
     position: relative;
     display: flex;
-    border-radius: 1rem 1rem 0 0;
+    border-radius: var(--border-radius-2) var(--border-radius-2) 0 0;
     aspect-ratio: 1 / 1;
     width: 100%;
     overflow: hidden;
@@ -115,8 +113,6 @@ body > main > section.featured {
       position: absolute;
       width: 100%;
       height: 100%;
-
-      -webkit-mask-image: linear-gradient(to top, transparent, black 30%);
       mask-image: linear-gradient(to top, transparent, black 30%);
 
       & > img {
@@ -125,7 +121,7 @@ body > main > section.featured {
         height: 100%;
         object-fit: cover;
         object-position: center;
-        transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
+        transition: transform 0.4s var(--transition-func-01);
       }
     }
 
@@ -135,7 +131,7 @@ body > main > section.featured {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      gap: 1rem;
+      gap: var(--gap-2);
       padding: 1.5rem;
       width: 100%;
       height: auto;
@@ -143,13 +139,13 @@ body > main > section.featured {
 
       & > h2 {
         font-weight: 600;
-        font-size: var(--text-2xl-font-size);
-        line-height: var(--text-2xl-line-height);
+        font-size: var(--text-font-size-2xl);
+        line-height: var(--text-line-height-2xl);
       }
 
       & > p {
-        font-size: var(--text-sm-font-size);
-        line-height: var(--text-sm-line-height);
+        font-size: var(--text-font-size-sm);
+        line-height: var(--text-line-height-sm);
       }
     }
 
@@ -162,8 +158,8 @@ body > main > section.featured {
 body > main > section.terms {
   & > .terms-title {
     font-weight: bold;
-    font-size: var(--text-2xl-font-size);
-    line-height: var(--text-2xl-line-height);
+    font-size: var(--text-font-size-2xl);
+    line-height: var(--text-line-height-2xl);
     margin-bottom: 1rem;
     color: var(--color-text-2);
   }
@@ -176,21 +172,21 @@ body > main > section.terms {
     & > .card-term {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: var(--gap-1);
       padding: 1rem;
-      border-radius: 1rem;
+      border-radius: var(--border-radius-2);
       border: 1px solid var(--color-border-1);
 
       & > .card-title {
         font-weight: 600;
-        font-size: var(--text-lg-font-size);
-        line-height: var(--text-lg-line-height);
+        font-size: var(--text-font-size-lg);
+        line-height: var(--text-line-height-lg);
       }
 
       & > .card-body {
         color: var(--color-text-2);
-        font-size: var(--text-sm-font-size);
-        line-height: var(--text-sm-line-height);
+        font-size: var(--text-font-size-sm);
+        line-height: var(--text-line-height-sm);
       }
 
       &:hover {
