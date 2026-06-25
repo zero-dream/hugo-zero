@@ -1,0 +1,58 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $data := .data }}
+{{ $key := .key }}
+{{ $value := .value }}
+{{ $result := $data }}
+
+{{ $parts := split $key "." }}
+{{ $first := index $parts 0 }}
+{{ $after := after 1 $parts }}
+
+{{ if eq $data nil }}
+	{{ if findRE `^[0-9]+$` $first }}
+		{{ $data = slice }}
+	{{ else }}
+		{{ $data = dict }}
+	{{ end }}
+{{ end }}
+
+{{ if reflect.IsSlice $data }}
+
+	{{ $index := int $first }}
+	{{ if $after }}
+		{{ $oldVal := index $data $index }}
+		{{ $newVal := partial "funcs/collections/set-nested.html" (dict
+			"data" $oldVal
+			"key" (delimit $after ".")
+			"value" $value
+			)
+		}}
+		{{ $result = partial "funcs/collections/set-slice.html" (dict "slice" $data "index" $index "value" $newVal) }}
+	{{ else }}
+		{{ $result = partial "funcs/collections/set-slice.html" (dict "slice" $data "index" $index "value" $value) }}
+	{{ end }}
+
+{{ else if reflect.IsMap $data }}
+
+	{{ if $after }}
+		{{ $oldVal := index $data $first }}
+		{{ $newVal := partial "funcs/collections/set-nested.html" (dict
+			"data" $oldVal
+			"key" (delimit $after ".")
+			"value" $value
+			)
+		}}
+		{{ $result = (merge $data (dict $first $newVal)) }}
+	{{ else }}
+		{{ $result = (merge $data (dict $first $value)) }}
+	{{ end }}
+
+{{ else }}
+
+	{{ errorf "not the expected data type: %T" $data }}
+
+{{ end }}
+
+{{ return $result }}

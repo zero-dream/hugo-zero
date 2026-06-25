@@ -1,0 +1,23 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $str := .str }}
+{{ $result := 0.0 }}
+
+{{ if strings.Contains $str "*" }}
+	{{ $parts := split $str "*" }}
+	{{ $result = mul (float (index $parts 0)) (float (index $parts 1)) }}
+{{ else if strings.Contains $str "/" }}
+	{{ $parts := split $str "/" }}
+	{{ $result = div (float (index $parts 0)) (float (index $parts 1)) }}
+{{ else if strings.Contains $str "+" }}
+	{{ $parts := split $str "+" }}
+	{{ $result = add (float (index $parts 0)) (float (index $parts 1)) }}
+{{ else if strings.Contains $str "-" }}
+	{{ $parts := split $str "-" }}
+	{{ $result = sub (float (index $parts 0)) (float (index $parts 1)) }}
+{{ else }}
+	{{ $result = $str }}
+{{ end }}
+
+{{ return $result }}

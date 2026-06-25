@@ -9,7 +9,7 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 ## Features
 
 - Justified images gallery
-- Image lightbox
+- Image lightbox shows Exif captions
 
 - Download image
 - Add a watermark to the image
@@ -354,13 +354,20 @@ resources:
 
 PhotoSwipe lightbox settings.
 
-`photoSwipe.enableCaption`: (float) Whether to display caption content on the lightbox.
+`photoSwipe.enableCaption`: (float) Whether to display caption on the lightbox.
+`photoSwipe.captionData`: (slice) A caption slice is [`image Exif`](#image-exif) data.
 
 ```yaml
 params:
   gallery:
     photoSwipe:
       enableCaption: true
+      captionData:
+        - { key: "Exif.ISO", value: "ISO %v" }
+        - { key: "Exif.FocalLengthIn35mmFormat", value: "%v mm" }
+        - { key: "Exif.ExposureCompensation", value: "%v ev" }
+        - { key: "Exif.FNumber", value: "f %v" }
+        - { key: "Exif.ExposureTime", value: "%v s" }
 ```
 
 #### Justified
@@ -474,10 +481,23 @@ CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/scss/
 
 You can add additional JavaScript in `assets/js/common/custom.js`.
 
-## Handle
+## Other
 
 ### Local Storage
 
 Each build will clear the `localStorage` under the current domain.
 
 - Custom toggled themes will be reset.
+
+### Image Exif
+
+|          Field          |          Field          |        Field        |        Field        |
+| :---------------------: | :---------------------: | :-----------------: | :-----------------: |
+|      ApertureValue      |         FNumber         |        Make         |  SceneCaptureType   |
+|     BrightnessValue     |       FocalLength       |   MakerNoteApple    |      SceneType      |
+| ComponentsConfiguration | FocalLengthIn35mmFormat |        Model        |  ShutterSpeedValue  |
+|     CompositeImage      |      HostComputer       |     ModifyDate      |      Software       |
+|       CreateDate        |           ISO           |     OffsetTime      | SubSecTimeDigitized |
+|    DateTimeOriginal     |        LensInfo         | OffsetTimeDigitized | SubSecTimeOriginal  |
+|  ExposureCompensation   |        LensMake         | OffsetTimeOriginal  |     SubjectArea     |
+|      ExposureTime       |        LensModel        |     Orientation     |  YCbCrPositioning   |

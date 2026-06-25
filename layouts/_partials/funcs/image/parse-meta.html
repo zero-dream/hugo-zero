@@ -1,0 +1,24 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $image := .image }}
+{{ $data := .data }}
+{{ $return := slice }}
+
+{{ $metas := partial "funcs/image/get-meta.html" (dict "image" $image "format" "display") }}
+{{ with $metas }}
+	{{ range $value := $data }}
+		{{ $matches := findRESubmatch `\$\{([^}]+)\}` $value }}
+		{{ range $matches }}
+			{{ $0 := index . 0 }}
+			{{ $1 := index . 1 }}
+			{{ $keys := split $1 "." }}
+			{{ with index $metas $keys }}
+				{{ $value = replace $value $0 . }}
+			{{ end }}
+		{{ end }}
+		{{ $return = $return | append $value }}
+	{{ end }}
+{{ end }}
+
+{{ return $return }}

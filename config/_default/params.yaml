@@ -17,6 +17,12 @@ params:
       - { key: "name", order: "asc" }
     photoSwipe:
       enableCaption: true
+      captionData:
+        - "ISO ${Exif.ISO}"
+        - "${Exif.FocalLengthIn35mmFormat} mm"
+        - "${Exif.ExposureCompensation} ev"
+        - "f ${Exif.FNumber}"
+        - "${Exif.ExposureTime} s"
     justified:
       gutterH: 10
       gutterV: 10

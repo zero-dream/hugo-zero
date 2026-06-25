@@ -1,7 +1,6 @@
 import params from "@params";
 import PhotoSwipeLightbox from "../lib/photoswipe/photoswipe-lightbox.esm.js";
 import PhotoSwipe from "../lib/photoswipe/photoswipe.esm.js";
-import PhotoSwipeDynamicCaption from "../lib/photoswipe/photoswipe-dynamic-caption-plugin.esm.js";
 
 const galleryEl = document.getElementById("gallery");
 
@@ -112,6 +111,28 @@ if (galleryEl) {
     });
   });
 
+  lightbox.on("uiRegister", () => {
+    const pswp = lightbox.pswp;
+    pswp.ui.registerElement({
+      name: "pswp-caption",
+      order: 21,
+      isButton: false,
+      appendTo: "root",
+      html: "",
+      onInit: (el, pswp) => {
+        lightbox.pswp.on("change", () => {
+          const currSlideElement = lightbox.pswp.currSlide.data.element;
+          if (!currSlideElement) return;
+          const pswpCaption = currSlideElement.querySelector(".pswp-caption");
+          if (!pswpCaption) return;
+          const captionHTML = pswpCaption.innerHTML;
+          if (!captionHTML) return;
+          el.innerHTML = captionHTML;
+        });
+      },
+    });
+  });
+
   lightbox.on("change", () => {
     const target = lightbox.pswp.currSlide?.data?.element?.dataset["pswpTarget"];
     history.replaceState("", document.title, "#" + target);
@@ -119,11 +140,6 @@ if (galleryEl) {
 
   lightbox.on("close", () => {
     history.replaceState("", document.title, window.location.pathname);
-  });
-
-  new PhotoSwipeDynamicCaption(lightbox, {
-    captionContent: ".pswp-caption-content",
-    type: "auto",
   });
 
   lightbox.init();

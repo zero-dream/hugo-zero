@@ -1,0 +1,17 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $decimal := .decimal }}
+{{ $result := "" }}
+
+{{ if strings.Contains $decimal "0." }}
+	{{ $num := strings.TrimPrefix "0." $decimal }}
+	{{ $divisor := printf "1%s" (strings.Repeat (len $num) "0") }}
+	{{ $denom := div (float $divisor) (float $num) }}
+	{{ $denomFormat := printf "%0.f" $denom }}
+	{{ $result = printf "1/%s" $denomFormat }}
+{{ else }}
+	{{ $result = $decimal }}
+{{ end }}
+
+{{ return $result }}

@@ -9,7 +9,7 @@
 		"enableSourceMap" hugo.IsDevelopment
 		"targetPath" $targetPath
 		"vars" $vars
-		"includePaths" (slice "assets/lib")
+		"includePaths" (slice "assets/lib" "assets/scss")
 	}}
 	{{ with . | css.Sass $sassOpts }}
 		{{ $vars := dict }}

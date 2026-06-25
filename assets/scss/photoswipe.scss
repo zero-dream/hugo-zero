@@ -1,4 +1,18 @@
+@use "abstracts/styles";
 @use "photoswipe/photoswipe";
+
+.pswp {
+  --pswp-bg: #{"rgb(30 30 30 / 100%)"};
+}
+
+.pswp__top-bar {
+  @extend %blur-11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  padding: var(--gap-1);
+}
 
 .pswp__top-bar > * {
   pointer-events: none;
@@ -6,8 +20,79 @@
 
 .pswp--ui-visible .pswp__top-bar > * {
   pointer-events: auto;
-
-  /* this makes transition significantly more smooth,
-     even though inner elements are not animated */
   will-change: opacity;
+}
+
+.pswp__button {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pswp__counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--text-font-size-sm);
+  line-height: var(--text-line-height-sm);
+  margin: 0;
+  margin-inline-start: var(--gap-2);
+}
+
+.pswp__preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
+
+.pswp__icn {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.pswp--zoom-allowed .pswp__button--zoom {
+  display: flex;
+}
+
+.pswp__button--close {
+  margin-right: 0;
+}
+
+.pswp__button--arrow {
+  width: 2rem;
+  height: 5rem;
+  margin: 0 var(--gap-2);
+}
+
+.pswp__button--arrow .pswp__icn {
+  top: 0;
+  margin-top: 0;
+}
+
+.pswp__button--arrow--next .pswp__icn {
+  left: 0;
+  right: 0;
+}
+
+.pswp__pswp-caption {
+  @extend %blur-11;
+  pointer-events: none !important;
+  position: fixed;
+  inset: auto 0 0 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-2);
+  color: var(--pswp-icon-color);
+  user-select: none;
+  font-size: var(--text-font-size-xs);
+  line-height: var(--text-line-height-xs);
+  padding: var(--gap-1);
 }

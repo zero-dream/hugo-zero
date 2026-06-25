@@ -1,0 +1,52 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $image := .image }}
+{{ $format := .format | default "none" }} {{/* Value: none; display; */}}
+{{ $result := dict }}
+
+{{ if reflect.IsImageResourceWithMeta $image }}
+	{{ $exifEntries := dict }}
+	{{ range $key, $value := $image.Meta.Exif }}
+		{{ $exifEntries = merge $exifEntries (dict $key $value) }}
+	{{ end }}
+	{{ $metas := (dict
+		"Date" $image.Meta.Date
+		"Lat" $image.Meta.Lat
+		"Long" $image.Meta.Long
+		"Orientation" $image.Meta.Orientation
+		"Exif" $exifEntries
+		)
+	}}
+
+	{{ if eq $format "none" }}
+		{{ $result = $metas }}
+	{{ else if eq $format "display" }}
+		{{ $newMetas := $metas }}
+		{{ $modifiedDict := dict }}
+
+		{{ $calcDict := (dict
+			"Exif.BrightnessValue" $metas.Exif.BrightnessValue
+			"Exif.FNumber" $metas.Exif.FNumber
+			"Exif.FocalLength" $metas.Exif.FocalLength
+			"Exif.ExposureTime" $metas.Exif.ExposureTime
+			)
+		}}
+		{{ range $key, $value := $calcDict }}
+			{{ with $value }}
+				{{ $calcResult := partial "funcs/math/calc-str.html" (dict "str" .) }}
+				{{ $modifiedDict = merge $modifiedDict (dict $key $calcResult) }}
+			{{ end }}
+		{{ end }}
+
+		{{ $exposureTime := partial "funcs/math/to-fraction.html" (dict "decimal" (index $modifiedDict "Exif.ExposureTime")) }}
+		{{ $modifiedDict = merge $modifiedDict (dict "Exif.ExposureTime" $exposureTime) }}
+
+		{{ range $key, $value := $modifiedDict }}
+			{{ $newMetas = partial "funcs/collections/set-nested.html" (dict "data" $newMetas "key" $key "value" $value) }}
+		{{ end }}
+		{{ $result = $newMetas }}
+	{{ end }}
+{{ end }}
+
+{{ return $result }}

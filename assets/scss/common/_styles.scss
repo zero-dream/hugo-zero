@@ -1,3 +1,5 @@
+@use "abstracts/styles";
+
 html {
   height: 100%;
   scrollbar-gutter: stable;
@@ -205,13 +207,11 @@ hgroup {
 }
 
 .blur-01 {
-  background: var(--color-blur-1);
-  backdrop-filter: blur(10px);
+  @extend %blur-01;
 }
 
 .blur-02 {
-  background: var(--color-blur-2);
-  backdrop-filter: blur(10px);
+  @extend %blur-02;
 }
 
 nav.categories {

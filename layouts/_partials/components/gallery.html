@@ -20,6 +20,7 @@
 	{{ end }}
 
 	{{ $enableCaption := $.Param "gallery.photoSwipe.enableCaption" }}
+	{{ $captionData := $.Param "gallery.photoSwipe.captionData" }}
 	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
 	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
 	{{ range $.Param "gallery.sort" | collections.Reverse }}
@@ -46,11 +47,18 @@
 				{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
 			{{ end }}
 		{{ end }}
-		<a class="fj-gallery-item" href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}" title="{{ $title }}">
+		<a class="fj-gallery-item" href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}">
 			<figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
-				<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" />
+				<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $title }}" />
+				<div class="item-caption"><span>{{ $title }}</span></div>
 				{{ if $enableCaption }}
-					<figcaption hidden class="pswp-caption-content">{{ $title }}</figcaption>
+					<figcaption hidden class="pswp-caption">
+						{{ with partial "funcs/image/parse-meta.html" (dict "image" $image "data" $captionData) }}
+							{{ range . }}<span>{{ . }}</span>{{ end }}
+						{{ else }}
+							<span>None</span>
+						{{ end }}
+					</figcaption>
 				{{ end }}
 				<meta itemprop="contentUrl" content="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" />
 				{{ with site.Params.Author }}
