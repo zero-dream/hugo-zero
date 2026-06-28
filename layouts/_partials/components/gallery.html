@@ -1,31 +1,10 @@
 <section class="fj-gallery hidden" id="gallery">
-	{{ $images := slice }}
-	{{ range $image := partial "utils/filter-resources.html" (.Resources.ByType "image") }}
-		{{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
-		{{ with $image.Params.date }}
-			{{ $date = time.AsTime . }}
-		{{ else }}
-			{{ with $image.Meta.Date }}
-				{{ $date = . }}
-			{{ end }}
-		{{ end }}
-		{{ $params := merge $image.Params (dict "date" $date) }}
-		{{ $images = $images | append (dict
-			"image" $image
-			"name" $image.Name
-			"title" $image.Title
-			"params" $params
-			)
-		}}
-	{{ end }}
-
 	{{ $enableCaption := $.Param "gallery.photoSwipe.enableCaption" }}
 	{{ $captionData := $.Param "gallery.photoSwipe.captionData" }}
 	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
 	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
-	{{ range $.Param "gallery.sort" | collections.Reverse }}
-		{{ $images = sort $images .key .order }}
-	{{ end }}
+
+	{{ $images := partial "utils/get-images.html" . }}
 	{{ range $images }}
 		{{ $image := .image }}
 		{{ $name := .name }}

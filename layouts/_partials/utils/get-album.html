@@ -1,9 +1,9 @@
 {{ $album := dict }}
 
 {{ $resources := .Resources.ByType "image" }}
-{{ $images := partial "utils/filter-resources.html" $resources }}
-{{ if gt (len $images) 0 }}
-	{{ $cover := index $images 0 }}
+{{ $images := partial "utils/get-images.html" . }}
+{{ if $images }}
+	{{ $cover := (index $images 0).image }}
 	{{ range first 1 (where $resources "Params.cover" "==" true) }}
 		{{ $cover = . }}
 	{{ end }}

@@ -1,0 +1,25 @@
+{{ $result := slice }}
+
+{{ range $image := partial "utils/filter-resources.html" (.Resources.ByType "image") }}
+	{{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
+	{{ with $image.Params.date }}
+		{{ $date = time.AsTime . }}
+	{{ else }}
+		{{ with $image.Meta.Date }}
+			{{ $date = . }}
+		{{ end }}
+	{{ end }}
+	{{ $params := merge $image.Params (dict "date" $date) }}
+	{{ $result = $result | append (dict
+		"image" $image
+		"name" $image.Name
+		"title" $image.Title
+		"params" $params
+		)
+	}}
+{{ end }}
+{{ range $.Param "gallery.sort" | collections.Reverse }}
+	{{ $result = sort $result .key .order }}
+{{ end }}
+
+{{ return $result }}

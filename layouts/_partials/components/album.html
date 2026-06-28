@@ -1,5 +1,5 @@
-{{ $albumData := partial "utils/get-album.html" . }}
-{{ with $albumData }}
+{{ $album := partial "utils/get-album.html" . }}
+{{ with $album }}
 	{{ $thumbnailSpec := $.Param "album.imageSpec.thumbnail" }}
 	{{ $thumbnail := .cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
 	{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
