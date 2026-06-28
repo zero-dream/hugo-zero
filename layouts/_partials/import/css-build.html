@@ -1,5 +1,6 @@
 {{ $path := .path }}
-{{ $vars := .vars }}
+{{ $vars := .vars | default dict }}
+
 {{ $baseName := path.BaseName $path }}
 {{ $targetPath := printf "css/%s.css" $baseName }}
 {{ with resources.Get $path }}

@@ -1,1 +1,6 @@
-<a target="_blank" rel="noopener noreferrer" href="{{ .Get 1 }}" {{ .Get 2 | safeHTMLAttr }}>{{ .Get 0 }}</a> {{ "" -}}
+{{ $content := .Get 0 }}
+{{ $href := .Get 1 }}
+{{ $attr := .Get 2 }}
+
+<a target="_blank" rel="noopener noreferrer" href="{{ $href }}" {{ $attr | safeHTMLAttr }}>{{ $content }}</a>
+{{- "" -}}

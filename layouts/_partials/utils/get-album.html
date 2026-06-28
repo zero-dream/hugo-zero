@@ -1,30 +1,30 @@
-{{ $albumData := dict }}
+{{ $album := dict }}
 
 {{ $resources := .Resources.ByType "image" }}
-{{ $images := partial "handle/resources.html" $resources }}
+{{ $images := partial "utils/filter-resources.html" $resources }}
 {{ if gt (len $images) 0 }}
 	{{ $cover := index $images 0 }}
 	{{ range first 1 (where $resources "Params.cover" "==" true) }}
 		{{ $cover = . }}
 	{{ end }}
-	{{ $cover = partial "funcs/image/watermark.html" (dict "image" $cover "page" $) }}
+	{{ $cover = partial "funcs/image/add-watermark.html" (dict "image" $cover "page" $) }}
 
 	{{ $albumCount := 0 }}
 	{{ $imageCount := 0 }}
 	{{ if .IsPage }}
 		{{ $imageCount = len $images }}
 	{{ else }}
-		{{ range partial "handle/pages.html" .RegularPagesRecursive }}
+		{{ range partial "utils/filter-pages.html" .RegularPagesRecursive }}
 			{{ $albumCount = add $albumCount 1 }}
-			{{ $imageCount = add $imageCount (len (partial "handle/resources.html" (.Resources.ByType "image"))) }}
+			{{ $imageCount = add $imageCount (len (partial "utils/filter-resources.html" (.Resources.ByType "image"))) }}
 		{{ end }}
 	{{ end }}
 
-	{{ $albumData = dict
+	{{ $album = dict
 		"cover" $cover
 		"albumCount" $albumCount
 		"imageCount" $imageCount
 	}}
 {{ end }}
 
-{{ return $albumData }}
+{{ return $album }}

@@ -1,4 +1,6 @@
 @use "abstracts/styles";
+@use "abstracts/variables" as vars;
+
 @use "photoswipe/photoswipe";
 
 .pswp {
@@ -24,8 +26,8 @@
 }
 
 .pswp__button {
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,8 +53,20 @@
 
 .pswp__icn {
   position: relative;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  color: rgb(255, 255, 255);
   top: 0;
   left: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.pswp__icn-shadow {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: inherit;
 }
 
 .pswp--zoom-allowed .pswp__button--zoom {
@@ -72,6 +86,29 @@
 .pswp__button--arrow .pswp__icn {
   top: 0;
   margin-top: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.pswp__button--arrow--prev {
+  display: none;
+
+  @media (min-width: vars.$breakpoint-sm) {
+    display: inline;
+  }
+}
+
+.pswp__button--arrow--prev .pswp__icn {
+  left: 0;
+  right: 0;
+}
+
+.pswp__button--arrow--next {
+  display: none;
+
+  @media (min-width: vars.$breakpoint-sm) {
+    display: inline;
+  }
 }
 
 .pswp__button--arrow--next .pswp__icn {

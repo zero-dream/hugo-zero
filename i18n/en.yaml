@@ -10,7 +10,7 @@ arrowPrevTitle: Previous
 arrowNextTitle: Next
 errorMsg: The photo cannot be loaded
 downloadTitle: Download
-relatedAlbums: Related albums
+relatedAlbums: Related Albums
 photoCount:
   one: 1 photo
   other: "{{ . }} photos"

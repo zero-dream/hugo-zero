@@ -18,7 +18,7 @@ body > main > section.fj-gallery {
       padding: 0;
       line-height: 0;
 
-      & > .item-caption {
+      & > .gallery-caption {
         @extend %blur-11;
         color-scheme: dark;
         position: absolute;
@@ -53,7 +53,7 @@ body > main > section.fj-gallery {
           transform: scale(1.02);
         }
 
-        & > .item-caption {
+        & > .gallery-caption {
           opacity: 1;
           transform: translateY(0);
         }

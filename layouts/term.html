@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
 <section class="albums">
-	{{ range partial "handle/pages.html" .Pages }}
+	{{ range partial "utils/filter-pages.html" .Pages }}
 		{{ partial "components/album.html" . }}
 	{{ end }}
 </section>

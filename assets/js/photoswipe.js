@@ -22,32 +22,58 @@ if (galleryEl) {
     arrowPrevTitle: params.arrowPrevTitle,
     arrowNextTitle: params.arrowNextTitle,
     errorMsg: params.errorMsg,
+
+    closeSVG: '<svg class="pswp__icn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>',
+    arrowPrevSVG: '<svg class="pswp__icn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>',
+    arrowNextSVG: '<svg class="pswp__icn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>',
   });
 
-  if (params.enableDownload) {
-    lightbox.on("uiRegister", () => {
+  lightbox.on("uiRegister", () => {
+    if (params.enableDownload) {
       lightbox.pswp.ui.registerElement({
         name: "download-button",
+        title: params.downloadTitle || "Download",
         order: 8,
         isButton: true,
         tagName: "a",
         html: {
           isCustomSVG: true,
-          inner: '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="pswp__icn-download"/>',
+          size: 24,
+          inner: '<path id="pswp__icn-download" stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />',
           outlineID: "pswp__icn-download",
         },
         onInit: (el, pswp) => {
           el.setAttribute("download", "");
           el.setAttribute("target", "_blank");
           el.setAttribute("rel", "noopener");
-          el.setAttribute("title", params.downloadTitle || "Download");
           pswp.on("change", () => {
             el.href = pswp.currSlide.data.element.href;
           });
         },
       });
-    });
-  }
+    }
+
+    if (params.enableCaption) {
+      lightbox.pswp.ui.registerElement({
+        name: "pswp-caption",
+        order: 21,
+        isButton: false,
+        appendTo: "root",
+        html: "",
+        onInit: (el, pswp) => {
+          lightbox.pswp.on("change", () => {
+            const currSlideElement = lightbox.pswp.currSlide.data.element;
+            if (!currSlideElement) return;
+            const pswpCaption = currSlideElement.querySelector(".pswp-caption");
+            if (!pswpCaption) return;
+            const captionHTML = pswpCaption.innerHTML;
+            if (!captionHTML) return;
+            el.innerHTML = captionHTML;
+          });
+        },
+      });
+    }
+  });
 
   lightbox.on("uiRegister", () => {
     const pswp = lightbox.pswp;
@@ -116,28 +142,6 @@ if (galleryEl) {
         y: e.clientY - rect.top,
       };
       currSlide.toggleZoom(point);
-    });
-  });
-
-  lightbox.on("uiRegister", () => {
-    const pswp = lightbox.pswp;
-    pswp.ui.registerElement({
-      name: "pswp-caption",
-      order: 21,
-      isButton: false,
-      appendTo: "root",
-      html: "",
-      onInit: (el, pswp) => {
-        lightbox.pswp.on("change", () => {
-          const currSlideElement = lightbox.pswp.currSlide.data.element;
-          if (!currSlideElement) return;
-          const pswpCaption = currSlideElement.querySelector(".pswp-caption");
-          if (!pswpCaption) return;
-          const captionHTML = pswpCaption.innerHTML;
-          if (!captionHTML) return;
-          el.innerHTML = captionHTML;
-        });
-      },
     });
   });
 

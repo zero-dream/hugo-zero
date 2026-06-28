@@ -1,7 +1,7 @@
-{{ $albumData := partial "handle/album.html" . }}
+{{ $albumData := partial "utils/get-album.html" . }}
 {{ with $albumData }}
 	{{ $thumbnailSpec := $.Param "album.imageSpec.thumbnail" }}
-	{{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
+	{{ $thumbnail := .cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
 	{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
 	<a class="album-card" href="{{ $.RelPermalink }}" title="{{ $.Title }}">
 		<figure style="background-color: {{ $color }};">

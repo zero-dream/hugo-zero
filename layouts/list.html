@@ -1,13 +1,11 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
+{{ with .Content }}{{ partial "components/prose.html" . }}{{ end }}
 <section class="albums">
-	{{ range partial "handle/pages.html" .Pages }}
+	{{ range partial "utils/filter-pages.html" .Pages }}
 		{{ partial "components/album.html" . }}
 	{{ end }}
 </section>
-{{ with .Content }}
-	{{ partial "components/prose.html" . }}
-{{ end }}
 {{ end }}
 
 {{ define "head-assets" }}

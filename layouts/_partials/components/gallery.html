@@ -1,6 +1,6 @@
 <section class="fj-gallery hidden" id="gallery">
 	{{ $images := slice }}
-	{{ range $image := partial "handle/resources.html" (.Resources.ByType "image") }}
+	{{ range $image := partial "utils/filter-resources.html" (.Resources.ByType "image") }}
 		{{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
 		{{ with $image.Params.date }}
 			{{ $date = time.AsTime . }}
@@ -31,38 +31,43 @@
 		{{ $name := .name }}
 		{{ $title := .title }}
 		{{ $params := .params }}
-		{{ $image = partial "funcs/image/watermark.html" (dict "image" $image "page" $) }}
+		{{ $image = partial "funcs/image/add-watermark.html" (dict "image" $image "page" $) }}
 		{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
 		{{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
 		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
 
 		{{ $downImage := $image }}
-		{{ $enableDownload := $.Store.Get "enableDownload" }}
+		{{ $enableDownload := $.Param "downImage.enable" }}
 		{{ if $enableDownload }}
 			{{ $imageSpec := $.Param "downImage.imageSpec" }}
 			{{ if eq $imageSpec "" }}
-				{{ $enableDownload = $.Param "build.publishResources" }}
+				{{ $publishResources := $.Param "build.publishResources" }}
+				{{ if not $publishResources }}
+					{{ $downImage = $lightbox }}
+				{{ end }}
 			{{ else }}
-				{{ $downImgSize := $imageSpec }}
-				{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
+				{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $imageSpec)) }}
 			{{ end }}
+		{{ else }}
+			{{ $downImage = $lightbox }}
 		{{ end }}
-		<a class="fj-gallery-item" href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}">
+		<a class="fj-gallery-item" href="{{ $downImage.RelPermalink }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}">
 			<figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
 				<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $title }}" />
-				<div class="item-caption"><span>{{ $title }}</span></div>
+				<div class="gallery-caption"><span>{{ $title }}</span></div>
 				{{ if $enableCaption }}
-					<figcaption hidden class="pswp-caption">
+					<div class="hidden pswp-caption">
 						{{ with partial "funcs/image/parse-meta.html" (dict "image" $image "data" $captionData) }}
 							{{ range . }}<span>{{ . }}</span>{{ end }}
 						{{ else }}
 							<span>None</span>
 						{{ end }}
-					</figcaption>
+					</div>
 				{{ end }}
-				<meta itemprop="contentUrl" content="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" />
+				<meta itemprop="caption" content="{{ $title }}" />
+				<meta itemprop="contentUrl" content="{{ $downImage.RelPermalink }}" />
 				{{ with site.Params.Author }}
-					<span hidden itemprop="creator" itemscope itemtype="https://schema.org/Person">
+					<span itemscope itemprop="creator" itemtype="https://schema.org/Person">
 						<meta itemprop="name" content="{{ .name }}" />
 					</span>
 				{{ end }}

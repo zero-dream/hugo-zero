@@ -1,12 +1,11 @@
-{{/*  Copyright (C) 2000 ZeroDream  */}}
-{{/*  https://github.com/zero-dream  */}}
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
 
 {{ $image := .image }}
 {{ $page := .page }}
-
-{{ $mark := resources.Get ($page.Param "watermark.path") }}
 {{ $result := $image }}
 
+{{ $mark := resources.Get ($page.Param "watermark.path") }}
 {{ if $mark }}
 	{{ $size := $page.Param "watermark.size" }}
 	{{ $markHeight := int (mul $image.Height $size) }}

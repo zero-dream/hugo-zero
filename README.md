@@ -49,6 +49,8 @@ Although not required in all cases, Git, Go, and Dart Sass are commonly used whe
 - [Dart Sass](https://gohugo.io/functions/css/sass/#dart-sass)
 - [Go](https://go.dev/doc/install)
 
+- Browser: chrome115 edge115 firefox116 ios16.4 opera101 safari16.4
+
 ### Installation
 
 Requires the Go binary installed.
@@ -127,9 +129,9 @@ content/
     └── tree.jpeg       <-- nature album cover (param)
 ```
 
-- `/about.md`: Not a PageBundle and does not have image resources. It is not displayed in the album list.
-- `/animals`: A BranchBundle (has `_index.md` and has children) => Displayed as album list (`list` layout).
-- `/nature`: A LeafBundle (has `index.md` and no children) => Displayed as gallery (`single` layout).
+- `/about.md`: Not a page bundle and does not have image resources. It is not displayed in the album list.
+- `/animals`: A branch bundle (has `_index.md` and has children) => Displayed as album list (`list` layout).
+- `/nature`: A leaf bundle (has `index.md` and no children) => Displayed as gallery (`single` layout).
 - The list page must have an image.
 - Albums without an image are not shown.
 
@@ -266,9 +268,11 @@ The file is located at `config/_default/hugo.yaml`.
 
 **Support:** cascade;
 
-Exclude all original images from the published site, you can use the `build.publishResources` configuration option. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
+Applicable to page bundles, determines whether to publish the associated page resources.
 
-**Note: The original image may not be completely excluded.** Improper use of the `.Permalink`, `.RelPermalink` or `Publish` methods may result in it being included.
+`publishResources`: (bool) If `true`, the resource is always published. If `false`, the resource is only published when its `Permalink`, `RelPermalink`, or `Publish` method is called in the template.
+
+**Note:** If `publishResources` is `true`, the image may contain sensitive Exif data, like GPS.
 
 ```yaml
 cascade:
@@ -355,7 +359,7 @@ resources:
 PhotoSwipe lightbox settings.
 
 `photoSwipe.enableCaption`: (float) Whether to display caption on the lightbox.
-`photoSwipe.captionData`: (slice) A caption slice is [`image Exif`](#image-exif) data.
+`photoSwipe.captionData`: (slice) Caption is [`image Exif`](#image-exif) data.
 
 ```yaml
 params:
@@ -490,6 +494,8 @@ Each build will clear the `localStorage` under the current domain.
 - Custom toggled themes will be reset.
 
 ### Image Exif
+
+Including but not limited to the following fields.
 
 |          Field          |          Field          |        Field        |        Field        |
 | :---------------------: | :---------------------: | :-----------------: | :-----------------: |

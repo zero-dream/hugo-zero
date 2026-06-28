@@ -1,7 +1,7 @@
 locale: "en-us"
 timeZone: "Etc/UTC"
-enableRobotsTXT: true
 
+enableRobotsTXT: true
 defaultContentLanguage: "en"
 
 baseURL: "https://example.org/"
@@ -17,14 +17,6 @@ module:
     min: "0.162.0"
   imports:
     - path: "github.com/zero-dream/hugo-gallery"
-
-imaging:
-  quality: 75
-  resampleFilter: "CatmullRom"
-  exif:
-    disableDate: true
-    disableLatLong: true
-    excludeFields: ".*"
 
 services:
   rss:
