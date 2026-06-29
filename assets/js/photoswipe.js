@@ -50,6 +50,14 @@ if (galleryEl) {
   }
 
   lightbox.on("uiRegister", () => {
+    const pswp = lightbox.pswp;
+    pswp.ui.uiElementsData = pswp.ui.uiElementsData.filter((el) => {
+      if (el.name === "zoom") return false;
+      else return true;
+    });
+  });
+
+  lightbox.on("uiRegister", () => {
     let clickTimer = null;
     const pswp = lightbox.pswp;
     if (!pswp.container) return;
