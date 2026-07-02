@@ -1,6 +1,5 @@
 <section class="fj-gallery hidden" id="gallery">
-	{{ $enableCaption := $.Param "gallery.photoSwipe.enableCaption" }}
-	{{ $captionData := $.Param "gallery.photoSwipe.captionData" }}
+	{{ $caption := $.Param "gallery.photoSwipe.caption" }}
 	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
 	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
 
@@ -33,10 +32,10 @@
 		<a class="fj-gallery-item" href="{{ $downImage.RelPermalink }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}">
 			<figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
 				<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $title }}" />
-				<div class="gallery-caption"><span>{{ $title }}</span></div>
-				{{ if $enableCaption }}
+				<div class="image-caption"><span>{{ $title }}</span></div>
+				{{ if $caption.enable }}
 					<div class="hidden pswp-caption">
-						{{ with partial "funcs/image/parse-meta.html" (dict "image" $image "data" $captionData) }}
+						{{ with partial "funcs/image/parse-meta.html" (dict "image" $image "data" $caption.data) }}
 							{{ range . }}<span>{{ . }}</span>{{ end }}
 						{{ else }}
 							<span>None</span>

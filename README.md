@@ -352,26 +352,27 @@ resources:
 ---
 ```
 
-#### PhotoSwipe
+#### PhotoSwipe Caption
 
 **Support:** cascade;
 
 PhotoSwipe lightbox settings.
 
-`photoSwipe.enableCaption`: (float) Whether to display caption on the lightbox.
-`photoSwipe.captionData`: (slice) Caption is [`image Exif`](#image-exif) data.
+`caption.enable`: (float) Whether to display caption on the lightbox.
+`caption.data`: (slice) Caption is [`image Exif`](#image-exif) data.
 
 ```yaml
 params:
   gallery:
     photoSwipe:
-      enableCaption: true
-      captionData:
-        - { key: "Exif.ISO", value: "ISO %v" }
-        - { key: "Exif.FocalLengthIn35mmFormat", value: "%v mm" }
-        - { key: "Exif.ExposureCompensation", value: "%v ev" }
-        - { key: "Exif.FNumber", value: "f %v" }
-        - { key: "Exif.ExposureTime", value: "%v s" }
+      caption:
+        enable: true
+        data:
+          - "ISO ${Exif.ISO}"
+          - "${Exif.FocalLengthIn35mmFormat} mm"
+          - "${Exif.ExposureCompensation} ev"
+          - "f ${Exif.FNumber}"
+          - "${Exif.ExposureTime} s"
 ```
 
 #### Justified
