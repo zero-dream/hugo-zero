@@ -42,6 +42,7 @@ params:
       lightbox: "fit 1600x1600"
 
   # site.Params
+  relatedLimit: 3
   imageSpec:
     rssCover: "fill 900x600"
     featured: "fit 1600x1600"
