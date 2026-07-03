@@ -1,4 +1,5 @@
 @use "abstracts/styles";
+@use "abstracts/scrollbar";
 
 html {
   height: 100%;
@@ -212,9 +213,15 @@ nav.categories {
   margin: 0 auto var(--gap-main);
 
   & > ul {
+    @extend %mini-scrollbar;
+    padding-bottom: var(--gap-1);
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    flex-flow: row nowrap;
+    justify-content: safe center;
     gap: var(--gap-2);
+
+    & > li > a {
+      white-space: nowrap;
+    }
   }
 }
