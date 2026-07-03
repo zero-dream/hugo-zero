@@ -51,8 +51,14 @@
 
   // color
 
-  --color-text-1: light-dark(rgb(10 10 10), rgb(250 250 250));
-  --color-text-2: light-dark(rgb(115 115 115), rgb(163 163 163));
+  --color-text-1-white: rgb(250 250 250);
+  --color-text-1-black: rgb(10 10 10);
+  --color-text-2-white: rgb(163, 163, 163);
+  --color-text-2-black: rgb(115, 115, 115);
+
+  --color-text-1: light-dark(var(--color-text-1-black), var(--color-text-1-white));
+  --color-text-2: light-dark(var(--color-text-2-black), var(--color-text-2-white));
+
   --color-blur-1: light-dark(rgb(255 255 255 / 40%), rgb(0 0 0 / 40%));
   --color-blur-2: light-dark(rgb(255 255 255 / 60%), rgb(0 0 0 / 60%));
   --color-bg-body: light-dark(rgb(255 255 255), rgb(18 18 18));

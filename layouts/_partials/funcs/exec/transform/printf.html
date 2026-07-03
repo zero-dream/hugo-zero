@@ -1,0 +1,19 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $value := .value }}
+{{ $toType := index .params 0 }}
+{{ $format := index .params 1 }}
+{{ $result := $value }}
+
+{{ if eq $toType "int" }}
+	{{ $value = int $value }}
+{{ else if eq $toType "float" }}
+	{{ $value = float $value }}
+{{ else if eq $toType "string" }}
+	{{ $value = string $value }}
+{{ end }}
+
+{{ $result = printf $format $value }}
+
+{{ return $result }}

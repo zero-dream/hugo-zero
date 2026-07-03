@@ -1,5 +1,9 @@
 <section class="fj-gallery hidden" id="gallery">
+	{{ $publishResources := $.Param "build.publishResources" }}
+	{{ $enableDownload := $.Param "downImage.enable" }}
+	{{ $downImageSpec := $.Param "downImage.imageSpec" }}
 	{{ $caption := $.Param "gallery.photoSwipe.caption" }}
+	{{ $fileInfo := $.Param "gallery.photoSwipe.fileInfo" }}
 	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
 	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
 
@@ -9,39 +13,65 @@
 		{{ $name := .name }}
 		{{ $title := .title }}
 		{{ $params := .params }}
+
 		{{ $image = partial "funcs/image/add-watermark.html" (dict "image" $image "page" $) }}
 		{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
 		{{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
 		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
-
 		{{ $downImage := $image }}
-		{{ $enableDownload := $.Param "downImage.enable" }}
+		{{ $title = partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}
+
 		{{ if $enableDownload }}
-			{{ $imageSpec := $.Param "downImage.imageSpec" }}
-			{{ if eq $imageSpec "" }}
-				{{ $publishResources := $.Param "build.publishResources" }}
+			{{ if eq $downImageSpec "" }}
 				{{ if not $publishResources }}
 					{{ $downImage = $lightbox }}
 				{{ end }}
 			{{ else }}
-				{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $imageSpec)) }}
+				{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImageSpec)) }}
 			{{ end }}
 		{{ else }}
 			{{ $downImage = $lightbox }}
 		{{ end }}
+
 		<a class="fj-gallery-item" href="{{ $downImage.RelPermalink }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}">
 			<figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
 				<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $title }}" />
-				<div class="image-caption"><span>{{ $title }}</span></div>
+				<div class="image-caption"><span>{{ partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}</span></div>
+
 				{{ if $caption.enable }}
 					<div class="hidden pswp-caption">
-						{{ with partial "funcs/image/parse-meta.html" (dict "image" $image "data" $caption.data) }}
-							{{ range . }}<span>{{ . }}</span>{{ end }}
-						{{ else }}
-							<span>None</span>
-						{{ end }}
+						<div class="bar-caption">
+							<table>
+								<tbody>
+									<tr>
+										{{ $captionData := slice }}
+										{{ range $caption.data }}{{ $captionData = $captionData | append .format }}{{ end }}
+										{{ $captions := partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $captionData "default" "-") }}
+										{{ range $index, $value := $caption.data }}
+											{{ $caption := index $captions $index }}
+											<td style="min-width: {{ $value.minWidth }};"><pre>{{ $caption }}</pre></td>
+										{{ end }}
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				{{ end }}
+
+				{{ if $fileInfo.enable }}
+					<div class="hidden pswp-fileinfo">
+						<div class="bar-fileinfo {{ if $fileInfo.firstBigger }}fileinfo-first-bigger{{ end }}">
+							{{ $fileInfoData := slice }}
+							{{ range $fileInfo.data }}{{ $fileInfoData = $fileInfoData | append .format }}{{ end }}
+							{{ with partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $fileInfoData "default" "") }}
+								{{ range . }}<pre>{{ . }}</pre>{{ end }}
+							{{ else }}
+								<span>None</span>
+							{{ end }}
+						</div>
+					</div>
+				{{ end }}
+
 				<meta itemprop="caption" content="{{ $title }}" />
 				<meta itemprop="contentUrl" content="{{ $downImage.RelPermalink }}" />
 				{{ with site.Params.Author }}

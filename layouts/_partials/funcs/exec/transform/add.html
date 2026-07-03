@@ -1,0 +1,12 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $value := .value }}
+{{ $num := index .params 0 }}
+{{ $format := index .params 1 }}
+{{ $result := $value }}
+
+{{ $calcResult := add (float $value) (float $num) }}
+{{ $result = printf $format $calcResult }}
+
+{{ return $result }}

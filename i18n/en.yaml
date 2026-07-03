@@ -10,6 +10,7 @@ arrowPrevTitle: Previous
 arrowNextTitle: Next
 errorMsg: The photo cannot be loaded
 downloadTitle: Download
+fileInfoTitle: File Info
 relatedAlbums: Related Albums
 photoCount:
   one: 1 photo

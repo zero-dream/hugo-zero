@@ -26,6 +26,7 @@
 
 {{ $enableDownload := $.Param "downImage.enable" }}
 {{ $enableCaption := $.Param "gallery.photoSwipe.caption.enable" }}
+{{ $enableFileInfo := $.Param "gallery.photoSwipe.fileInfo.enable" }}
 {{ $vars := dict }}
 {{ $params := dict
 	"closeTitle" (i18n "closeTitle")
@@ -34,8 +35,10 @@
 	"arrowNextTitle" (i18n "arrowNextTitle")
 	"errorMsg" (i18n "errorMsg")
 	"downloadTitle" (i18n "downloadTitle")
+	"fileInfoTitle" (i18n "fileInfoTitle")
 	"enableDownload" $enableDownload
 	"enableCaption" $enableCaption
+	"enableFileInfo" $enableFileInfo
 }}
 {{ partial "import/css-sass.html" (dict "path" "scss/photoswipe.scss" "vars" $vars) }}
 {{ partial "import/js-esm.html" (dict "path" "js/photoswipe.js" "params" $params) }}

@@ -3,22 +3,42 @@
 
 {{ $image := .image }}
 {{ $data := .data }}
-{{ $return := slice }}
+{{ $default := .default }}
+{{ $result := slice }}
 
 {{ $metas := partial "funcs/image/get-meta.html" (dict "image" $image "format" "display") }}
 {{ with $metas }}
-	{{ range $value := $data }}
-		{{ $matches := findRESubmatch `\$\{([^}]+)\}` $value }}
+	{{ range $format := $data }}
+
+		{{ $matches := findRESubmatch `\$\{([^}]+)\}` $format }}
 		{{ range $matches }}
 			{{ $0 := index . 0 }}
 			{{ $1 := index . 1 }}
-			{{ $keys := split $1 "." }}
+			{{ $parts := partial "funcs/strings/split-escape.html" $1 }}
+
+			{{ $keys := split (index $parts 0) "." }}
 			{{ with index $metas $keys }}
-				{{ $value = replace $value $0 . }}
+				{{ $value := . }}
+				{{ with (index $parts 1) }}
+					{{ $params := after 2 $parts }}
+					{{ $value = partial "funcs/exec/exec-func.html" (dict
+						"value" $value
+						"func" .
+						"params" $params
+						)
+					}}
+				{{ end }}
+				{{ $format = replace $format $0 $value }}
+			{{ else }}
+				{{ $format = replace $format $0 $default }}
 			{{ end }}
 		{{ end }}
-		{{ $return = $return | append $value }}
+
+		{{ $format = strings.TrimSpace $format }}
+		{{ if $format }}
+			{{ $result = $result | append $format }}
+		{{ end }}
 	{{ end }}
 {{ end }}
 
-{{ return $return }}
+{{ return $result }}

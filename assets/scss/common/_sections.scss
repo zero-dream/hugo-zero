@@ -20,15 +20,15 @@ body > main > section.fj-gallery {
 
       & > .image-caption {
         @extend %blur-11;
-        color-scheme: dark;
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
         font-size: var(--text-font-size-xs);
         line-height: var(--text-line-height-xs);
+        text-shadow: var(--text-shadow-xs);
         padding: var(--gap-1);
-        color: var(--color-text-1);
+        color: var(--color-text-1-white);
         display: flex;
         justify-content: center;
         align-items: center;

@@ -10,7 +10,22 @@
 	{{ range $key, $value := $image.Meta.Exif }}
 		{{ $exifEntries = merge $exifEntries (dict $key $value) }}
 	{{ end }}
+	{{ $title := partial "funcs/path/remove-ext.html" (dict "path" $image.Title) }}
+	{{ $smartDate := $image.Params.date | default $image.Meta.Date }}
+	{{ $fileExt := index (split $image.MediaType "/") 1 }}
+	{{ $resolution := printf "%d*%d" $image.Width $image.Height }}
+	{{ $megapixel := div (mul (float $image.Width) (float $image.Height)) (float 1000000) }}
+	{{ $fileSize := len $image.Content }}
+
 	{{ $metas := (dict
+		"Title" $title
+		"Params" $image.Params
+		"SmartDate" $smartDate
+		"MediaType" $image.MediaType
+		"FileExt" $fileExt
+		"Resolution" $resolution
+		"Megapixel" $megapixel
+		"FileSize" $fileSize
 		"Date" $image.Meta.Date
 		"Lat" $image.Meta.Lat
 		"Long" $image.Meta.Long

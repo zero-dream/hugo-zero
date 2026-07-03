@@ -10,6 +10,7 @@ arrowPrevTitle: 前一张
 arrowNextTitle: 后一张
 errorMsg: 照片无法加载
 downloadTitle: 下载
+fileInfoTitle: 文件信息
 relatedAlbums: 相关相册
 photoCount:
   other: "{{ . }} 张照片"

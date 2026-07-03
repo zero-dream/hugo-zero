@@ -1,4 +1,5 @@
 @use "abstracts/styles";
+@use "abstracts/scrollbar";
 @use "abstracts/variables" as vars;
 
 @use "photoswipe/photoswipe";
@@ -9,15 +10,12 @@
 
 .pswp__top-bar {
   @extend %blur-11;
+  pointer-events: auto !important;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 64px;
   padding: var(--gap-1);
-}
-
-.pswp__top-bar > * {
-  pointer-events: none;
 }
 
 .pswp--ui-visible .pswp__top-bar > * {
@@ -116,20 +114,62 @@
   right: 0;
 }
 
-.pswp__pswp-caption {
+.pswp__bottom-bar {
   @extend %blur-11;
-  pointer-events: none !important;
+  display: none;
   position: fixed;
   inset: auto 0 0 0;
   width: 100%;
-  display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: var(--gap-2);
-  color: var(--pswp-icon-color);
+  gap: var(--gap-3);
+  color: var(--color-text-1-white);
   user-select: none;
   font-size: var(--text-font-size-xs);
   line-height: var(--text-line-height-xs);
+  text-shadow: var(--text-shadow-xs);
   padding: var(--gap-1);
+
+  & > .bar-caption {
+    @extend %mini-scrollbar;
+
+    & > table {
+      border-collapse: collapse;
+
+      & > tbody > tr > td {
+        text-align: center;
+        vertical-align: middle;
+        border: none;
+        border-left: 1px solid var(--color-text-2-white);
+
+        &:first-child {
+          border-left: none;
+        }
+      }
+    }
+  }
+
+  & > .bar-fileinfo {
+    display: none;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-2);
+    overflow: hidden;
+    transition:
+      opacity 0.3s ease-in,
+      max-height 0.3s ease-in,
+      visibility 0.3s ease-in;
+
+    &.fileinfo-first-bigger {
+      & > pre:first-child {
+        font-size: var(--text-font-size-sm);
+        line-height: var(--text-line-height-sm);
+        font-weight: bold;
+      }
+    }
+  }
 }

@@ -1,0 +1,11 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $value := .value }}
+{{ $func := .func }}
+{{ $params := .params | default slice }}
+{{ $result := $value }}
+
+{{ $result = partial (printf "funcs/exec/transform/%s" $func) (dict "value" $value "params" $params) }}
+
+{{ return $result }}

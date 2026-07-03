@@ -19,11 +19,19 @@ params:
       caption:
         enable: true
         data:
-          - "ISO ${Exif.ISO}"
-          - "${Exif.FocalLengthIn35mmFormat} mm"
-          - "${Exif.ExposureCompensation} ev"
-          - "f ${Exif.FNumber}"
-          - "${Exif.ExposureTime} s"
+          - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
+          - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
+          - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
+          - { format: "f ${Exif.FNumber-printf-float-%0.2f}", minWidth: "4rem" }
+          - { format: "${Exif.ExposureTime} s", minWidth: "5rem" }
+      fileInfo:
+        enable: true
+        firstBigger: true
+        data:
+          - { format: "${Title-title}" }
+          - { format: '${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}' }
+          - { format: "${FileExt} · ${Megapixel} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
+          - { format: "${Exif.Make} ${Exif.Model}" }
     justified:
       gutterH: 10
       gutterV: 10

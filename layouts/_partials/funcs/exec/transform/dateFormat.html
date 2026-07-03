@@ -1,0 +1,13 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $value := .value }}
+{{ $format := index .params 0 }}
+{{ $result := $value }}
+
+{{ if ne (printf "%T" $value) "time.Time" }}
+	{{ $value = time $value }}
+{{ end }}
+{{ $result = dateFormat $format $value }}
+
+{{ return $result }}

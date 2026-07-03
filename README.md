@@ -1,4 +1,5 @@
 [example]: /example
+[str-func]: /layouts/_partials/funcs/exec/transform/
 
 # Hugo Gallery Theme
 
@@ -9,7 +10,7 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 ## Features
 
 - Justified images gallery
-- Image lightbox shows Exif captions
+- Image lightbox displays Exif captions and file info
 
 - Download image
 - Add a watermark to the image
@@ -356,10 +357,13 @@ resources:
 
 **Support:** cascade;
 
-PhotoSwipe lightbox settings.
+Show image Exif data in the bottom bar of the lightbox.
 
 `caption.enable`: (float) Whether to display caption on the lightbox.
-`caption.data`: (slice) Caption is [`image Exif`](#image-exif) data.
+
+`caption.data`: (slice) Display [`image Exif`](#image-exif) data.
+
+`caption.data.format`: (string) Supports [`string function`](#execute-string-function).
 
 ```yaml
 params:
@@ -368,11 +372,39 @@ params:
       caption:
         enable: true
         data:
-          - "ISO ${Exif.ISO}"
-          - "${Exif.FocalLengthIn35mmFormat} mm"
-          - "${Exif.ExposureCompensation} ev"
-          - "f ${Exif.FNumber}"
-          - "${Exif.ExposureTime} s"
+          - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
+          - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
+          - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
+          - { format: "f ${Exif.FNumber-printf-float-%0.2f}", minWidth: "4rem" }
+          - { format: "${Exif.ExposureTime} s", minWidth: "5rem" }
+```
+
+#### PhotoSwipe FileInfo
+
+**Support:** cascade;
+
+Show the file information of the image in the bottom bar of the lightbox.
+
+`fileInfo.enable`: (float) Whether to display file info on the lightbox.
+
+`fileInfo.firstBigger`: (float) Making the font of the first line bigger can make the title stand out more.
+
+`fileInfo.data`: (slice) Display [`image Exif`](#image-exif) data.
+
+`fileInfo.data.format`: (string) Supports [`string function`](#execute-string-function).
+
+```yaml
+params:
+  gallery:
+    photoSwipe:
+      fileInfo:
+        enable: true
+        firstBigger: true
+        data:
+          - { format: "${Title-title}" }
+          - { format: '${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}' }
+          - { format: "${FileExt} · ${Megapixel} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
+          - { format: "${Exif.Make} ${Exif.Model}" }
 ```
 
 #### Justified
@@ -496,7 +528,7 @@ Each build will clear the `localStorage` under the current domain.
 
 ### Image Exif
 
-Including but not limited to the following fields.
+(v0.162.0) Including but not limited to the following fields.
 
 |          Field          |          Field          |        Field        |        Field        |
 | :---------------------: | :---------------------: | :-----------------: | :-----------------: |
@@ -508,3 +540,15 @@ Including but not limited to the following fields.
 |    DateTimeOriginal     |        LensInfo         | OffsetTimeDigitized | SubSecTimeOriginal  |
 |  ExposureCompensation   |        LensMake         | OffsetTimeOriginal  |     SubjectArea     |
 |      ExposureTime       |        LensModel        |     Orientation     |  YCbCrPositioning   |
+
+### Execute string function
+
+`${...}`: Variable placeholders in a string.
+
+Use the slash `-` as the separator. If the value has a slash, you need to use the backslash `\` to escape.
+
+The first element is the variable to be replaced, the second is the [string function][str-func] to run on the variable, and the rest are multiple arguments for that function.
+
+```yaml
+'${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}'
+```

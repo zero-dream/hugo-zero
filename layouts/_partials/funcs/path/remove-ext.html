@@ -1,0 +1,11 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $path := .path }}
+{{ $result := "" }}
+
+{{ $pathBase := path.Base $path }}
+{{ $pathExt := path.Ext $pathBase }}
+{{ $result = strings.TrimSuffix $pathExt $pathBase }}
+
+{{ return $result }}

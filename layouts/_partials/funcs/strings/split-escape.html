@@ -1,0 +1,18 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $string := . }}
+{{ $result := slice }}
+
+{{ $backslash := `__backslash__` }}
+{{ $hyphen := `__hyphen__` }}
+{{ $tmp := replaceRE `\\\\` $backslash $string }}
+{{ $tmp = replaceRE `\\-` $hyphen $tmp }}
+{{ $parts := split $tmp `-` }}
+{{ range $parts }}
+	{{ $part := replace . $hyphen `-` }}
+	{{ $part = replace $part $backslash `\` }}
+	{{ $result = $result | append $part }}
+{{ end }}
+
+{{ return $result }}
