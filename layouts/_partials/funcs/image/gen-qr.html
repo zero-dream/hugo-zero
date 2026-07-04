@@ -1,0 +1,28 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $text := .text | default "" }}
+{{ $level := .level | default "medium" }}
+{{ $scale := .scale | default 4 }}
+{{ $targetDir := .targetDir | default (printf "%s/qr-codes" hugo.Data.config.publishDir) }}
+{{ $alt := .alt | default "" }}
+{{ $class := .class | default "" }}
+{{ $id := .id | default "" }}
+{{ $title := .title | default "" }}
+{{ $loading := .loading | default "" }}
+{{ $decoding := .decoding | default "" }}
+
+{{ $options := dict
+	"level" $level
+	"scale" $scale
+	"targetDir" $targetDir
+}}
+{{ with images.QR $text $options }}
+	<img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}"
+		{{ with $alt }} alt="{{ $alt }}" {{ end }}
+		{{ with $class }} class="{{ $class }}" {{ end }}
+		{{ with $id }} id="{{ $id }}" {{ end }}
+		{{ with $title }} title="{{ $title }}" {{ end }}
+		{{ with $loading }} loading="{{ $loading }}" {{ end }}
+		{{ with $decoding }} decoding="{{ $decoding }}" {{ end }} />
+{{ end }}

@@ -1,0 +1,9 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $params := .Params }}
+
+{{ if not $params.text }}
+	{{ $params = merge $params (dict "text" .InnerDeindent) }}
+{{ end }}
+{{ partial "funcs/image/gen-qr.html" $params }}
