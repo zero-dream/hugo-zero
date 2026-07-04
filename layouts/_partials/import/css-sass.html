@@ -2,32 +2,33 @@
 {{ $vars := .vars | default dict }}
 
 {{ $baseName := path.BaseName $path }}
-{{ $targetPath := printf "css/%s.css" $baseName }}
+{{ $targetPath := printf "%s/css/%s.css" hugo.Data.config.publishDir $baseName }}
 {{ with resources.Get $path }}
-	{{ $sassOpts := dict
-		"transpiler" "dartsass"
-		"outputStyle" (cond hugo.IsDevelopment "expanded" "compressed")
-		"enableSourceMap" hugo.IsDevelopment
-		"targetPath" $targetPath
-		"vars" $vars
-		"includePaths" (slice "assets/lib" "assets/scss")
-	}}
-	{{ with . | css.Sass $sassOpts }}
-		{{ $vars := dict }}
-		{{ $buildOpts := dict
-			"loaders" (dict ".png" "dataurl" ".svg" "dataurl")
-			"minify" (cond hugo.IsDevelopment false true)
-			"sourceMap" (cond hugo.IsDevelopment "linked" "none")
-			"target" (slice "chrome115" "edge115" "firefox116" "ios16.4" "opera101" "safari16.4")
+	{{ if .Content }}
+		{{ $sassOpts := dict
+			"transpiler" "dartsass"
+			"outputStyle" (cond hugo.IsDevelopment "expanded" "compressed")
+			"enableSourceMap" hugo.IsDevelopment
 			"targetPath" $targetPath
 			"vars" $vars
 		}}
-		{{ with . | css.Build $buildOpts }}
-			{{ if hugo.IsDevelopment }}
-				<link rel="stylesheet" href="{{ .RelPermalink }}">
-			{{ else }}
-				{{ with . | resources.Fingerprint }}
-					<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+		{{ with . | css.Sass $sassOpts }}
+			{{ $vars := dict }}
+			{{ $buildOpts := dict
+				"loaders" (dict ".png" "dataurl" ".svg" "dataurl")
+				"minify" (cond hugo.IsDevelopment false true)
+				"sourceMap" (cond hugo.IsDevelopment "linked" "none")
+				"target" (slice "chrome115" "edge115" "firefox116" "ios16.4" "opera101" "safari16.4")
+				"targetPath" $targetPath
+				"vars" $vars
+			}}
+			{{ with . | css.Build $buildOpts }}
+				{{ if hugo.IsDevelopment }}
+					<link rel="stylesheet" href="{{ .RelPermalink }}">
+				{{ else }}
+					{{ with . | resources.Fingerprint }}
+						<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+					{{ end }}
 				{{ end }}
 			{{ end }}
 		{{ end }}

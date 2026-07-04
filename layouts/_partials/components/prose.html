@@ -1,6 +1,8 @@
-<article class="prose">
-	{{ . }}
-	<script>
-		window.hugoGallery.invertProse(document.currentScript.parentElement, window.hugoGallery.currTheme);
-	</script>
-</article>
+{{ with .Content }}
+	<article class="prose">
+		{{ . }}
+		<script>
+			window.hugoGallery.invertProse(document.currentScript.parentElement, window.hugoGallery.currTheme);
+		</script>
+	</article>
+{{ end }}

@@ -1,25 +1,27 @@
-@use "abstracts/styles";
-@use "abstracts/variables" as vars;
+@use "../abstracts/styles";
+@use "../abstracts/variables" as vars;
 
 body > main > section {
   margin: 0 auto var(--gap-main);
 }
 
 body > main > section.fj-gallery {
+  overflow: visible;
+
   & > .fj-gallery-item {
     cursor: zoom-in;
     overflow: hidden;
-    border-radius: var(--border-radius-2);
-    clip-path: inset(0 round var(--border-radius-2));
+    border-radius: var(--border-radius-1);
 
     & > figure {
       position: relative;
       margin: 0;
       padding: 0;
       line-height: 0;
+      clip-path: inset(0 round var(--border-radius-1));
 
       & > .image-caption {
-        @extend %blur-11;
+        @extend %blur-caption;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -93,7 +95,7 @@ body > main > section.albums {
     & > figure {
       aspect-ratio: 3/2;
       width: 100%;
-      border-radius: var(--border-radius-2);
+      border-radius: var(--border-radius-1);
       overflow: hidden;
       transition: transform 0.3s var(--transition-func-01);
 
@@ -106,7 +108,7 @@ body > main > section.albums {
 
       &:hover {
         transform: scale(1.02);
-        box-shadow: var(--box-shadow-xl);
+        box-shadow: var(--box-shadow-lg);
       }
     }
 
@@ -138,7 +140,7 @@ body > main > section.featured {
   & > .featured-card {
     position: relative;
     display: flex;
-    border-radius: var(--border-radius-2) var(--border-radius-2) 0 0;
+    border-radius: var(--border-radius-1) var(--border-radius-1) 0 0;
     aspect-ratio: 1/1;
     width: 100%;
     overflow: hidden;

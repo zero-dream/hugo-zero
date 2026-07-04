@@ -1,0 +1,39 @@
+{{ $data := .data }}
+{{ $type := .type }}
+
+{{ $pages := slice }}
+{{ if eq $type "page" }}
+	{{ $pages = $data.Pages }}
+{{ else if eq $type "related" }}
+	{{ $pages = $data }}
+{{ end }}
+
+{{ $pages = partial "utils/filter-pages.html" $pages }}
+{{ if eq $type "related" }}
+	{{ $pages = $pages | first site.Params.relatedLimit }}
+{{ end }}
+
+<section class="albums">
+	{{ range $page := $pages }}
+		{{ with partial "utils/get-album.html" $page }}
+			{{ $thumbnailSpec := $page.Param "album.imageSpec.thumbnail" }}
+			{{ $thumbnail := .cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
+			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+			<a class="album-card" href="{{ $page.RelPermalink }}">
+				<figure style="background-color: {{ $color }};">
+					<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $page.Title }}" />
+				</figure>
+				<div>
+					<h2>{{ $page.Title }}</h2>
+					<p>
+						{{ if gt .albumCount 0 }}
+							{{ T "albumCount" (dict "count" (.albumCount | lang.FormatNumber 0) "photoCount" (.imageCount | lang.FormatNumber 0 | lang.Translate "photoCount")) }}
+						{{ else }}
+							{{ T "photoCount" (.imageCount | lang.FormatNumber 0) }}
+						{{ end }}
+					</p>
+				</div>
+			</a>
+		{{ end }}
+	{{ end }}
+</section>

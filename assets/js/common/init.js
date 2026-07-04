@@ -25,6 +25,7 @@ if (prevBuildTime < buildTime) {
 }
 
 // SetTheme
+
 const htmlEl = document.documentElement;
 const setTheme = (theme) => {
   window.hugoGallery.currTheme = theme;

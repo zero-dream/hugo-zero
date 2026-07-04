@@ -57,7 +57,9 @@
   --color-text-2-black: rgb(115, 115, 115);
 
   --color-text-1: light-dark(var(--color-text-1-black), var(--color-text-1-white));
+  --color-text-1-invert: light-dark(var(--color-text-1-white), var(--color-text-1-black));
   --color-text-2: light-dark(var(--color-text-2-black), var(--color-text-2-white));
+  --color-text-2-invert: light-dark(var(--color-text-2-white), var(--color-text-2-black));
 
   --color-blur-1: light-dark(rgb(255 255 255 / 40%), rgb(0 0 0 / 40%));
   --color-blur-2: light-dark(rgb(255 255 255 / 60%), rgb(0 0 0 / 60%));
@@ -65,6 +67,7 @@
   --color-bg-1: light-dark(rgb(255 255 255), rgb(18 18 18));
   --color-border-1: light-dark(color-mix(in oklab, oklch(98% 0 0deg), #000 10%), color-mix(in oklab, oklch(0% 0 0deg), #fff 40%));
   --color-hover-1: var(--color-border-1);
+  --color-pswp-bg: light-dark(rgb(30 30 30 / 100%), rgb(30 30 30 / 100%));
 
   // shadow
 

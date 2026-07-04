@@ -7,7 +7,9 @@ A very simple and opinionated photo gallery theme for Hugo.
 
 This project is developed based on [nicokaiser/hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery/).
 
-## Features
+## Introduction
+
+### Features
 
 - Justified images gallery
 - Image lightbox displays Exif captions and file info
@@ -29,7 +31,7 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 
 **Important note: do not try to use WebP images.** The golang WebP implementation used in Hugo has a bug which leads to wrong image levels (dull looking images) upon resize. See [nicokaiser/hugo-theme-gallery#102](https://github.com/nicokaiser/hugo-theme-gallery/issues/102) for more details.
 
-## Used Project
+### Used Project
 
 - Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
 - Photoswipe and lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
@@ -136,13 +138,6 @@ content/
 - The list page must have an image.
 - Albums without an image are not shown.
 
-### Lightbox Action
-
-`click`: Toggle the visibility of controls.
-`double click`: Zoom the current image.
-`swipe left and right`: Switch to the previous/next slide.
-`swipe down`: Close the lightbox.
-
 ## Front Matter
 
 `cascade`: (map) The key defined here can be inherited by any of its descendants, or it can be overridden.
@@ -199,7 +194,7 @@ description: "This is the description text of the <animals> category."
 
 The album will be built by Hugo, and it can be accessed using the corresponding URL.
 
-`private`: (bool) If set to `true`, setting the album to private will prevent it from appearing in lists, RSS, sitemaps, etc.
+`private`: (bool) If set to `true`, setting the album to private will prevent it from appearing in list, rss, sitemap, etc.
 
 ```yaml
 ---
@@ -309,7 +304,7 @@ The default sort order for page collections, follows this priority:
 - linkTitle falling back to title (ascending)
 - logical path (ascending)
 
-### Gallery
+### Image
 
 #### Sort
 
@@ -323,13 +318,27 @@ The first element has the highest priority.
 
 `order`: (string) Sort order. Values: asc(ascending); desc(descending);
 
+Sort mainly by date in descending order:
+
 ```yaml
 params:
-  gallery:
+  image:
     sort:
       - { key: "params.weight", order: "asc" }
       - { key: "params.date", order: "desc" }
       - { key: "title", order: "asc" }
+      - { key: "name", order: "asc" }
+```
+
+Sort mainly by title in ascending order:
+
+```yaml
+params:
+  image:
+    sort:
+      - { key: "params.weight", order: "asc" }
+      - { key: "title", order: "asc" }
+      - { key: "params.date", order: "desc" }
       - { key: "name", order: "asc" }
 ```
 
@@ -352,6 +361,15 @@ resources:
       date: "2026-01-02T09:00:00+01:00"
 ---
 ```
+
+### Gallery
+
+#### Lightbox Action
+
+`click`: Toggle the visibility of controls.
+`double click`: Zoom the current image.
+`swipe left and right`: Switch to the previous/next slide.
+`swipe down`: Close the lightbox.
 
 #### PhotoSwipe Caption
 
@@ -407,7 +425,7 @@ params:
           - { format: "${Exif.Make} ${Exif.Model}" }
 ```
 
-#### Justified
+#### Justified Layout
 
 **Support:** cascade;
 
@@ -506,9 +524,11 @@ related:
 
 ## Custom
 
+**Note:** Empty files or files that end up empty after building will be excluded.
+
 ### Custom Head
 
-You can add additional `head` elements in `layouts/_partials/common/head-custom.html`.
+You can add additional `head` elements in `layouts/_partials/common/custom-head.html`.
 
 ### Custom SCSS
 

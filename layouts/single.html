@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
-{{ with .Content }}{{ partial "components/prose.html" . }}{{ end }}
+{{ partial "components/prose.html" . }}
 {{ partial "components/gallery.html" . }}
 {{ partial "components/related.html" . }}
 {{ end }}
@@ -29,13 +29,13 @@
 {{ $enableFileInfo := $.Param "gallery.photoSwipe.fileInfo.enable" }}
 {{ $vars := dict }}
 {{ $params := dict
-	"closeTitle" (i18n "closeTitle")
-	"zoomTitle" (i18n "zoomTitle")
-	"arrowPrevTitle" (i18n "arrowPrevTitle")
-	"arrowNextTitle" (i18n "arrowNextTitle")
-	"errorMsg" (i18n "errorMsg")
-	"downloadTitle" (i18n "downloadTitle")
-	"fileInfoTitle" (i18n "fileInfoTitle")
+	"closeTitle" (T "closeTitle")
+	"zoomTitle" (T "zoomTitle")
+	"arrowPrevTitle" (T "arrowPrevTitle")
+	"arrowNextTitle" (T "arrowNextTitle")
+	"errorMsg" (T "unableLoad")
+	"downloadTitle" (T "downloadTitle")
+	"fileInfoTitle" (T "fileInfoTitle")
 	"enableDownload" $enableDownload
 	"enableCaption" $enableCaption
 	"enableFileInfo" $enableFileInfo

@@ -17,5 +17,3 @@ if (toggleEl) {
     if (htmlEl.classList.contains("auto")) window.hugoGallery.invertProseAll("auto");
   });
 }
-
-export {};

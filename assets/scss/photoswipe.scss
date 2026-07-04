@@ -2,14 +2,14 @@
 @use "abstracts/scrollbar";
 @use "abstracts/variables" as vars;
 
-@use "photoswipe/photoswipe";
+@use "../lib/photoswipe/photoswipe";
 
 .pswp {
-  --pswp-bg: #{"rgb(30 30 30 / 100%)"};
+  --pswp-bg: var(--color-pswp-bg);
 }
 
 .pswp__top-bar {
-  @extend %blur-11;
+  @extend %blur-caption;
   pointer-events: auto !important;
   display: flex;
   justify-content: center;
@@ -39,6 +39,7 @@
   line-height: var(--text-line-height-sm);
   margin: 0;
   margin-inline-start: var(--gap-2);
+  text-shadow: none;
 }
 
 .pswp__preloader {
@@ -54,7 +55,7 @@
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
-  color: rgb(255, 255, 255);
+  color: var(--color-text-1-white);
   top: 0;
   left: 0;
   width: 24px;
@@ -115,7 +116,7 @@
 }
 
 .pswp__bottom-bar {
-  @extend %blur-11;
+  @extend %blur-caption;
   display: none;
   position: fixed;
   inset: auto 0 0 0;

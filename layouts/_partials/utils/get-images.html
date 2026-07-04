@@ -1,6 +1,7 @@
 {{ $result := slice }}
 
-{{ range $image := partial "utils/filter-resources.html" (.Resources.ByType "image") }}
+{{ $resources := .Resources.ByType "image" }}
+{{ range $image := partial "utils/filter-resources.html" $resources }}
 	{{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
 	{{ with $image.Params.date }}
 		{{ $date = time.AsTime . }}
@@ -18,7 +19,7 @@
 		)
 	}}
 {{ end }}
-{{ range $.Param "gallery.sort" | collections.Reverse }}
+{{ range $.Param "image.sort" | collections.Reverse }}
 	{{ $result = sort $result .key .order }}
 {{ end }}
 

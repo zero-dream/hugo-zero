@@ -9,12 +9,13 @@ params:
   album:
     imageSpec:
       thumbnail: "fit 1200x1200"
-  gallery:
+  image:
     sort:
       - { key: "params.weight", order: "asc" }
       - { key: "params.date", order: "desc" }
       - { key: "title", order: "asc" }
       - { key: "name", order: "asc" }
+  gallery:
     photoSwipe:
       caption:
         enable: true

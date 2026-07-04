@@ -1,10 +1,6 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
-<section class="albums">
-	{{ range partial "utils/filter-pages.html" .Pages }}
-		{{ partial "components/album.html" . }}
-	{{ end }}
-</section>
+{{ partial "components/albums.html" (dict "data" . "type" "page") }}
 {{ end }}
 
 {{ define "head-assets" }}

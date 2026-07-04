@@ -3,7 +3,9 @@
 	<head>
 		{{ partial "common/head.html" . }}
 		{{ block "head-assets" . }}{{ end }}
-		{{ partial "common/head-custom.html" . }}
+		{{ partial "import/css-sass.html" (dict "path" "scss/common/custom.scss" "vars" dict) }}
+		{{ partial "import/js-esm.html" (dict "path" "js/common/custom.js" "params" dict) }}
+		{{ with partial "common/custom-head.html" . }}{{ . }}{{ end }}
 	</head>
 	<body>
 		{{ block "header" . }}{{ partial "common/header.html" . }}{{ end }}

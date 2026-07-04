@@ -1,0 +1,2 @@
+# Modify: static/_assets
+publishDir: "_assets"

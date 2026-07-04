@@ -1,5 +1,0 @@
-/* custom js */
-
-// ... code
-
-export {};

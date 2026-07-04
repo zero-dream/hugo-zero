@@ -2,7 +2,7 @@
 {{ $params := .params | default dict }}
 
 {{ $baseName := path.BaseName $path }}
-{{ $targetPath := printf "js/%s.js" $baseName }}
+{{ $targetPath := printf "%s/js/%s.js" hugo.Data.config.publishDir $baseName }}
 {{ with resources.Get $path }}
 	{{ $opts := dict
 		"format" "iife"
@@ -11,11 +11,13 @@
 		"params" $params
 	}}
 	{{ with . | js.Build $opts }}
-		{{ if hugo.IsDevelopment }}
-			<script src="{{ .RelPermalink }}"></script>
-		{{ else }}
-			{{ with . | resources.Fingerprint }}
-      <script src="{{ .RelPermalink }}"></script>
+		{{ if .Content }}
+			{{ if hugo.IsDevelopment }}
+				<script src="{{ .RelPermalink }}"></script>
+			{{ else }}
+				{{ with . | resources.Fingerprint }}
+      		<script src="{{ .RelPermalink }}"></script>
+				{{ end }}
 			{{ end }}
 		{{ end }}
 	{{ end }}

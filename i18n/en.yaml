@@ -1,17 +1,18 @@
 menu: Menu
 theme: Theme
-home: Home
+unableLoad: Unable to load
 pageNotFound: Page not found
-noData: No data
-toHomepage: Go to homepage
+relatedAlbums: Related Albums
+
+confirmTitle: Confirm
+cancelTitle: Cancel
 closeTitle: Close
 zoomTitle: Zoom
 arrowPrevTitle: Previous
 arrowNextTitle: Next
-errorMsg: The photo cannot be loaded
 downloadTitle: Download
 fileInfoTitle: File Info
-relatedAlbums: Related Albums
+
 photoCount:
   one: 1 photo
   other: "{{ . }} photos"

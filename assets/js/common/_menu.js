@@ -1,4 +1,5 @@
 const bodyEl = document.body;
+const prevBodyOverflow = document.body.style.overflow;
 const headerEl = document.getElementById("header");
 const navEl = headerEl.querySelector("nav");
 const toggleEl = document.getElementById("menu-toggle");
@@ -9,7 +10,7 @@ if (toggleEl) {
     event.preventDefault();
     toggleEl.ariaExpanded = !menuEl.classList.contains("visible");
     if (menuEl.classList.contains("visible")) {
-      bodyEl.style.overflow = "";
+      bodyEl.style.overflow = prevBodyOverflow;
       navEl.classList.add("blur-01");
       menuEl.classList.remove("visible");
       menuEl.style.opacity = "0";
@@ -30,5 +31,3 @@ if (toggleEl) {
     }
   });
 }
-
-export {};
