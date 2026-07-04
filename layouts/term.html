@@ -4,8 +4,4 @@
 {{ end }}
 
 {{ define "head-assets" }}
-{{ $vars := dict }}
-{{ $params := dict }}
-{{ partial "import/css-sass.html" (dict "path" "scss/lazysizes.scss" "vars" $vars) }}
-{{ partial "import/js-esm.html" (dict "path" "js/lazysizes.js" "params" $params) }}
 {{ end }}

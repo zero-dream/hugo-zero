@@ -7,7 +7,7 @@
 		<section class="featured">
 			<a class="featured-card" href="{{ .RelPermalink }}" title="{{ $.Title }}">
 				<figure style="background-color: {{ $color }};">
-					<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $.Title }}" />
+					<img loading="lazy" decoding="async" src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="{{ $.Title }}" />
 				</figure>
 				<div>
 					<h2>{{ .Title }}</h2>

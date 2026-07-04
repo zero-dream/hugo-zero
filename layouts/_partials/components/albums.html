@@ -21,7 +21,7 @@
 			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
 			<a class="album-card" href="{{ $page.RelPermalink }}">
 				<figure style="background-color: {{ $color }};">
-					<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $page.Title }}" />
+					<img loading="lazy" decoding="async" src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="{{ $page.Title }}" />
 				</figure>
 				<div>
 					<h2>{{ $page.Title }}</h2>

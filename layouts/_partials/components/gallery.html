@@ -35,7 +35,7 @@
 
 		<a class="fj-gallery-item" href="{{ $downImage.RelPermalink }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}">
 			<figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
-				<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $title }}" />
+				<img loading="lazy" decoding="async" src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="{{ $title }}" />
 				<div class="image-caption"><span>{{ partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}</span></div>
 
 				{{ if $caption.enable }}
