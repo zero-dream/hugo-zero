@@ -520,17 +520,17 @@ params:
 
 **Note:** Empty files or files that end up empty after building will be excluded.
 
-### Custom Head
-
-You can add additional `head` elements in `layouts/_partials/common/custom-head.html`.
-
 ### Custom SCSS
 
-CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/scss/common/custom.scss`.
+CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/scss/custom/custom.scss`.
 
 ### Custom JavaScript
 
-You can add additional JavaScript in `assets/js/common/custom.js`.
+You can add additional JavaScript in `assets/js/custom/custom.js`.
+
+### Custom Head
+
+You can add additional `head` elements in `layouts/_partials/custom/custom-head.html`.
 
 ## Other
 
