@@ -15,10 +15,6 @@ if (toggleEl) {
       menuEl.style.opacity = "0";
       menuEl.style.transform = "translateY(-20%)";
       menuEl.style.visibility = "hidden";
-      menuEl.addEventListener("transitionend", function handler(e) {
-        menuEl.removeEventListener("transitionend", handler);
-        menuEl.style.display = "none";
-      });
     } else {
       bodyEl.style.overflow = "hidden";
       navEl.classList.remove("blur-01");
