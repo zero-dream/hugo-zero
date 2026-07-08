@@ -18,7 +18,7 @@
 				"loaders" (dict ".png" "dataurl" ".svg" "dataurl")
 				"minify" (cond hugo.IsDevelopment false true)
 				"sourceMap" (cond hugo.IsDevelopment "linked" "none")
-				"target" (slice "chrome115" "edge115" "firefox116" "ios16.4" "opera101" "safari16.4")
+				"target" (site.Params.cssBuild.target | default slice)
 				"targetPath" $targetPath
 				"vars" $vars
 			}}

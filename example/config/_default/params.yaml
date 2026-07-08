@@ -68,3 +68,5 @@ params:
     youtube: "https://www.youtube.com/"
     email: "mailto:user@example.com"
     whatsapp: "1234567890"
+  cssBuild:
+    target: ["chrome115", "edge115", "firefox116", "ios16.4", "opera101", "safari16.4"]
