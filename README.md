@@ -479,6 +479,27 @@ params:
     y: 0.5
 ```
 
+### Related Content
+
+**Support:** cascade;
+
+Configure related content.
+
+`enable`: (bool) Whether to enable related content.
+
+`limit`: (int) Limit on the amount of related content.
+
+```yaml
+params:
+  related:
+    enable: true
+    limit: 3
+```
+
+If related content is available for your site (e.g. when keywords or tags are used), related albums are shown below each gallery.
+
+Read more about this in the [Hugo Docs](https://gohugo.io/configuration/related-content/).
+
 ### Social Icons
 
 Add social icons on the bottom of each page.
@@ -493,32 +514,6 @@ params:
     youtube: "https://www.youtube.com/"
     email: "mailto:user@example.com"
     whatsapp: "1234567890"
-```
-
-### Related Content
-
-If related content is available for your site (e.g. when keywords or tags are used), related albums are shown below each gallery. Read more about this in the [Hugo Docs](https://gohugo.io/content-management/related/#configure-related-content).
-
-```yaml
-related:
-  includeNewer: true
-  threshold: 10
-  toLower: false
-  indices:
-    - applyFilter: false
-      cardinalityThreshold: 0
-      name: "categories"
-      pattern: ""
-      toLower: false
-      type: "basic"
-      weight: 10
-    - applyFilter: false
-      cardinalityThreshold: 0
-      name: "keywords"
-      pattern: ""
-      toLower: false
-      type: "basic"
-      weight: 50
 ```
 
 ## Custom

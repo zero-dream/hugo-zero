@@ -41,9 +41,11 @@ params:
     imageSpec:
       thumbnail: "fit 600x600"
       lightbox: "fit 1600x1600"
+  related:
+    enable: true
+    limit: 3
 
   # site.Params
-  relatedLimit: 3
   imageSpec:
     rssCover: "fill 900x600"
     featured: "fit 1600x1600"

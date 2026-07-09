@@ -1,16 +1,18 @@
 {{ $data := .data }}
 {{ $type := .type }}
+{{ $related := .related }}
 
 {{ $pages := slice }}
 {{ if eq $type "page" }}
 	{{ $pages = $data.Pages }}
 {{ else if eq $type "related" }}
-	{{ $pages = $data }}
+	{{ $pages = $related }}
 {{ end }}
 
 {{ $pages = partial "utils/filter-pages.html" $pages }}
 {{ if eq $type "related" }}
-	{{ $pages = $pages | first site.Params.relatedLimit }}
+	{{ $relatedLimit := $data.Param "related.limit" }}
+	{{ $pages = $pages | first $relatedLimit }}
 {{ end }}
 
 <section class="albums">

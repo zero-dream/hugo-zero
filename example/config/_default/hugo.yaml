@@ -31,3 +31,37 @@ outputs:
     - "RSS"
   page:
     - "HTML"
+
+related:
+  threshold: 80
+  includeNewer: true
+  toLower: false
+  indices:
+    - weight: 100
+      name: "keywords"
+      type: "basic"
+      applyFilter: false
+      pattern: ""
+      toLower: false
+      cardinalityThreshold: 0
+    - weight: 80
+      name: "tags"
+      type: "basic"
+      applyFilter: false
+      pattern: ""
+      toLower: false
+      cardinalityThreshold: 0
+    - weight: 70
+      name: "categories"
+      type: "basic"
+      applyFilter: false
+      pattern: ""
+      toLower: false
+      cardinalityThreshold: 0
+    - weight: 10
+      name: "date"
+      type: "basic"
+      applyFilter: false
+      pattern: ""
+      toLower: false
+      cardinalityThreshold: 0

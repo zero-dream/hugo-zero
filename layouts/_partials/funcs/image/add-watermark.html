@@ -1,31 +1,28 @@
 {{/* Copyright (C) 2026 ZeroDream */}}
 {{/* https://github.com/zero-dream */}}
 
+{{ $data := .data }}
 {{ $image := .image }}
-{{ $page := .page }}
 {{ $result := $image }}
 
-{{ $mark := resources.Get ($page.Param "watermark.path") }}
-{{ if $mark }}
-	{{ $size := $page.Param "watermark.size" }}
+{{ $enable := $data.Param "watermark.enable" }}
+{{ if $enable }}
+	{{ $path := $data.Param "watermark.path" }}
+	{{ $mark := resources.Get $path }}
+
+	{{ $size := $data.Param "watermark.size" }}
 	{{ $markHeight := int (mul $image.Height $size) }}
 	{{ $resizedMark := ($mark.Resize (printf "x%d" $markHeight)) }}
 
-	{{ $x := float ($page.Param "watermark.x") }}
-	{{ $y := float ($page.Param "watermark.y") }}
-
+	{{ $x := float ($data.Param "watermark.x") }}
+	{{ $y := float ($data.Param "watermark.y") }}
 	{{ $offsetX := int (mul $x (sub $image.Width $resizedMark.Width)) }}
 	{{ $offsetY := int (mul $y (sub $image.Height $resizedMark.Height)) }}
 
-	{{ $opacity := float ($page.Param "watermark.opacity") }}
+	{{ $opacity := float ($data.Param "watermark.opacity") }}
 	{{ $opaqueMark := $resizedMark.Filter (images.Opacity $opacity) }}
 
 	{{ $result = $image.Filter (images.Overlay $opaqueMark $offsetX $offsetY) }}
-{{ else }}
-
-	{{ if $page.Param "watermark.path" }}
-		{{ errorf "watermark file not found: %s" ($page.Param "watermark.path") }}
-	{{ end }}
 
 {{ end }}
 
