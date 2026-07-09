@@ -1,4 +1,4 @@
-[example]: /example
+[example]: /.example
 [str-func]: /layouts/_partials/funcs/exec/transform/
 
 # Hugo Gallery Theme
