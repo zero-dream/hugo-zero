@@ -19,7 +19,7 @@
 {{ partial "import/css-sass.html" (dict "path" "scss/gallery.scss" "vars" $vars) }}
 {{ partial "import/js-esm.html" (dict "path" "js/gallery.js" "params" $params) }}
 
-{{ $enableDownload := $.Param "downImage.enable" }}
+{{ $enableDownload := $.Param "download.enable" }}
 {{ $enableCaption := $.Param "gallery.photoSwipe.caption.enable" }}
 {{ $enableFileInfo := $.Param "gallery.photoSwipe.fileInfo.enable" }}
 {{ $vars := dict }}

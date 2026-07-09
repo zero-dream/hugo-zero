@@ -3,7 +3,7 @@ params:
   defaultTheme: "auto" # Value: auto; light; dark;
 
   # .Param
-  downImage:
+  download:
     enable: true
     imageSpec: "fit 3200x3200"
   album:
