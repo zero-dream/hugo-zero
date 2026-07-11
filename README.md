@@ -13,19 +13,16 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 
 - Justified images gallery
 - Image lightbox displays Exif captions and file info
-
 - Download image
 - Add a watermark to the image
 - SEO with Open Graph tags
 - Custom select cover image
 - A page used to display all taxonomies
-
 - Private albums
 - Dark color scheme
 - Theme toggle
 - Responsive design
 - Image lazy loading
-
 - Blur effect
 - Top navigation bar pinned
 
@@ -35,7 +32,6 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 
 - Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
 - Photoswipe and lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
-
 - Prose typography with [tailwindlabs/tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography)
 - Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
 - Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
@@ -47,10 +43,8 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 Although not required in all cases, Git, Go, and Dart Sass are commonly used when working with Hugo.
 
 - [Hugo Extended >= 0.162.0](https://gohugo.io/installation/)
-
 - [Dart Sass](https://gohugo.io/functions/css/sass/#dart-sass)
 - [Go](https://go.dev/doc/install)
-
 - Browser: chrome115 edge115 firefox116 ios16.4 opera101 safari16.4
 
 ### Installation
@@ -114,7 +108,7 @@ content/
 ├── about.md            <-- not listed in album list
 ├── animals/
 │   ├── _index.md
-│   ├── cover.jpeg      <-- animals album cover (must)
+│   ├── cover.jpeg      <-- animals album cover (optional)
 │   ├── cats/
 │   |   ├── index.md
 │   |   ├── cat1.jpeg   <-- cats album cover (first)
@@ -134,8 +128,8 @@ content/
 - `/about.md`: Not a page bundle and does not have image resources. It is not displayed in the album list.
 - `/animals`: A branch bundle (has `_index.md` and has children) => Displayed as album list (`list` layout).
 - `/nature`: A leaf bundle (has `index.md` and no children) => Displayed as gallery (`single` layout).
-- The list page must have an image.
-- Albums without an image are not shown.
+- If the album folder has no images, use the cover of the first sub-album.
+- Albums without a cover will not show up.
 
 ## Front Matter
 
@@ -230,7 +224,9 @@ params:
 
 ### Album Cover
 
-By default, the cover image of an album is the first image in its folder. To select a specific image (which must be part of the album), use the `cover` resource parameter in the front matter:
+By default, the cover image of an album is the first image in its folder.
+
+To select a specific image (which must be part of the album), use the `cover` resource parameter in the front matter:
 
 ```yaml
 ---

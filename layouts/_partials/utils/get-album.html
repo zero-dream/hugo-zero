@@ -1,25 +1,34 @@
+{{ $data := .data }}
+{{ $type := .type }}
 {{ $album := dict }}
 
-{{ $resources := .Resources.ByType "image" }}
-{{ $images := partial "utils/get-images.html" . }}
-{{ if $images }}
-	{{ $cover := (index $images 0).image }}
-	{{ range first 1 (where $resources "Params.cover" "==" true) }}
-		{{ $cover = . }}
-	{{ end }}
-	{{ $cover = partial "funcs/image/add-watermark.html" (dict "data" $ "image" $cover) }}
+{{ $images := partial "utils/get-images.html" $data }}
+{{ $cover := partial "utils/get-cover.html" (dict "data" $data "images" $images) }}
 
+{{ if not $cover }}
+	{{ with $data.Pages }}
+		{{ $page := index . 0 }}
+		{{ if $page.IsSection }}
+			{{ $album = partial "utils/get-album.html" (dict "data" $page "type" $type) }}
+		{{ else if $page.IsPage }}
+			{{ $images = partial "utils/get-images.html" $page }}
+			{{ $cover = partial "utils/get-cover.html" (dict "data" $page "images" $images) }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ if $cover }}
+	{{ $cover = partial "funcs/image/add-watermark.html" (dict "data" $data "image" $cover) }}
 	{{ $albumCount := 0 }}
 	{{ $imageCount := 0 }}
-	{{ if .IsPage }}
+	{{ if $data.IsPage }}
 		{{ $imageCount = len $images }}
 	{{ else }}
-		{{ range partial "utils/filter-pages.html" .RegularPagesRecursive }}
+		{{ range partial "utils/filter-pages.html" $data.RegularPagesRecursive }}
 			{{ $albumCount = add $albumCount 1 }}
 			{{ $imageCount = add $imageCount (len (partial "utils/filter-resources.html" (.Resources.ByType "image"))) }}
 		{{ end }}
 	{{ end }}
-
 	{{ $album = dict
 		"cover" $cover
 		"albumCount" $albumCount

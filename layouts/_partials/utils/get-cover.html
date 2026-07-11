@@ -1,0 +1,10 @@
+{{ $data := .data }}
+{{ $images := .images }}
+
+{{ $cover := (index $images 0).image }}
+{{ $resources := $data.Resources.ByType "image" }}
+{{ range first 1 (where $resources "Params.cover" "==" true) }}
+	{{ $cover = . }}
+{{ end }}
+
+{{ return $cover }}

@@ -8,7 +8,7 @@ keywords: ["Animals", "Photos", "Cats", "Dogs"]
 categories: ["Animals"]
 menus: "main" # Display the subitems of the current page in the [main] menu.
 
-# The list page must have an image, if not set, the first image will be used.
+# Set a cover for the list page
 resources:
   - src: cover.jpeg
     params:

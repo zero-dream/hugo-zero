@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
 {{ partial "components/prose.html" . }}
-{{ partial "components/albums.html" (dict "data" . "type" "page") }}
+{{ partial "components/albums.html" (dict "data" . "type" "list") }}
 {{ end }}
 
 {{ define "head-assets" }}

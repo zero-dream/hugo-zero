@@ -3,10 +3,10 @@
 {{ $related := .related }}
 
 {{ $pages := slice }}
-{{ if eq $type "page" }}
-	{{ $pages = $data.Pages }}
-{{ else if eq $type "related" }}
+{{ if eq $type "related" }}
 	{{ $pages = $related }}
+{{ else }}
+	{{ $pages = $data.Pages }}
 {{ end }}
 
 {{ $pages = partial "utils/filter-pages.html" $pages }}
@@ -17,7 +17,7 @@
 
 <section class="albums">
 	{{ range $page := $pages }}
-		{{ with partial "utils/get-album.html" $page }}
+		{{ with partial "utils/get-album.html" (dict "data" $page "type" $type) }}
 			{{ $thumbnailSpec := $page.Param "album.imageSpec.thumbnail" }}
 			{{ $thumbnail := .cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
 			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}

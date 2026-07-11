@@ -32,7 +32,7 @@
 	<meta property="og:type" content="website" />
 {{ end }}
 
-{{ $albumData := partial "utils/get-album.html" . }}
+{{ $albumData := partial "utils/get-album.html" (dict "data" . "type" "opengraph") }}
 {{ if $albumData.cover }}
 	{{ $imageSpec := printf "fit %s" (site.Params.imageSpec.openGraph) }}
 	{{ $image := $albumData.cover.Filter (slice images.AutoOrient (images.Process $imageSpec)) }}

@@ -1,85 +1,86 @@
-<section class="fj-gallery hidden" id="gallery">
-	{{ $publishResources := $.Param "build.publishResources" }}
-	{{ $enableDownload := $.Param "download.enable" }}
-	{{ $downImageSpec := $.Param "download.imageSpec" }}
-	{{ $caption := $.Param "gallery.photoSwipe.caption" }}
-	{{ $fileInfo := $.Param "gallery.photoSwipe.fileInfo" }}
-	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
-	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
+{{ with partial "utils/get-images.html" . }}
+	<section class="fj-gallery hidden" id="gallery">
+		{{ $publishResources := $.Param "build.publishResources" }}
+		{{ $enableDownload := $.Param "download.enable" }}
+		{{ $downImageSpec := $.Param "download.imageSpec" }}
+		{{ $caption := $.Param "gallery.photoSwipe.caption" }}
+		{{ $fileInfo := $.Param "gallery.photoSwipe.fileInfo" }}
+		{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
+		{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
 
-	{{ $images := partial "utils/get-images.html" . }}
-	{{ range $images }}
-		{{ $image := .image }}
-		{{ $name := .name }}
-		{{ $title := .title }}
-		{{ $params := .params }}
+		{{ range . }}
+			{{ $image := .image }}
+			{{ $name := .name }}
+			{{ $title := .title }}
+			{{ $params := .params }}
 
-		{{ $image = partial "funcs/image/add-watermark.html" (dict "data" $ "image" $image) }}
-		{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
-		{{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
-		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
-		{{ $downImage := $image }}
-		{{ $title = partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}
+			{{ $image = partial "funcs/image/add-watermark.html" (dict "data" $ "image" $image) }}
+			{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
+			{{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
+			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+			{{ $downImage := $image }}
+			{{ $title = partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}
 
-		{{ if $enableDownload }}
-			{{ if eq $downImageSpec "" }}
-				{{ if not $publishResources }}
-					{{ $downImage = $lightbox }}
+			{{ if $enableDownload }}
+				{{ if eq $downImageSpec "" }}
+					{{ if not $publishResources }}
+						{{ $downImage = $lightbox }}
+					{{ end }}
+				{{ else }}
+					{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImageSpec)) }}
 				{{ end }}
 			{{ else }}
-				{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImageSpec)) }}
+				{{ $downImage = $lightbox }}
 			{{ end }}
-		{{ else }}
-			{{ $downImage = $lightbox }}
+
+			<a class="fj-gallery-item" href="{{ $downImage.RelPermalink }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}">
+				<figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
+					<img loading="lazy" decoding="async" src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="{{ $title }}" />
+					<div class="image-caption"><span>{{ partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}</span></div>
+
+					{{ if $caption.enable }}
+						<div class="hidden pswp-caption">
+							<div class="bar-caption">
+								<table>
+									<tbody>
+										<tr>
+											{{ $captionData := slice }}
+											{{ range $caption.data }}{{ $captionData = $captionData | append .format }}{{ end }}
+											{{ $captions := partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $captionData "default" "-") }}
+											{{ range $index, $value := $caption.data }}
+												{{ $caption := index $captions $index }}
+												<td style="min-width: {{ $value.minWidth }};"><pre>{{ $caption }}</pre></td>
+											{{ end }}
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					{{ end }}
+
+					{{ if $fileInfo.enable }}
+						<div class="hidden pswp-fileinfo">
+							<div class="bar-fileinfo {{ if $fileInfo.firstBigger }}fileinfo-first-bigger{{ end }}">
+								{{ $fileInfoData := slice }}
+								{{ range $fileInfo.data }}{{ $fileInfoData = $fileInfoData | append .format }}{{ end }}
+								{{ with partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $fileInfoData "default" "") }}
+									{{ range . }}<pre>{{ . }}</pre>{{ end }}
+								{{ else }}
+									<span>None</span>
+								{{ end }}
+							</div>
+						</div>
+					{{ end }}
+
+					<meta itemprop="caption" content="{{ $title }}" />
+					<meta itemprop="contentUrl" content="{{ $downImage.RelPermalink }}" />
+					{{ with site.Params.Author }}
+						<span itemscope itemprop="creator" itemtype="https://schema.org/Person">
+							<meta itemprop="name" content="{{ .name }}" />
+						</span>
+					{{ end }}
+				</figure>
+			</a>
 		{{ end }}
-
-		<a class="fj-gallery-item" href="{{ $downImage.RelPermalink }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}">
-			<figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
-				<img loading="lazy" decoding="async" src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="{{ $title }}" />
-				<div class="image-caption"><span>{{ partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}</span></div>
-
-				{{ if $caption.enable }}
-					<div class="hidden pswp-caption">
-						<div class="bar-caption">
-							<table>
-								<tbody>
-									<tr>
-										{{ $captionData := slice }}
-										{{ range $caption.data }}{{ $captionData = $captionData | append .format }}{{ end }}
-										{{ $captions := partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $captionData "default" "-") }}
-										{{ range $index, $value := $caption.data }}
-											{{ $caption := index $captions $index }}
-											<td style="min-width: {{ $value.minWidth }};"><pre>{{ $caption }}</pre></td>
-										{{ end }}
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				{{ end }}
-
-				{{ if $fileInfo.enable }}
-					<div class="hidden pswp-fileinfo">
-						<div class="bar-fileinfo {{ if $fileInfo.firstBigger }}fileinfo-first-bigger{{ end }}">
-							{{ $fileInfoData := slice }}
-							{{ range $fileInfo.data }}{{ $fileInfoData = $fileInfoData | append .format }}{{ end }}
-							{{ with partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $fileInfoData "default" "") }}
-								{{ range . }}<pre>{{ . }}</pre>{{ end }}
-							{{ else }}
-								<span>None</span>
-							{{ end }}
-						</div>
-					</div>
-				{{ end }}
-
-				<meta itemprop="caption" content="{{ $title }}" />
-				<meta itemprop="contentUrl" content="{{ $downImage.RelPermalink }}" />
-				{{ with site.Params.Author }}
-					<span itemscope itemprop="creator" itemtype="https://schema.org/Person">
-						<meta itemprop="name" content="{{ .name }}" />
-					</span>
-				{{ end }}
-			</figure>
-		</a>
-	{{ end }}
-</section>
+	</section>
+{{ end }}
