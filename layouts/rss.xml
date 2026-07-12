@@ -1,22 +1,4 @@
-{{- $authorEmail := "" }}
-{{- with site.Params.author }}
-	{{- if reflect.IsMap . }}
-		{{- with .email }}
-			{{- $authorEmail = . }}
-		{{- end }}
-	{{- end }}
-{{- end }}
-
-{{- $authorName := "" }}
-{{- with site.Params.author }}
-	{{- if reflect.IsMap . }}
-		{{- with .name }}
-			{{- $authorName = . }}
-		{{- end }}
-	{{- else }}
-		{{- $authorName = . }}
-	{{- end }}
-{{- end }}
+{{- $author := partial "utils/get-author.html" }}
 
 {{- $pctx := . }}
 {{- if .IsHome }}{{ $pctx = .Site }}{{ end }}
@@ -40,11 +22,11 @@
 		<description>Recent content {{ if ne .Title .Site.Title }}{{ with .Title }}in {{ . }} {{ end }}{{ end }}on {{ .Site.Title }}</description>
 		<generator>Hugo</generator>
 		<language>{{ site.Language.Locale }}</language>
-		{{ with $authorEmail }}
-			<managingEditor>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</managingEditor>
+		{{ with $author.email }}
+			<managingEditor>{{ . }}{{ with $author.name }} ({{ . }}){{ end }}</managingEditor>
 		{{ end }}
-		{{ with $authorEmail }}
-			<webMaster>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</webMaster>
+		{{ with $author.email }}
+			<webMaster>{{ . }}{{ with $author.name }} ({{ . }}){{ end }}</webMaster>
 		{{ end }}
 		{{ with .Site.Copyright }}
 			<copyright>{{ . }}</copyright>
@@ -61,7 +43,7 @@
 				<title>{{ .Title }}</title>
 				<link>{{ .Permalink }}</link>
 				<pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
-				{{ with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
+				{{ with $author.email }}<author>{{ . }}{{ with $author.name }} ({{ . }}){{ end }}</author>{{ end }}
 				<guid>{{ .Permalink }}</guid>
 
 				{{ $albumData := partial "utils/get-album.html" (dict "data" . "type" "rss") }}

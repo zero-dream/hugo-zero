@@ -1,0 +1,25 @@
+{{ $author := dict }}
+
+{{ $email := "" }}
+{{ with site.Params.author }}
+	{{ if reflect.IsMap . }}
+		{{ with .email }}
+			{{ $email = . }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ $name := "" }}
+{{ with site.Params.author }}
+	{{ if reflect.IsMap . }}
+		{{ with .name }}
+			{{ $name = . }}
+		{{ end }}
+	{{ else }}
+		{{ $name = . }}
+	{{ end }}
+{{ end }}
+
+{{ $author := (dict "email" $email "name" $name) }}
+
+{{ return $author }}

@@ -74,9 +74,10 @@
 
 					<meta itemprop="caption" content="{{ $title }}" />
 					<meta itemprop="contentUrl" content="{{ $downImage.RelPermalink }}" />
-					{{ with site.Params.Author }}
+					{{ $author := partial "utils/get-author.html" }}
+					{{ with $author.name }}
 						<span itemscope itemprop="creator" itemtype="https://schema.org/Person">
-							<meta itemprop="name" content="{{ .name }}" />
+							<meta itemprop="name" content="{{ . }}" />
 						</span>
 					{{ end }}
 				</figure>
