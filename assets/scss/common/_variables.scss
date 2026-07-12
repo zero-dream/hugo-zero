@@ -65,6 +65,7 @@
   --color-blur-2: light-dark(rgb(255 255 255 / 60%), rgb(0 0 0 / 60%));
   --color-bg-body: light-dark(rgb(255 255 255), rgb(18 18 18));
   --color-bg-1: light-dark(rgb(255 255 255), rgb(18 18 18));
+  --color-border-focus: light-dark(rgb(0 0 0 / 100%), rgb(255 255 255 / 100%));
   --color-border-1: light-dark(color-mix(in oklab, oklch(98% 0 0deg), #000 10%), color-mix(in oklab, oklch(0% 0 0deg), #fff 40%));
   --color-hover-1: var(--color-border-1);
   --color-pswp-bg: light-dark(rgb(30 30 30 / 100%), rgb(30 30 30 / 100%));
