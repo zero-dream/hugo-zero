@@ -1,3 +1,6 @@
+@use "../../lib/tailwindcss/font" as font;
+@use "../../lib/tailwindcss/shadow" as shadow;
+
 @use "../abstracts/styles";
 @use "../abstracts/variables" as vars;
 
@@ -22,13 +25,11 @@ body > main > section.fj-gallery {
 
       & > .image-caption {
         @extend %blur-caption;
+        @include font.text-xs;
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        font-size: var(--text-font-size-xs);
-        line-height: var(--text-line-height-xs);
-        text-shadow: var(--text-shadow-xs);
         padding: var(--gap-1);
         color: var(--color-text-1-white);
         display: flex;
@@ -89,8 +90,7 @@ body > main > section.albums {
 
   & > .album-card {
     display: flex;
-    flex-direction: column;
-    text-shadow: var(--text-shadow-sm);
+    flex-flow: column nowrap;
 
     & > figure {
       aspect-ratio: 3/2;
@@ -107,28 +107,26 @@ body > main > section.albums {
       }
 
       &:hover {
+        @include shadow.box-lg;
         transform: scale(1.02);
-        box-shadow: var(--box-shadow-lg);
       }
     }
 
     & > div {
       display: flex;
+      flex-flow: column nowrap;
       flex: 1 1 auto;
-      flex-direction: column;
       gap: var(--gap-1);
       padding: 1rem;
 
       & > h2 {
-        font-weight: 600;
-        font-size: var(--text-font-size-lg);
-        line-height: var(--text-line-height-lg);
+        @include font.text-lg;
+        @include font.bold;
       }
 
       & > p {
+        @include font.text-sm;
         color: var(--color-text-2);
-        font-size: var(--text-font-size-sm);
-        line-height: var(--text-line-height-sm);
       }
     }
   }
@@ -144,7 +142,6 @@ body > main > section.featured {
     aspect-ratio: 1/1;
     width: 100%;
     overflow: hidden;
-    text-shadow: var(--text-shadow-sm);
 
     @media (min-width: vars.$breakpoint-sm) {
       aspect-ratio: 16/9;
@@ -170,7 +167,7 @@ body > main > section.featured {
       position: absolute;
       bottom: 0;
       display: flex;
-      flex-direction: column;
+      flex-flow: column nowrap;
       justify-content: flex-end;
       gap: var(--gap-2);
       padding: 1.5rem;
@@ -179,14 +176,12 @@ body > main > section.featured {
       box-sizing: border-box;
 
       & > h2 {
-        font-weight: 600;
-        font-size: var(--text-font-size-2xl);
-        line-height: var(--text-line-height-2xl);
+        @include font.text-2xl;
+        @include font.bold;
       }
 
       & > p {
-        font-size: var(--text-font-size-sm);
-        line-height: var(--text-line-height-sm);
+        @include font.text-sm;
       }
     }
 
@@ -198,40 +193,38 @@ body > main > section.featured {
 
 body > main > section.terms {
   & > .terms-title {
-    font-weight: bold;
-    font-size: var(--text-font-size-2xl);
-    line-height: var(--text-line-height-2xl);
+    @include font.text-2xl;
+    @include font.bold;
     margin-bottom: 1rem;
     color: var(--color-text-2);
   }
 
   & > .term-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     gap: var(--gap-2);
 
     & > .card-term {
       display: flex;
-      flex-direction: column;
+      flex-flow: column nowrap;
       gap: var(--gap-1);
       padding: 1rem;
       border-radius: var(--border-radius-2);
-      border: 1px solid var(--color-border-1);
+      border: 1px solid var(--color-card-bg);
+      background-color: var(--color-card-bg);
 
       & > .card-title {
-        font-weight: 600;
-        font-size: var(--text-font-size-lg);
-        line-height: var(--text-line-height-lg);
+        @include font.text-lg;
+        @include font.bold;
       }
 
       & > .card-body {
+        @include font.text-sm;
         color: var(--color-text-2);
-        font-size: var(--text-font-size-sm);
-        line-height: var(--text-line-height-sm);
       }
 
       &:hover {
-        background-color: var(--color-hover-1);
+        background-color: var(--color-card-hover);
       }
     }
   }

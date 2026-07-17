@@ -1,8 +1,11 @@
-@use "../../lib/tailwindcss/preflight";
+@use "../../lib/tailwindcss/variables" as tw-variables;
+@use "../../lib/tailwindcss/preflight" as tw-preflight;
 
 /*! hugo-gallery | https://github.com/zero-dream/hugo-gallery */
 
 @use "variables";
 @use "components";
+@use "size";
+
 @use "styles";
 @use "sections";

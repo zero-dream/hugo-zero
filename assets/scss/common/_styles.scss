@@ -1,3 +1,5 @@
+@use "../../lib/tailwindcss/font" as font;
+
 @use "../abstracts/styles";
 @use "../abstracts/scrollbar";
 
@@ -8,10 +10,10 @@ html {
 
 body {
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
   width: 100%;
   min-height: 100%;
-  background-color: var(--color-bg-body);
+  background-color: var(--color-body-bg);
   color: var(--color-text-1);
 }
 
@@ -36,7 +38,7 @@ body > header > nav {
       justify-content: center;
 
       .header-title {
-        font-size: var(--text-font-size-xl);
+        @include font.text-xl;
       }
 
       .icon {
@@ -85,6 +87,8 @@ body > header > nav {
 }
 
 body > header > menu {
+  @include font.text-xl;
+  @include font.bold;
   position: fixed;
   z-index: 999;
   inset: 0 auto auto auto;
@@ -94,15 +98,12 @@ body > header > menu {
   padding: 6rem 3rem var(--gap-footer);
 
   color: var(--color-text-2);
-  font-weight: 600;
-  font-size: var(--text-font-size-xl);
-  line-height: var(--text-line-height-xl);
   user-select: none;
   text-align: center;
   scrollbar-gutter: stable;
 
   display: none;
-  flex-direction: column;
+  flex-flow: column nowrap;
   gap: var(--gap-2);
   transition:
     opacity 0.8s var(--transition-func-01),
@@ -146,12 +147,10 @@ body > main {
 }
 
 body > footer {
+  @include font.text-sm;
   color: var(--color-text-2);
-  font-size: var(--text-font-size-sm);
-  line-height: var(--text-line-height-sm);
-
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
   gap: var(--gap-footer);
   padding: 0 var(--gap-2) var(--gap-footer);
 
@@ -188,7 +187,7 @@ body > footer {
 
 hgroup {
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
   align-items: center;
   gap: var(--gap-3);
   max-width: 65ch;
@@ -197,10 +196,8 @@ hgroup {
     margin: 0 auto var(--gap-main);
 
     h1 {
-      font-weight: 600;
-      font-size: var(--text-font-size-4xl);
-      line-height: var(--text-line-height-4xl);
-      text-shadow: var(--text-shadow-md);
+      @include font.text-4xl;
+      @include font.bold;
     }
   }
 
@@ -208,15 +205,13 @@ hgroup {
     margin: 0 auto calc(var(--gap-main) - var(--gap-1));
 
     h2 {
-      font-weight: 600;
-      font-size: var(--text-font-size-2xl);
-      line-height: var(--text-line-height-2xl);
+      @include font.text-2xl;
+      @include font.bold;
     }
   }
 
   & > p {
+    @include font.text-base;
     color: var(--color-text-2);
-    font-size: var(--text-font-size-md);
-    line-height: var(--text-line-height-md);
   }
 }

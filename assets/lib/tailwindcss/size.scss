@@ -1,0 +1,229 @@
+/*! tailwindcss v4.3.1 | MIT License | https://tailwindcss.com */
+
+// width
+
+@mixin w-3xs {
+  width: var(--container-3xs);
+}
+
+@mixin w-2xs {
+  width: var(--container-2xs);
+}
+
+@mixin w-xs {
+  width: var(--container-xs);
+}
+
+@mixin w-sm {
+  width: var(--container-sm);
+}
+
+@mixin w-md {
+  width: var(--container-md);
+}
+
+@mixin w-lg {
+  width: var(--container-lg);
+}
+
+@mixin w-xl {
+  width: var(--container-xl);
+}
+
+@mixin w-2xl {
+  width: var(--container-2xl);
+}
+
+@mixin w-3xl {
+  width: var(--container-3xl);
+}
+
+@mixin w-4xl {
+  width: var(--container-4xl);
+}
+
+@mixin w-5xl {
+  width: var(--container-5xl);
+}
+
+@mixin w-6xl {
+  width: var(--container-6xl);
+}
+
+@mixin w-7xl {
+  width: var(--container-7xl);
+}
+
+@mixin w-auto {
+  width: auto;
+}
+
+@mixin w-full {
+  width: 100%;
+}
+
+// min-width
+
+@mixin min-w-3xs {
+  min-width: var(--container-3xs);
+}
+
+@mixin min-w-2xs {
+  min-width: var(--container-2xs);
+}
+
+@mixin min-w-xs {
+  min-width: var(--container-xs);
+}
+
+@mixin min-w-sm {
+  min-width: var(--container-sm);
+}
+
+@mixin min-w-md {
+  min-width: var(--container-md);
+}
+
+@mixin min-w-lg {
+  min-width: var(--container-lg);
+}
+
+@mixin min-w-xl {
+  min-width: var(--container-xl);
+}
+
+@mixin min-w-2xl {
+  min-width: var(--container-2xl);
+}
+
+@mixin min-w-3xl {
+  min-width: var(--container-3xl);
+}
+
+@mixin min-w-4xl {
+  min-width: var(--container-4xl);
+}
+
+@mixin min-w-5xl {
+  min-width: var(--container-5xl);
+}
+
+@mixin min-w-6xl {
+  min-width: var(--container-6xl);
+}
+
+@mixin min-w-7xl {
+  min-width: var(--container-7xl);
+}
+
+@mixin min-w-auto {
+  min-width: auto;
+}
+
+@mixin min-w-full {
+  min-width: 100%;
+}
+
+// max-width
+
+@mixin max-w-3xs {
+  max-width: var(--container-3xs);
+}
+
+@mixin max-w-2xs {
+  max-width: var(--container-2xs);
+}
+
+@mixin max-w-xs {
+  max-width: var(--container-xs);
+}
+
+@mixin max-w-sm {
+  max-width: var(--container-sm);
+}
+
+@mixin max-w-md {
+  max-width: var(--container-md);
+}
+
+@mixin max-w-lg {
+  max-width: var(--container-lg);
+}
+
+@mixin max-w-xl {
+  max-width: var(--container-xl);
+}
+
+@mixin max-w-2xl {
+  max-width: var(--container-2xl);
+}
+
+@mixin max-w-3xl {
+  max-width: var(--container-3xl);
+}
+
+@mixin max-w-4xl {
+  max-width: var(--container-4xl);
+}
+
+@mixin max-w-5xl {
+  max-width: var(--container-5xl);
+}
+
+@mixin max-w-6xl {
+  max-width: var(--container-6xl);
+}
+
+@mixin max-w-7xl {
+  max-width: var(--container-7xl);
+}
+
+@mixin max-w-none {
+  max-width: var(--container-none);
+}
+
+@mixin max-w-full {
+  max-width: var(--container-full);
+}
+
+// border-radius
+
+@mixin rounded-xs {
+  border-radius: var(--radius-xs);
+}
+
+@mixin rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+@mixin rounded-md {
+  border-radius: var(--radius-md);
+}
+
+@mixin rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+@mixin rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+@mixin rounded-2xl {
+  border-radius: var(--radius-2xl);
+}
+
+@mixin rounded-3xl {
+  border-radius: var(--radius-3xl);
+}
+
+@mixin rounded-4xl {
+  border-radius: var(--radius-4xl);
+}
+
+@mixin rounded-none {
+  border-radius: var(--radius-none);
+}
+
+@mixin rounded-full {
+  border-radius: var(--radius-full);
+}

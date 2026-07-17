@@ -1,0 +1,61 @@
+/*! tailwindcss v4.3.1 | MIT License | https://tailwindcss.com */
+
+// box-shadow
+
+@mixin box-2xs {
+  box-shadow: 0 1px var(--color-box-shadow);
+}
+
+@mixin box-xs {
+  box-shadow: 0 1px 2px 0 var(--color-box-shadow);
+}
+
+@mixin box-sm {
+  box-shadow: 0 1px 3px 0 var(--color-box-shadow), 0 1px 2px -1px var(--color-box-shadow);
+}
+
+@mixin box-md {
+  box-shadow: 0 4px 6px -1px var(--color-box-shadow), 0 2px 4px -2px var(--color-box-shadow);
+}
+
+@mixin box-lg {
+  box-shadow: 0 10px 15px -3px var(--color-box-shadow), 0 4px 6px -4px var(--color-box-shadow);
+}
+
+@mixin box-xl {
+  box-shadow: 0 20px 25px -5px var(--color-box-shadow), 0 8px 10px -6px var(--color-box-shadow);
+}
+
+@mixin box-2xl {
+  box-shadow: 0 25px 50px -12px var(--color-box-shadow);
+}
+
+@mixin box-none {
+  box-shadow: 0 0 transparent;
+}
+
+// text-shadow
+
+@mixin text-2xs {
+  text-shadow: 0px 1px 0px var(--color-text-shadow);
+}
+
+@mixin text-xs {
+  text-shadow: 0px 1px 1px var(--color-text-shadow);
+}
+
+@mixin text-sm {
+  text-shadow: 0px 1px 0px var(--color-text-shadow), 0px 1px 1px var(--color-text-shadow), 0px 2px 2px var(--color-text-shadow);
+}
+
+@mixin text-md {
+  text-shadow: 0px 1px 1px var(--color-text-shadow), 0px 1px 2px var(--color-text-shadow), 0px 2px 4px var(--color-text-shadow);
+}
+
+@mixin text-lg {
+  text-shadow: 0px 1px 2px var(--color-text-shadow), 0px 3px 2px var(--color-text-shadow), 0px 4px 8px var(--color-text-shadow);
+}
+
+@mixin text-none {
+  text-shadow: none;
+}
