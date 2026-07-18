@@ -13,35 +13,13 @@ body > main > section.fj-gallery {
 
   & > .fj-gallery-item {
     cursor: zoom-in;
-    overflow: hidden;
-    border-radius: var(--border-radius-1);
+    clip-path: inset(0 round var(--border-radius-1));
 
     & > figure {
       position: relative;
       margin: 0;
       padding: 0;
       line-height: 0;
-      clip-path: inset(0 round var(--border-radius-1));
-
-      & > .image-caption {
-        @extend %blur-caption;
-        @include font.text-xs;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: var(--gap-1);
-        color: var(--color-text-1-white);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: var(--gap-2);
-        opacity: 0;
-        transform: translateY(10px);
-        transition:
-          opacity 0.3s var(--transition-func-01),
-          transform 0.3s var(--transition-func-01);
-      }
 
       & > img {
         display: block;
@@ -51,14 +29,45 @@ body > main > section.fj-gallery {
         transition: transform 0.3s var(--transition-func-01);
       }
 
+      & > .image-caption {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: var(--gap-2);
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        padding: var(--gap-1);
+        transform: translateY(100%);
+        transition: transform 0.3s var(--transition-func-01);
+
+        & > .caption-text {
+          @include font.text-xs;
+          text-align: center;
+          color: var(--color-text-1-white);
+        }
+
+        & > .caption-bg {
+          position: absolute;
+          inset: 0;
+          z-index: -1;
+          overflow: hidden;
+          border-radius: 0 0 var(--border-radius-1) var(--border-radius-1);
+        }
+      }
+
       &:hover {
         & > img {
           transform: scale(1.02);
         }
 
         & > .image-caption {
-          opacity: 1;
           transform: translateY(0);
+
+          & > .caption-bg {
+            @extend %blur-image-caption;
+          }
         }
       }
     }

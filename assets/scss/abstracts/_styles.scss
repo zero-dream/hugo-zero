@@ -8,7 +8,12 @@
   backdrop-filter: blur(10px);
 }
 
-%blur-caption {
+%blur-image-caption {
+  background: #{"rgb(60 60 60 / 30%)"};
+  backdrop-filter: blur(10px);
+}
+
+%blur-pswp-caption {
   background: #{"rgb(0 0 0 / 30%)"};
   backdrop-filter: blur(10px);
 }

@@ -10,7 +10,7 @@
 }
 
 .pswp__top-bar {
-  @extend %blur-caption;
+  @extend %blur-pswp-caption;
   pointer-events: auto !important;
   display: flex;
   justify-content: center;
@@ -116,7 +116,7 @@
 }
 
 .pswp__bottom-bar {
-  @extend %blur-caption;
+  @extend %blur-pswp-caption;
   @include font.text-xs;
   display: none;
   position: fixed;
