@@ -1,8 +1,8 @@
 menu: Menu
 theme: Theme
-unableLoad: Unable to load
 pageNotFound: Page not found
 relatedAlbums: Related Albums
+unableLoad: Unable to load
 
 confirmTitle: Confirm
 cancelTitle: Cancel

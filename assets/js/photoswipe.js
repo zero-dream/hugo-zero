@@ -2,6 +2,8 @@ import params from "@params";
 import PhotoSwipeLightbox from "lib/photoswipe/photoswipe-lightbox.esm.js";
 import PhotoSwipe from "lib/photoswipe/photoswipe.esm.js";
 
+const bodyEl = document.body;
+const prevBodyOverflow = document.body.style.overflow;
 const galleryEl = document.getElementById("gallery");
 
 if (galleryEl) {
@@ -25,55 +27,18 @@ if (galleryEl) {
 
     closeSVG: '<svg class="pswp__icn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>',
     arrowPrevSVG: '<svg class="pswp__icn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>',
-    arrowNextSVG: '<svg class="pswp__icn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>',
+    arrowNextSVG: '<svg class="pswp__icn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>',
   });
 
-  const bodyEl = document.body;
-  const prevBodyOverflow = document.body.style.overflow;
   let bottomBarEl;
-  let captionEl;
-  let fileInfoEl;
-
-  const fileInfoToggle = (isChange) => {
-    if (fileInfoEl.classList.contains("visible")) {
-      fileInfoEl.classList.remove("visible");
-      const realHeight = fileInfoEl.scrollHeight;
-      fileInfoEl.style.opacity = "1";
-      fileInfoEl.style.visibility = "visible";
-      fileInfoEl.style.maxHeight = realHeight + "px";
-      fileInfoEl.offsetHeight;
-      fileInfoEl.style.opacity = "0";
-      fileInfoEl.style.visibility = "hidden";
-      fileInfoEl.style.maxHeight = "0";
-      fileInfoEl.addEventListener("transitionend", function handler(event) {
-        const computed = getComputedStyle(fileInfoEl).maxHeight;
-        if (computed === "0px") {
-          if (!params.enableCaption) bottomBarEl.style.display = "none";
-          fileInfoEl.removeEventListener("transitionend", handler);
-          fileInfoEl.style.display = "none";
-        }
-      });
-    } else {
-      if (!params.enableCaption) bottomBarEl.style.display = "flex";
-      fileInfoEl.classList.add("visible");
-      fileInfoEl.style.display = "flex";
-      if (isChange) return;
-      fileInfoEl.style.opacity = "0";
-      fileInfoEl.style.visibility = "hidden";
-      fileInfoEl.style.maxHeight = "none";
-      const realHeight = fileInfoEl.scrollHeight;
-      fileInfoEl.style.maxHeight = "0";
-      fileInfoEl.offsetHeight;
-      fileInfoEl.style.opacity = "1";
-      fileInfoEl.style.visibility = "visible";
-      fileInfoEl.style.maxHeight = realHeight + "px";
-    }
-  };
-
   lightbox.on("uiRegister", () => {
     const pswp = lightbox.pswp;
-
     bodyEl.style.overflow = "hidden";
+
+    pswp.ui.uiElementsData = pswp.ui.uiElementsData.filter((el) => {
+      if (el.name === "zoom") return false;
+      else return true;
+    });
 
     pswp.ui.registerElement({
       name: "bottom-bar",
@@ -86,6 +51,7 @@ if (galleryEl) {
       },
     });
 
+    let captionEl;
     pswp.on("change", () => {
       const currSlideEl = pswp.currSlide.data.element;
       if (params.enableCaption) {
@@ -102,34 +68,12 @@ if (galleryEl) {
         captionEl = temp.firstElementChild;
         bottomBarEl.append(captionEl);
       }
-      if (params.enableFileInfo) {
-        let visible = false;
-        if (fileInfoEl) {
-          visible = fileInfoEl.classList.contains("visible");
-          fileInfoEl.remove();
-        }
-        const pswpFileInfoEl = currSlideEl.querySelector(".pswp-fileinfo");
-        if (!pswpFileInfoEl) return;
-        const fileInfoHTML = pswpFileInfoEl.innerHTML;
-        if (!fileInfoHTML) return;
-        const temp = document.createElement("div");
-        temp.innerHTML = fileInfoHTML;
-        fileInfoEl = temp.firstElementChild;
-        bottomBarEl.prepend(fileInfoEl);
-        if (visible) fileInfoToggle(true);
-      }
     });
   });
 
-  lightbox.on("uiRegister", () => {
-    const pswp = lightbox.pswp;
-
-    pswp.ui.uiElementsData = pswp.ui.uiElementsData.filter((el) => {
-      if (el.name === "zoom") return false;
-      else return true;
-    });
-
-    if (params.enableDownload) {
+  if (params.enableDownload) {
+    lightbox.on("uiRegister", () => {
+      const pswp = lightbox.pswp;
       pswp.ui.registerElement({
         name: "download-button",
         title: params.downloadTitle || "Download",
@@ -151,9 +95,48 @@ if (galleryEl) {
           });
         },
       });
-    }
+    });
+  }
 
-    if (params.enableFileInfo) {
+  if (params.enableFileInfo) {
+    let fileInfoEl;
+    const fileInfoToggle = (isChange) => {
+      if (fileInfoEl.classList.contains("visible")) {
+        fileInfoEl.classList.remove("visible");
+        const realHeight = fileInfoEl.scrollHeight;
+        fileInfoEl.style.opacity = "1";
+        fileInfoEl.style.visibility = "visible";
+        fileInfoEl.style.maxHeight = realHeight + "px";
+        fileInfoEl.offsetHeight;
+        fileInfoEl.style.opacity = "0";
+        fileInfoEl.style.visibility = "hidden";
+        fileInfoEl.style.maxHeight = "0";
+        fileInfoEl.addEventListener("transitionend", function handler(event) {
+          const computed = getComputedStyle(fileInfoEl).maxHeight;
+          if (computed === "0px") {
+            if (!params.enableCaption) bottomBarEl.style.display = "none";
+            fileInfoEl.removeEventListener("transitionend", handler);
+            fileInfoEl.style.display = "none";
+          }
+        });
+      } else {
+        if (!params.enableCaption) bottomBarEl.style.display = "flex";
+        fileInfoEl.classList.add("visible");
+        fileInfoEl.style.display = "flex";
+        if (isChange) return;
+        fileInfoEl.style.opacity = "0";
+        fileInfoEl.style.visibility = "hidden";
+        fileInfoEl.style.maxHeight = "none";
+        const realHeight = fileInfoEl.scrollHeight;
+        fileInfoEl.style.maxHeight = "0";
+        fileInfoEl.offsetHeight;
+        fileInfoEl.style.opacity = "1";
+        fileInfoEl.style.visibility = "visible";
+        fileInfoEl.style.maxHeight = realHeight + "px";
+      }
+    };
+    lightbox.on("uiRegister", () => {
+      const pswp = lightbox.pswp;
       pswp.ui.registerElement({
         name: "fileinfo-button",
         title: params.fileInfoTitle || "File Info",
@@ -174,8 +157,25 @@ if (galleryEl) {
           fileInfoToggle(false);
         },
       });
-    }
-  });
+      pswp.on("change", () => {
+        const currSlideEl = pswp.currSlide.data.element;
+        let visible = false;
+        if (fileInfoEl) {
+          visible = fileInfoEl.classList.contains("visible");
+          fileInfoEl.remove();
+        }
+        const pswpFileInfoEl = currSlideEl.querySelector(".pswp-fileinfo");
+        if (!pswpFileInfoEl) return;
+        const fileInfoHTML = pswpFileInfoEl.innerHTML;
+        if (!fileInfoHTML) return;
+        const temp = document.createElement("div");
+        temp.innerHTML = fileInfoHTML;
+        fileInfoEl = temp.firstElementChild;
+        bottomBarEl.prepend(fileInfoEl);
+        if (visible) fileInfoToggle(true);
+      });
+    });
+  }
 
   lightbox.on("uiRegister", () => {
     const pswp = lightbox.pswp;
