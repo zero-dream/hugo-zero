@@ -1,0 +1,11 @@
+{{/* Copyright (C) 2026 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $slice := .slice }}
+{{ $delimiter := .delimiter | default "," }}
+{{ $result := "" }}
+
+{{ $quoted := apply $slice "printf" "%q" "." }}
+{{ $result = delimit $quoted $delimiter }}
+
+{{ return $result }}

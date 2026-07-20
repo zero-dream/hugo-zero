@@ -46,6 +46,12 @@ params:
     limit: 3
 
   # site.Params
+  theme:
+    font:
+      sans:
+        family: ["SourceSans3VF", "Source Han Sans VF"]
+      mono:
+        family: ["SourceCodeVF", "Source Han Mono"]
   language:
     enable: false
   imageSpec:

@@ -36,6 +36,20 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 - Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
 - Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
 
+### Font Family
+
+The default `font-family` in CSS uses the following fonts:
+
+Variable `--default-font-family`:
+
+- `SourceSans3VF` with [adobe-fonts/source-sans](https://github.com/adobe-fonts/source-sans) (VF-source-sans)
+- `Source Han Sans VF` with [adobe-fonts/source-han-sans](https://github.com/adobe-fonts/source-han-sans) (All Variable Fonts)
+
+Variable `--default-mono-font-family`:
+
+- `SourceCodeVF` with [adobe-fonts/source-code-pro](https://github.com/adobe-fonts/source-code-pro) (VF-source-code-VF)
+- `Source Han Mono` with [adobe-fonts/source-han-mono](https://github.com/adobe-fonts/source-han-mono) (SourceHanMono)
+
 ## Hugo Modules
 
 ### Prerequisites

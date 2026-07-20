@@ -27,8 +27,14 @@
 {{ $params := dict "buildTime" now.Unix "defaultTheme" site.Params.defaultTheme }}
 {{ partial "imports/js-iife.html" (dict "path" "js/common/init.js" "params" $params) }}
 
+{{ $sansFontFamily := partial "funcs/strings/join-quoted.html" (dict "slice" site.Params.theme.font.sans.family "delimiter" ",") }}
+{{ $monoFontFamily := partial "funcs/strings/join-quoted.html" (dict "slice" site.Params.theme.font.mono.family "delimiter" ",") }}
 {{ $sassVars := dict }}
-{{ $buildVars := dict }}
+{{ $buildVars := (dict
+	"default-font-family" $sansFontFamily
+	"default-mono-font-family" $monoFontFamily
+	)
+}}
 {{ $params := dict }}
 {{ partial "imports/css-sass.html" (dict "path" "scss/common/main.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
 {{ partial "imports/js-esm.html" (dict "path" "js/common/main.js" "params" $params) }}
