@@ -7,11 +7,14 @@ unableLoad: Unable to load
 confirmTitle: Confirm
 cancelTitle: Cancel
 closeTitle: Close
+notice: Notice
+
 zoomTitle: Zoom
 arrowPrevTitle: Previous
 arrowNextTitle: Next
 downloadTitle: Download
 fileInfoTitle: File Info
+reviewImagesAgain: Review images again
 
 photoCount:
   one: 1 photo

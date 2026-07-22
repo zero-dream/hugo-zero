@@ -87,5 +87,14 @@
 				</figure>
 			</a>
 		{{ end }}
+
+		{{ partial "components/modal.html" (dict
+			"id" "photoswipe-repeat-prompt"
+			"title" (T "notice")
+			"body" (T "reviewImagesAgain")
+			"bodyClass" "text-muted"
+			"confirmClick" "sys.close"
+			)
+		}}
 	</section>
 {{ end }}

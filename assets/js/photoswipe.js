@@ -6,6 +6,9 @@ const bodyEl = document.body;
 const prevBodyOverflow = document.body.style.overflow;
 const galleryEl = document.getElementById("gallery");
 
+const modal = window.zeroGallery.modal;
+const repeatPromptModal = modal.get("photoswipe-repeat-prompt");
+
 if (galleryEl) {
   const lightbox = new PhotoSwipeLightbox({
     pswpModule: PhotoSwipe,
@@ -51,23 +54,18 @@ if (galleryEl) {
       },
     });
 
-    let captionEl;
+    let prevIndex;
     pswp.on("change", () => {
-      const currSlideEl = pswp.currSlide.data.element;
-      if (params.enableCaption) {
-        bottomBarEl.style.display = "flex";
-        if (captionEl) {
-          captionEl.remove();
+      const currIndex = pswp.currIndex;
+      const total = pswp.getNumItems();
+      if (prevIndex !== undefined) {
+        if (currIndex === 0 && prevIndex === total - 1) {
+          repeatPromptModal.open();
+        } else if (currIndex === total - 1 && prevIndex === 0) {
+          repeatPromptModal.open();
         }
-        const pswpCaptionEl = currSlideEl.querySelector(".pswp-caption");
-        if (!pswpCaptionEl) return;
-        const captionHTML = pswpCaptionEl.innerHTML;
-        if (!captionHTML) return;
-        const temp = document.createElement("div");
-        temp.innerHTML = captionHTML;
-        captionEl = temp.firstElementChild;
-        bottomBarEl.append(captionEl);
       }
+      prevIndex = currIndex;
     });
   });
 
@@ -94,6 +92,26 @@ if (galleryEl) {
             el.href = pswp.currSlide.data.element.href;
           });
         },
+      });
+    });
+  }
+
+  if (params.enableCaption) {
+    let captionEl;
+    lightbox.on("uiRegister", () => {
+      const pswp = lightbox.pswp;
+      pswp.on("change", () => {
+        const currSlideEl = pswp.currSlide.data.element;
+        bottomBarEl.style.display = "flex";
+        if (captionEl) captionEl.remove();
+        const pswpCaptionEl = currSlideEl.querySelector(".pswp-caption");
+        if (!pswpCaptionEl) return;
+        const captionHTML = pswpCaptionEl.innerHTML;
+        if (!captionHTML) return;
+        const temp = document.createElement("div");
+        temp.innerHTML = captionHTML;
+        captionEl = temp.firstElementChild;
+        bottomBarEl.append(captionEl);
       });
     });
   }

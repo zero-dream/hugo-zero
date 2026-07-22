@@ -7,11 +7,14 @@ unableLoad: 无法加载
 confirmTitle: 确认
 cancelTitle: 取消
 closeTitle: 关闭
+notice: 通知
+
 zoomTitle: 缩放
 arrowPrevTitle: 前一张
 arrowNextTitle: 后一张
 downloadTitle: 下载
 fileInfoTitle: 文件信息
+reviewImagesAgain: 重复查看图像
 
 photoCount:
   other: "{{ . }} 张照片"
