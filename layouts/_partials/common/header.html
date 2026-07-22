@@ -2,7 +2,7 @@
 	<nav class="blur-01">
 		<ul>
 			<li>
-				<a class="header-title btn btn-text" href="{{ .Site.Home.RelPermalink }}">
+				<a class="header-title btn btn-text no-hover" href="{{ .Site.Home.RelPermalink }}">
 					{{ .Site.Title }}
 				</a>
 			</li>
@@ -10,7 +10,7 @@
 
 		<ul>
 			<li>
-				<button class="btn btn-text" id="theme-toggle" type="button" title="{{ T "theme" }}">
+				<button class="btn btn-text no-hover" id="theme-toggle" type="button" title="{{ T "theme" }}">
 					<span class="icon icon-themeToggle-auto">
 						{{ partial "icons/hero.html" (dict "name" "clock" "type" "outline") }}
 					</span>
@@ -22,12 +22,12 @@
 					</span>
 				</button>
 				<script>
-					document.currentScript.previousElementSibling.setAttribute("theme", window.hugoGallery.currTheme);
+					document.currentScript.previousElementSibling.setAttribute("theme", window.zeroGallery.currTheme);
 				</script>
 			</li>
 			{{ if site.Menus.main }}
 				<li>
-					<button class="btn btn-text" id="menu-toggle" aria-expanded="false" type="button" title="{{ T "menu" }}">
+					<button class="btn btn-text no-hover" id="menu-toggle" aria-expanded="false" type="button" title="{{ T "menu" }}">
 						<span class="icon icon-menuToggle-bars">
 							{{ partial "icons/hero.html" (dict "name" "bars-3" "type" "outline") }}
 						</span>

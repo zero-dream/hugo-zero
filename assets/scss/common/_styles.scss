@@ -34,16 +34,11 @@ body > header > nav {
 
     li {
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
 
       .header-title {
         @include font.text-xl;
-      }
-
-      .icon {
-        width: var(--size-icon-4);
-        height: var(--size-icon-4);
       }
     }
   }
@@ -133,7 +128,7 @@ body > main {
 
     & > ul {
       @extend %mini-scrollbar;
-      padding-bottom: var(--gap-1);
+      padding: var(--gap-1);
       display: flex;
       flex-flow: row nowrap;
       justify-content: safe center;
@@ -158,6 +153,7 @@ body > footer {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    align-items: center;
     gap: var(--gap-2);
 
     a {
@@ -185,9 +181,20 @@ body > footer {
   @extend %blur-2;
 }
 
+.text-muted {
+  @include font.text-sm;
+  color: var(--color-text-2);
+}
+
+.icon {
+  width: var(--size-icon-4);
+  height: var(--size-icon-4);
+}
+
 hgroup {
   display: flex;
   flex-flow: column nowrap;
+  justify-content: center;
   align-items: center;
   gap: var(--gap-3);
   max-width: 65ch;
