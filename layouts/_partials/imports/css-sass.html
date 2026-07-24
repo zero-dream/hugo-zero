@@ -1,5 +1,6 @@
 {{ $path := .path }}
-{{ $vars := .vars | default dict }}
+{{ $sassVars := .sassVars | default dict }}
+{{ $buildVars := .buildVars | default dict }}
 
 {{ $baseName := path.BaseName $path }}
 {{ $targetPath := printf "%s/css/%s.css" hugo.Data.config.publishDir $baseName }}
@@ -10,7 +11,7 @@
 			"outputStyle" (cond hugo.IsDevelopment "expanded" "compressed")
 			"enableSourceMap" hugo.IsDevelopment
 			"targetPath" $targetPath
-			"vars" $vars
+			"vars" $sassVars
 		}}
 		{{ with . | css.Sass $sassOpts }}
 			{{ $vars := dict }}
@@ -20,7 +21,7 @@
 				"sourceMap" (cond hugo.IsDevelopment "linked" "none")
 				"target" (site.Params.cssBuild.target | default slice)
 				"targetPath" $targetPath
-				"vars" $vars
+				"vars" $buildVars
 			}}
 			{{ with . | css.Build $buildOpts }}
 				{{ if hugo.IsDevelopment }}

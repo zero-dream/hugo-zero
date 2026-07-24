@@ -1,25 +1,51 @@
 {{ define "main" }}
-{{ partial "components/title.html" . }}
-{{ range $taxonomy, $terms := .Site.Taxonomies }}
-	{{ if $terms }}
-		{{ $taxonomyPage := $.Site.GetPage (printf "/%s" $taxonomy) }}
-		<section class="terms">
-			<div class="terms-title">
-				<a href="{{ $taxonomyPage.RelPermalink }}">{{ $taxonomy | humanize | title }}</a>
-			</div>
-			<div class="term-list">
-				{{ range $term, $weightedPages := $terms }}
-					{{ $pagePath := printf "/%s/%s" $taxonomy ($term | urlize) }}
-					{{ partial "components/term.html" (dict
-						"Term" $term
-						"Pages" $weightedPages
-						"Count" (len $weightedPages)
-						"Page" ($.Site.GetPage $pagePath)
-						)
-					}}
-				{{ end }}
-			</div>
-		</section>
+{{ partial "components/title.html" $ }}
+
+{{ $termCount := 0 }}
+{{ $albumCount := 0 }}
+{{ range $taxonomy, $terms := $.Site.Taxonomies }}
+	{{ with $terms }}
+		{{ range .Alphabetical }}
+			{{ $albums := partial "utils/filter-albums.html" .WeightedPages }}
+			{{ with $albums }}
+				{{ $albumCount = add $albumCount 1 }}
+			{{ end }}
+		{{ end }}
+		{{ if gt $albumCount 0 }}
+			{{ $termCount = add $termCount 1 }}
+		{{ end }}
 	{{ end }}
 {{ end }}
+
+{{ if gt $termCount 0 }}
+	<section class="taxonomies">
+		{{ range $taxonomy, $terms := $.Site.Taxonomies }}
+			{{ with $terms }}
+				{{ if gt $albumCount 0 }}
+					<div class="terms">
+						<div class="term-title">
+							<a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>
+						</div>
+						<div class="term-list">
+							{{ range .Alphabetical }}
+								{{ partial "components/term.html" (dict
+									"Term" .Term
+									"Page" .WeightedPages.Page
+									"Count" .WeightedPages.Count
+									"WeightedPages" .WeightedPages
+									)
+								}}
+							{{ end }}
+						</div>
+					</div>
+				{{ end }}
+			{{ end }}
+		{{ end }}
+	</section>
+{{ else }}
+	<hgroup class="hgroup-h1">
+		<p>{{ T "noData" }}</p>
+	</hgroup>
+{{ end }}
+
 {{ end }}

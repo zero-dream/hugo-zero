@@ -1,6 +1,7 @@
 menu: Menu
 theme: Theme
 pageNotFound: Page not found
+noData: No Data
 relatedAlbums: Related Albums
 unableLoad: Unable to load
 
@@ -16,9 +17,9 @@ downloadTitle: Download
 fileInfoTitle: File Info
 reviewImagesAgain: Review images again
 
-photoCount:
-  one: 1 photo
-  other: "{{ . }} photos"
+imageCount:
+  one: "{{ .count }} image"
+  other: "{{ .count }} images"
 albumCount:
-  one: "{{ .photoCount }} in {{ .count }} album"
-  other: "{{ .photoCount }} in {{ .count }} albums"
+  one: "{{ .count }} album"
+  other: "{{ .count }} albums"

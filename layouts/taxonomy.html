@@ -1,16 +1,18 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
-<section class="terms">
-	<div class="term-list">
-		{{ range .Data.Terms.Alphabetical }}
-			{{ partial "components/term.html" (dict
-				"Term" .Term
-				"Pages" .Pages
-				"Count" .Count
-				"Page" .Page
-				)
-			}}
-		{{ end }}
+<section class="taxonomies">
+	<div class="terms">
+		<div class="term-list">
+			{{ range .Data.Terms.Alphabetical }}
+				{{ partial "components/term.html" (dict
+					"Term" .Term
+					"Page" .WeightedPages.Page
+					"Count" .WeightedPages.Count
+					"WeightedPages" .WeightedPages
+					)
+				}}
+			{{ end }}
+		</div>
 	</div>
 </section>
 {{ end }}

@@ -1,8 +1,9 @@
-{{ $data := . }}
 {{ $images := slice }}
 
-{{ $resources := $data.Resources.ByType "image" }}
-{{ range $image := partial "utils/filter-resources.html" $resources }}
+{{ $resources := $.Resources.ByType "image" }}
+{{ $resources = partial "utils/filter-resources.html" $resources }}
+
+{{ range $image := $resources }}
 	{{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
 	{{ with $image.Params.date }}
 		{{ $date = time.AsTime . }}
@@ -12,6 +13,7 @@
 		{{ end }}
 	{{ end }}
 	{{ $params := merge $image.Params (dict "date" $date) }}
+
 	{{ $images = $images | append (dict
 		"image" $image
 		"name" $image.Name
@@ -21,7 +23,7 @@
 	}}
 {{ end }}
 
-{{ range $data.Param "image.sort" | collections.Reverse }}
+{{ range $.Param "image.sort" | collections.Reverse }}
 	{{ $images = sort $images .key .order }}
 {{ end }}
 

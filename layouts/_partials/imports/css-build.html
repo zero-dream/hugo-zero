@@ -1,5 +1,5 @@
 {{ $path := .path }}
-{{ $vars := .vars | default dict }}
+{{ $buildVars := .buildVars | default dict }}
 
 {{ $baseName := path.BaseName $path }}
 {{ $targetPath := printf "%s/css/%s.css" hugo.Data.config.publishDir $baseName }}
@@ -11,7 +11,7 @@
 			"sourceMap" (cond hugo.IsDevelopment "linked" "none")
 			"target" (site.Params.cssBuild.target | default slice)
 			"targetPath" $targetPath
-			"vars" $vars
+			"vars" $buildVars
 		}}
 		{{ with . | css.Build $opts }}
 			{{ if hugo.IsDevelopment }}

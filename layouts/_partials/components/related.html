@@ -1,10 +1,10 @@
 {{ $enableRelated := $.Param "related.enable" }}
 {{ if $enableRelated }}
-	{{ $related := site.RegularPages.Related . }}
+	{{ $related := site.RegularPages.Related $ }}
 	{{ with $related }}
 		<hgroup class="hgroup-h2">
 			<h2>{{ T "relatedAlbums" }}</h2>
 		</hgroup>
-		{{ partial "components/albums.html" (dict "data" $ "type" "related" "related" .) }}
+		{{ partial "components/albums.html" (dict "ctx" $ "related" .) }}
 	{{ end }}
 {{ end }}

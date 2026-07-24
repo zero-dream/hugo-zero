@@ -1,5 +1,6 @@
-@use "../../lib/tailwindcss/font" as font;
-@use "../../lib/tailwindcss/shadow" as shadow;
+@use "../../lib/tailwindcss/sizes" as sizes;
+@use "../../lib/tailwindcss/fonts" as fonts;
+@use "../../lib/tailwindcss/shadows" as shadows;
 
 @use "../abstracts/styles";
 @use "../abstracts/variables" as vars;
@@ -13,7 +14,7 @@ body > main > section.fj-gallery {
 
   & > .fj-gallery-item {
     cursor: zoom-in;
-    clip-path: inset(0 round var(--border-radius-1));
+    clip-path: inset(0 round var(--radius-lg));
 
     & > figure {
       position: relative;
@@ -30,20 +31,21 @@ body > main > section.fj-gallery {
       }
 
       & > .image-caption {
+        user-select: none;
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
-        gap: var(--gap-2);
+        gap: var(--gap-4);
         width: 100%;
         position: absolute;
         bottom: 0;
-        padding: var(--gap-1);
+        padding: var(--gap-2);
         transform: translateY(100%);
         transition: transform 0.3s var(--transition-func-01);
 
         & > .caption-text {
-          @include font.text-xs;
+          @include fonts.text-xs;
           text-align: center;
           color: var(--color-text-1-white);
         }
@@ -53,7 +55,7 @@ body > main > section.fj-gallery {
           inset: 0;
           z-index: -1;
           overflow: hidden;
-          border-radius: 0 0 var(--border-radius-1) var(--border-radius-1);
+          border-radius: 0 0 var(--radius-lg) var(--radius-lg);
         }
       }
 
@@ -67,6 +69,21 @@ body > main > section.fj-gallery {
 
           & > .caption-bg {
             @extend %blur-image-caption;
+          }
+        }
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
+
+      & > figure {
+        & > .image-caption {
+          transform: translateY(0);
+
+          & > .caption-bg {
+            @extend %blur-image-caption;
+            background: #{"rgb(128 60 60 / 30%)"};
           }
         }
       }
@@ -87,7 +104,7 @@ body > .pswp > section.pswp__scroll-wrap {
 body > main > section.albums {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: var(--gap-4) var(--gap-3);
+  gap: var(--gap-8) var(--gap-6);
 
   @media (min-width: vars.$breakpoint-sm) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -102,9 +119,9 @@ body > main > section.albums {
     flex-flow: column nowrap;
 
     & > figure {
+      @include sizes.rounded-lg;
       aspect-ratio: 3/2;
       width: 100%;
-      border-radius: var(--border-radius-1);
       overflow: hidden;
       transition: transform 0.3s var(--transition-func-01);
 
@@ -116,25 +133,26 @@ body > main > section.albums {
       }
 
       &:hover {
-        @include shadow.box-lg;
+        @include shadows.box-lg;
         transform: scale(1.02);
       }
     }
 
-    & > div {
+    & > .card-body {
+      user-select: none;
       display: flex;
       flex-flow: column nowrap;
       flex: 1 1 auto;
-      gap: var(--gap-1);
+      gap: var(--gap-2);
       padding: 1rem;
 
       & > h2 {
-        @include font.text-lg;
-        @include font.bold;
+        @include fonts.text-lg;
+        @include fonts.bold;
       }
 
       & > p {
-        @include font.text-sm;
+        @include fonts.text-sm;
         color: var(--color-text-2);
       }
     }
@@ -142,14 +160,16 @@ body > main > section.albums {
 }
 
 body > main > section.featured {
-  color: var(--color-text-1);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--gap-main);
 
   & > .featured-card {
-    position: relative;
-    display: flex;
-    border-radius: var(--border-radius-1) var(--border-radius-1) 0 0;
     aspect-ratio: 1/1;
+    position: relative;
     width: 100%;
+    color: var(--color-text-1);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     overflow: hidden;
 
     @media (min-width: vars.$breakpoint-sm) {
@@ -172,25 +192,26 @@ body > main > section.featured {
       }
     }
 
-    & > div {
+    & > .card-body {
+      user-select: none;
       position: absolute;
       bottom: 0;
       display: flex;
       flex-flow: column nowrap;
       justify-content: flex-end;
-      gap: var(--gap-2);
+      gap: var(--gap-4);
       padding: 1.5rem;
       width: 100%;
       height: auto;
       box-sizing: border-box;
 
       & > h2 {
-        @include font.text-2xl;
-        @include font.bold;
+        @include fonts.text-2xl;
+        @include fonts.bold;
       }
 
       & > p {
-        @include font.text-sm;
+        @include fonts.text-sm;
       }
     }
 
@@ -200,40 +221,47 @@ body > main > section.featured {
   }
 }
 
-body > main > section.terms {
-  & > .terms-title {
-    @include font.text-2xl;
-    @include font.bold;
-    margin-bottom: 1rem;
-    color: var(--color-text-2);
-  }
+body > main > section.taxonomies {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--gap-8);
 
-  & > .term-list {
-    display: flex;
-    flex-flow: row wrap;
-    gap: var(--gap-2);
+  & > .terms {
+    & > .term-title {
+      @include fonts.text-2xl;
+      @include fonts.bold;
+      margin-bottom: 1rem;
+      color: var(--color-text-2);
+    }
 
-    & > .card-term {
+    & > .term-list {
       display: flex;
-      flex-flow: column nowrap;
-      gap: var(--gap-1);
-      padding: 1rem;
-      border-radius: var(--border-radius-2);
-      border: 1px solid var(--color-card-bg);
-      background-color: var(--color-card-bg);
+      flex-flow: row wrap;
+      gap: var(--gap-4);
 
-      & > .card-title {
-        @include font.text-lg;
-        @include font.bold;
-      }
+      & > .card-term {
+        @include sizes.rounded-2xl;
+        user-select: none;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: var(--gap-2);
+        padding: 1rem;
+        border: 1px solid var(--color-card-bg);
+        background-color: var(--color-card-bg);
 
-      & > .card-body {
-        @include font.text-sm;
-        color: var(--color-text-2);
-      }
+        & > .card-title {
+          @include fonts.text-lg;
+          @include fonts.bold;
+        }
 
-      &:hover {
-        background-color: var(--color-card-hover);
+        & > .card-body {
+          @include fonts.text-sm;
+          color: var(--color-text-2);
+        }
+
+        &:hover {
+          background-color: var(--color-card-hover);
+        }
       }
     }
   }

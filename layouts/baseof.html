@@ -1,10 +1,14 @@
+{{ $sassVars := dict }}
+{{ $buildVars := dict }}
+{{ $params := dict }}
+
 <!doctype html>
 <html class="{{ site.Params.defaultTheme }}" lang="{{ site.Language.Locale | default "en" }}">
 	<head>
 		{{ partial "common/head.html" . }}
 		{{ block "head-assets" . }}{{ end }}
-		{{ partial "import/css-sass.html" (dict "path" "scss/custom/custom.scss" "vars" dict) }}
-		{{ partial "import/js-esm.html" (dict "path" "js/custom/custom.js" "params" dict) }}
+		{{ partial "imports/css-sass.html" (dict "path" "scss/custom/custom.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
+		{{ partial "imports/js-esm.html" (dict "path" "js/custom/custom.js" "params" $params) }}
 		{{ with partial "custom/custom-head.html" . }}{{ . }}{{ end }}
 	</head>
 	<body>

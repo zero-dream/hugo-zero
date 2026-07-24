@@ -1,6 +1,14 @@
-<a class="card-term" href="{{ .Page.RelPermalink }}">
-	<div class="card-title">{{ .Page.Title }}</div>
-	<div class="card-body">
-		{{ .Count }} albums
-	</div>
-</a>
+{{ $term := .Term }}
+{{ $page := .Page }}
+{{ $count := .Count }}
+{{ $weightedPages := .WeightedPages }}
+
+{{ $albums := partial "utils/filter-albums.html" $weightedPages }}
+{{ with $albums }}
+	<a class="card-term" href="{{ $page.RelPermalink }}">
+		<div class="card-title">{{ $page.LinkTitle }}</div>
+		<div class="card-body">
+			{{ T "albumCount" (dict "count" (lang.FormatNumber 0 (len .))) }}
+		</div>
+	</a>
+{{ end }}

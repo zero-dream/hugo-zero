@@ -1,4 +1,5 @@
-{{ with partial "utils/get-images.html" . }}
+{{ $images := partial "utils/get-images.html" $ }}
+{{ with $images }}
 	<section class="fj-gallery hidden" id="gallery">
 		{{ $publishResources := $.Param "build.publishResources" }}
 		{{ $enableDownload := $.Param "download.enable" }}
@@ -14,20 +15,21 @@
 			{{ $title := .title }}
 			{{ $params := .params }}
 
-			{{ $image = partial "funcs/image/add-watermark.html" (dict "data" $ "image" $image) }}
-			{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
-			{{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
-			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
 			{{ $downImage := $image }}
-			{{ $title = partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}
+			{{ $image = partial "utils/handle-image.html" (dict "ctx" $ "image" $image) }}
+
+			{{ $thumbnail := $image.Filter (images.Process $thumbnailSpec) }}
+			{{ $lightbox := $image.Filter (images.Process $lightboxSpec) }}
+			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+			{{ $title = partial "funcs/paths/remove-ext.html" (dict "path" $title) | title }}
 
 			{{ if $enableDownload }}
-				{{ if eq $downImageSpec "" }}
+				{{ if $downImageSpec }}
+					{{ $downImage = $image.Filter (images.Process $downImageSpec) }}
+				{{ else }}
 					{{ if not $publishResources }}
 						{{ $downImage = $lightbox }}
 					{{ end }}
-				{{ else }}
-					{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImageSpec)) }}
 				{{ end }}
 			{{ else }}
 				{{ $downImage = $lightbox }}
@@ -38,7 +40,7 @@
 					<img loading="lazy" decoding="async" src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="{{ $title }}" />
 
 					<div class="image-caption">
-						<div class="caption-text">{{ partial "funcs/path/remove-ext.html" (dict "path" $title) | title }}</div>
+						<div class="caption-text">{{ $title }}</div>
 						<div class="caption-bg"></div>
 					</div>
 
@@ -50,10 +52,12 @@
 										<tr>
 											{{ $captionData := slice }}
 											{{ range $caption.data }}{{ $captionData = $captionData | append .format }}{{ end }}
-											{{ $captions := partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $captionData "default" "-") }}
+											{{ $captions := partial "funcs/images/parse-meta.html" (dict "image" $downImage "data" $captionData "default" "-") }}
 											{{ range $index, $value := $caption.data }}
 												{{ $caption := index $captions $index }}
-												<td style="min-width: {{ $value.minWidth }};"><pre>{{ $caption }}</pre></td>
+												<td style="min-width: {{ $value.minWidth }};">
+													<pre>{{ $caption }}</pre>
+												</td>
 											{{ end }}
 										</tr>
 									</tbody>
@@ -67,7 +71,7 @@
 							<div class="bar-fileinfo {{ if $fileInfo.firstBigger }}fileinfo-first-bigger{{ end }}">
 								{{ $fileInfoData := slice }}
 								{{ range $fileInfo.data }}{{ $fileInfoData = $fileInfoData | append .format }}{{ end }}
-								{{ with partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $fileInfoData "default" "") }}
+								{{ with partial "funcs/images/parse-meta.html" (dict "image" $downImage "data" $fileInfoData "default" "") }}
 									{{ range . }}<pre>{{ . }}</pre>{{ end }}
 								{{ else }}
 									<span>None</span>

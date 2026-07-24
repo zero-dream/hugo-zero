@@ -1,0 +1,8 @@
+{{ $ctx := .ctx }}
+{{ $image := .image }}
+{{ $result := $image }}
+
+{{ $image = $image.Filter (slice images.AutoOrient) }}
+{{ $result = partial "funcs/images/add-watermark.html" (dict "ctx" $ctx "image" $image) }}
+
+{{ return $result }}

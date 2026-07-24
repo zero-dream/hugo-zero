@@ -1,0 +1,5 @@
+{{ $pages := $ }}
+
+{{ $pages = where $pages ".BundleType" "!=" "" }}
+
+{{ return $pages }}

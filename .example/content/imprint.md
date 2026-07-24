@@ -11,6 +11,6 @@ params:
   rss_ignore: true
 ---
 
-● Powered by {{< link-blank "Hugo" "https://github.com/gohugoio/hugo/" >}}.
+● Powered by {{< link-blank text="Hugo" href="https://github.com/gohugoio/hugo/" >}}.
 
-● Theme by {{< link-blank "ZeroDream" "https://github.com/zero-dream/hugo-gallery/" >}}, based on a theme by {{< link-blank "NicoKaiser" "https://github.com/nicokaiser/hugo-theme-gallery/" >}}.
+● Theme by {{< link-blank text="ZeroDream" href="https://github.com/zero-dream/hugo-gallery/" >}}, based on a theme by {{< link-blank text="NicoKaiser" href="https://github.com/nicokaiser/hugo-theme-gallery/" >}}.

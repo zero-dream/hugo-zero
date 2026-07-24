@@ -1,0 +1,63 @@
+@use "../../lib/tailwindcss/sizes" as sizes;
+
+// max-width
+
+.max-w-3xs {
+  @include sizes.max-w-3xs;
+}
+
+.max-w-2xs {
+  @include sizes.max-w-2xs;
+}
+
+.max-w-xs {
+  @include sizes.max-w-xs;
+}
+
+.max-w-sm {
+  @include sizes.max-w-sm;
+}
+
+.max-w-md {
+  @include sizes.max-w-md;
+}
+
+.max-w-lg {
+  @include sizes.max-w-lg;
+}
+
+.max-w-xl {
+  @include sizes.max-w-xl;
+}
+
+.max-w-2xl {
+  @include sizes.max-w-2xl;
+}
+
+.max-w-3xl {
+  @include sizes.max-w-3xl;
+}
+
+.max-w-4xl {
+  @include sizes.max-w-4xl;
+}
+
+.max-w-5xl {
+  @include sizes.max-w-5xl;
+}
+
+.max-w-6xl {
+  @include sizes.max-w-6xl;
+}
+
+.max-w-7xl {
+  @include sizes.max-w-7xl;
+}
+
+.max-w-none {
+  @include sizes.max-w-none;
+}
+
+.max-w-full {
+  @include sizes.max-w-full;
+}

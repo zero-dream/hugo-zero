@@ -4,6 +4,7 @@
 {{ end }}
 
 {{ define "head-assets" }}
-{{ $vars := dict }}
-{{ partial "import/css-sass.html" (dict "path" "scss/prose.scss" "vars" $vars) }}
+{{ $sassVars := dict }}
+{{ $buildVars := dict }}
+{{ partial "imports/css-sass.html" (dict "path" "scss/prose.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
 {{ end }}

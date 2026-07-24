@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
-{{ partial "components/albums.html" (dict "data" . "type" "term") }}
+{{ partial "components/albums.html" (dict "ctx" .) }}
 {{ end }}
 
 {{ define "head-assets" }}

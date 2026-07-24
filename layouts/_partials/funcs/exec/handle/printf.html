@@ -1,0 +1,10 @@
+{{/* Copyright (C) 2026 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $value := .value }}
+{{ $format := index .params 0 }}
+{{ $result := $value }}
+
+{{ $result = printf $format $value }}
+
+{{ return $result }}

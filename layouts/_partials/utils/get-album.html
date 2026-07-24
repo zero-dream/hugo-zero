@@ -1,39 +1,46 @@
-{{ $data := .data }}
-{{ $type := .type }}
+{{ $ctx := .ctx }}
 {{ $album := dict }}
 
-{{ $images := partial "utils/get-images.html" $data }}
-{{ $cover := partial "utils/get-cover.html" (dict "data" $data "images" $images) }}
+{{ if $ctx.BundleType }}
 
-{{ if not $cover }}
-	{{ with $data.Pages }}
-		{{ $page := index . 0 }}
-		{{ if $page.IsSection }}
-			{{ $album = partial "utils/get-album.html" (dict "data" $page "type" $type) }}
-		{{ else if $page.IsPage }}
-			{{ $images = partial "utils/get-images.html" $page }}
-			{{ $cover = partial "utils/get-cover.html" (dict "data" $page "images" $images) }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+	{{ $images := partial "utils/get-images.html" $ctx }}
+	{{ $cover := partial "utils/get-cover.html" (dict "ctx" $ctx "images" $images) }}
 
-{{ if $cover }}
-	{{ $cover = partial "funcs/image/add-watermark.html" (dict "data" $data "image" $cover) }}
-	{{ $albumCount := 0 }}
-	{{ $imageCount := 0 }}
-	{{ if $data.IsPage }}
-		{{ $imageCount = len $images }}
-	{{ else }}
-		{{ range partial "utils/filter-pages.html" $data.RegularPagesRecursive }}
-			{{ $albumCount = add $albumCount 1 }}
-			{{ $imageCount = add $imageCount (len (partial "utils/filter-resources.html" (.Resources.ByType "image"))) }}
+	{{ if $cover }}
+		{{ $cover = partial "utils/handle-image.html" (dict "ctx" $ctx "image" $cover) }}
+
+		{{ $albumCount := 0 }}
+		{{ $imageCount := 0 }}
+		{{ if eq $ctx.BundleType "leaf" }}
+			{{ $imageCount = len $images }}
+		{{ else if eq $ctx.BundleType "branch" }}
+			{{ $pages := $ctx.RegularPagesRecursive }}
+			{{ $pages = partial "utils/filter-pages.html" $pages }}
+			{{ $pages = partial "utils/filter-bundle.html" $pages }}
+			{{ range $pages }}
+				{{ $albumCount = add $albumCount 1 }}
+				{{ $imageCount = add $imageCount (len (partial "utils/filter-resources.html" (.Resources.ByType "image"))) }}
+			{{ end }}
 		{{ end }}
+
+		{{ $countText := "" }}
+		{{ $imageCountText := T "imageCount" (dict "count" (lang.FormatNumber 0 $imageCount)) }}
+		{{ if eq $albumCount 0 }}
+			{{ $countText = $imageCountText }}
+		{{ else }}
+			{{ $albumCountText := T "albumCount" (dict "count" (lang.FormatNumber 0 $albumCount)) }}
+			{{ $countText = printf "%s %s" $imageCountText $albumCountText }}
+		{{ end }}
+
+		{{ $album = dict
+			"page" $ctx
+			"cover" $cover
+			"albumCount" $albumCount
+			"imageCount" $imageCount
+			"countText" $countText
+		}}
 	{{ end }}
-	{{ $album = dict
-		"cover" $cover
-		"albumCount" $albumCount
-		"imageCount" $imageCount
-	}}
+
 {{ end }}
 
 {{ return $album }}

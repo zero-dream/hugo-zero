@@ -3,10 +3,11 @@
 {{ partial "components/prose.html" . }}
 {{ partial "components/categories.html" }}
 {{ partial "components/featured.html" . }}
-{{ partial "components/albums.html" (dict "data" . "type" "home") }}
+{{ partial "components/albums.html" (dict "ctx" .) }}
 {{ end }}
 
 {{ define "head-assets" }}
-{{ $vars := dict }}
-{{ partial "import/css-sass.html" (dict "path" "scss/prose.scss" "vars" $vars) }}
+{{ $sassVars := dict }}
+{{ $buildVars := dict }}
+{{ partial "imports/css-sass.html" (dict "path" "scss/prose.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
 {{ end }}

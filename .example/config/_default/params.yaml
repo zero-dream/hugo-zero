@@ -13,7 +13,7 @@ params:
     imageSpec: "fit 3200x3200"
   album:
     imageSpec:
-      thumbnail: "fit 1200x1200"
+      thumbnail: "fill 1200x1200"
   image:
     sort:
       - { key: "params.weight", order: "asc" }
@@ -28,7 +28,7 @@ params:
           - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
           - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
           - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
-          - { format: "f ${Exif.FNumber-printf-float-%0.2f}", minWidth: "4rem" }
+          - { format: "f ${Exif.FNumber-toType-float-%0.2f}", minWidth: "4rem" }
           - { format: "${Exif.ExposureTime} s", minWidth: "5rem" }
       fileInfo:
         enable: true
@@ -44,8 +44,8 @@ params:
       rowHeight: 320
       rowHeightTolerance: 0.25
     imageSpec:
-      thumbnail: "fit 600x600"
-      lightbox: "fit 1600x1600"
+      thumbnail: "fit 1200x1200"
+      lightbox: "fit 1920x1920"
   watermark:
     enable: true
     path: "images/watermark/watermark.png" # assets/...
@@ -59,10 +59,10 @@ params:
 
   # site.Params
   imageSpec:
-    rssCover: "fill 900x600"
-    featured: "fit 1600x1600"
-    openGraph: "fit 1600x1600"
-  socialIcons:
+    rssCover: "fit 1200x1200"
+    openGraph: "fill 1200x630"
+    featured: "fill 1600x900"
+  socialIcon:
     github: "https://github.com/zero-dream/hugo-gallery/"
     facebook: "https://www.facebook.com/"
     youtube: "https://www.youtube.com/"

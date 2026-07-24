@@ -6,4 +6,4 @@
 {{ if not $params.text }}
 	{{ $params = merge $params (dict "text" .InnerDeindent) }}
 {{ end }}
-{{ partial "funcs/image/gen-qr.html" $params }}
+{{ partial "funcs/images/gen-qr.html" $params }}

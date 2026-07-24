@@ -1,9 +1,9 @@
 {{/* Copyright (C) 2026 ZeroDream */}}
 {{/* https://github.com/zero-dream */}}
 
-{{ $content := .Get 0 }}
-{{ $href := .Get 1 }}
-{{ $attr := .Get 2 }}
+{{ $text := .Get "text" }}
+{{ $href := .Get "href" }}
+{{ $attr := .Get "attr" }}
 
-<a target="_blank" rel="noopener noreferrer" href="{{ $href }}" {{ $attr | safeHTMLAttr }}>{{ $content }}</a>
+<a target="_blank" rel="noopener noreferrer" href="{{ $href }}" {{ $attr | safeHTMLAttr }}>{{ $text }}</a>
 {{- "" -}}

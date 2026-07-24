@@ -2,8 +2,8 @@
 	<nav class="blur-01">
 		<ul>
 			<li>
-				<a class="header-title btn btn-text no-hover" href="{{ .Site.Home.RelPermalink }}">
-					{{ .Site.Title }}
+				<a class="header-title btn btn-text no-hover" href="{{ $.Site.Home.RelPermalink }}">
+					{{ $.Site.Title }}
 				</a>
 			</li>
 		</ul>
@@ -40,5 +40,5 @@
 		</ul>
 	</nav>
 
-	{{ partial "common/menu.html" . }}
+	{{ partial "common/menu.html" $ }}
 </header>

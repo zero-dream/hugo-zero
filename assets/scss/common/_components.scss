@@ -1,13 +1,14 @@
-@use "../../lib/tailwindcss/size" as size;
-@use "../../lib/tailwindcss/font" as font;
-@use "../../lib/tailwindcss/shadow" as shadow;
+@use "../../lib/tailwindcss/sizes" as sizes;
+@use "../../lib/tailwindcss/fonts" as fonts;
+@use "../../lib/tailwindcss/shadows" as shadows;
 
 @use "../abstracts/styles";
 @use "../abstracts/variables" as vars;
 
 .btn {
-  @include font.text-sm;
-  @include font.bold;
+  @include sizes.rounded-lg;
+  @include fonts.text-sm;
+  @include fonts.bold;
   cursor: pointer;
   user-select: none;
   text-decoration: none;
@@ -19,12 +20,11 @@
   align-items: center;
   text-align: center;
 
-  gap: 0.375rem;
+  gap: var(--gap-2);
   flex-flow: row nowrap;
   flex-shrink: 0;
 
-  padding: var(--gap-1) var(--gap-2);
-  border-radius: var(--border-radius-1);
+  padding: var(--gap-2) var(--gap-4);
   background-color: var(--color-btn-bg);
 
   transition-property: color, background-color, border-color, box-shadow;
@@ -39,14 +39,14 @@
   }
 
   &.btn-circle {
+    @include sizes.rounded-full;
     width: 2.5rem;
     height: 2.5rem;
     padding-inline: 0;
-    border-radius: var(--border-radius-infinity);
   }
 
   &.btn-pill {
-    border-radius: var(--border-radius-infinity);
+    @include sizes.rounded-full;
   }
 
   &.btn-text {
@@ -93,7 +93,7 @@
   justify-content: center;
   align-items: flex-end;
   text-align: center;
-  padding: var(--gap-2);
+  padding: var(--gap-4);
 
   @media (min-width: vars.$breakpoint-sm) {
     align-items: center;
@@ -104,25 +104,25 @@
   }
 
   & > .modal-box {
-    @include shadow.box-xl;
+    @include sizes.rounded-lg;
+    @include shadows.box-xl;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: var(--gap-3);
+    gap: var(--gap-6);
     position: relative;
     overflow: hidden;
-    border-radius: var(--border-radius-1);
     background-color: var(--color-modal-bg);
     border: 1px solid var(--color-modal-border);
     width: 100%;
-    padding: var(--gap-2);
+    padding: var(--gap-4);
 
     & > button.close {
       position: absolute;
       inset: 0 0 auto auto;
-      margin: var(--gap-1);
+      margin: var(--gap-2);
     }
 
     & > .modal-header {
@@ -131,8 +131,8 @@
       align-items: center;
 
       & > h3 {
-        @include font.text-base;
-        @include font.bold;
+        @include fonts.text-base;
+        @include fonts.bold;
         color: var(--color-text-1);
         text-align: center;
       }
@@ -145,7 +145,7 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-      gap: var(--gap-2);
+      gap: var(--gap-4);
 
       & > * {
         flex: 1;
@@ -156,6 +156,6 @@
 
 @media (min-width: vars.$breakpoint-sm) {
   .modal-box {
-    @include size.max-w-lg;
+    @include sizes.max-w-lg;
   }
 }

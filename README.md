@@ -45,7 +45,7 @@ Although not required in all cases, Git, Go, and Dart Sass are commonly used whe
 - [Hugo Extended >= 0.162.0](https://gohugo.io/installation/)
 - [Dart Sass](https://gohugo.io/functions/css/sass/#dart-sass)
 - [Go](https://go.dev/doc/install)
-- Browser: chrome115 edge115 firefox116 ios16.4 opera101 safari16.4
+- Browser: chrome115, edge115, firefox116, ios16.4, opera101, safari16.4
 
 ### Installation
 
@@ -129,7 +129,7 @@ content/
 - `/animals`: A branch bundle (has `_index.md` and has children) => Displayed as album list (`list` layout).
 - `/nature`: A leaf bundle (has `index.md` and no children) => Displayed as gallery (`single` layout).
 - If the album folder has no images, use the cover of the first sub-album.
-- Albums without a cover will not show up.
+- Albums without covers will not be displayed.
 
 ## Front Matter
 
@@ -275,11 +275,13 @@ cascade:
 
 **Support:** cascade;
 
-Explicitly set whether the download function is enabled.
+Explicitly set whether the download feature is enabled.
 
 `enable`: (bool) Whether to enable the download feature.
 
 `imageSpec`: (string) If the value is an empty string `""`, use the value of the [`publishResources`](#exclude-original-images) field (when this value is `true`, download the original image; when `false`, download the lightbox image).
+
+**Note:** If `publishResources` is `true`, even if original image download is not enabled, the original image can still be downloaded by specifying the URL.
 
 ```yaml
 params:
@@ -388,7 +390,7 @@ params:
           - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
           - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
           - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
-          - { format: "f ${Exif.FNumber-printf-float-%0.2f}", minWidth: "4rem" }
+          - { format: "f ${Exif.FNumber-toType-float-%0.2f}", minWidth: "4rem" }
           - { format: "${Exif.ExposureTime} s", minWidth: "5rem" }
 ```
 
@@ -462,7 +464,10 @@ Add a watermark to each image.
 
 When `x & y` are in [0, 1], the watermark will not go beyond the image boundaries; when they are both 0.5, the watermark is centered.
 
-**Note:** If the watermark is set in the corner, it may be blocked by elements with the `overflow: hidden` property. The watermark has actually been correctly added. It is recommended to download the image for verification.
+**Note:**
+
+- If the original image download is enabled, no watermark will be added.
+- If the watermark is set in the corner, it may be blocked by elements with the `overflow: hidden` property. The watermark has actually been correctly added. It is recommended to download the image for verification.
 
 ```yaml
 params:
@@ -504,7 +509,7 @@ Add social icons on the bottom of each page.
 
 ```yaml
 params:
-  socialIcons:
+  socialIcon:
     github: "https://github.com/zero-dream/hugo-gallery/"
     facebook: "https://www.facebook.com/"
     youtube: "https://www.youtube.com/"

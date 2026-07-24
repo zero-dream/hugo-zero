@@ -1,14 +1,14 @@
-<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:url" content="{{ $.Permalink }}" />
 
 {{ with or site.Title site.Params.title | plainify }}
 	<meta property="og:site_name" content="{{ . }}" />
 {{ end }}
 
-{{ with or .Title site.Title site.Params.title | plainify }}
+{{ with or $.Title site.Title site.Params.title | plainify }}
 	<meta property="og:title" content="{{ . }}" />
 {{ end }}
 
-{{ with or .Description .Summary site.Params.description | plainify | htmlUnescape }}
+{{ with or $.Description $.Summary site.Params.description | plainify | htmlUnescape }}
 	<meta property="og:description" content="{{ trim . "\n\r\t " }}" />
 {{ end }}
 
@@ -16,25 +16,25 @@
 	<meta property="og:locale" content="{{ replace . `-` `_` }}" />
 {{ end }}
 
-{{ if .IsPage }}
+{{ if $.IsPage }}
 	<meta property="og:type" content="article" />
-	{{ with .Section }}
+	{{ with $.Section }}
 		<meta property="article:section" content="{{ . }}" />
 	{{ end }}
 	{{ $ISO8601 := "2006-01-02T15:04:05-07:00" }}
-	{{ with .PublishDate }}
+	{{ with $.PublishDate }}
 		<meta property="article:published_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }} />
 	{{ end }}
-	{{ with .Lastmod }}
+	{{ with $.Lastmod }}
 		<meta property="article:modified_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }} />
 	{{ end }}
 {{ else }}
 	<meta property="og:type" content="website" />
 {{ end }}
 
-{{ $albumData := partial "utils/get-album.html" (dict "data" . "type" "opengraph") }}
-{{ if $albumData.cover }}
+{{ $album := partial "utils/get-album.html" (dict "ctx" $) }}
+{{ with $album.cover }}
 	{{ $imageSpec := printf "fit %s" (site.Params.imageSpec.openGraph) }}
-	{{ $image := $albumData.cover.Filter (slice images.AutoOrient (images.Process $imageSpec)) }}
+	{{ $image := .Filter (images.Process $imageSpec) }}
 	<meta property="og:image" content="{{ $image.Permalink }}" />
 {{ end }}

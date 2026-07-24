@@ -6,7 +6,7 @@
 {{ $default := .default }}
 {{ $result := slice }}
 
-{{ $metas := partial "funcs/image/get-meta.html" (dict "image" $image "format" "display") }}
+{{ $metas := partial "funcs/images/get-meta.html" (dict "image" $image "format" "display") }}
 {{ with $metas }}
 	{{ range $format := $data }}
 

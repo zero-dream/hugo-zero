@@ -1,6 +1,7 @@
 menu: 菜单
 theme: 主题
 pageNotFound: 页面不存在
+noData: 没有数据
 relatedAlbums: 相关相册
 unableLoad: 无法加载
 
@@ -16,7 +17,7 @@ downloadTitle: 下载
 fileInfoTitle: 文件信息
 reviewImagesAgain: 重复查看图像
 
-photoCount:
-  other: "{{ . }} 张照片"
+imageCount:
+  other: "{{ .count }} 张图像"
 albumCount:
-  other: "{{ .count }} 个相册，共计 {{ .photoCount }}"
+  other: "{{ .count }} 个相册"

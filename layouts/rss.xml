@@ -38,6 +38,7 @@
 			{{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
 		{{ end }}
 
+		{{ $rssCoverSpec := site.Params.imageSpec.rssCover }}
 		{{ range $pages }}
 			<item>
 				<title>{{ .Title }}</title>
@@ -46,11 +47,10 @@
 				{{ with $author.email }}<author>{{ . }}{{ with $author.name }} ({{ . }}){{ end }}</author>{{ end }}
 				<guid>{{ .Permalink }}</guid>
 
-				{{ $albumData := partial "utils/get-album.html" (dict "data" . "type" "rss") }}
+				{{ $album := partial "utils/get-album.html" (dict "ctx" .) }}
 				{{ $description := (.Params.description | default .Summary) | transform.XMLEscape | safeHTML }}
-				{{ if $albumData.cover }}
-					{{ $rssCoverSpec := site.Params.imageSpec.rssCover }}
-					{{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $rssCoverSpec)) }}
+				{{ with $album.cover }}
+					{{ $thumbnail := .Filter (images.Process $rssCoverSpec) }}
 					<media:content url="{{ $thumbnail.Permalink }}" type="image/jpeg"/>
 					<description>
 						&lt;img src=&quot;{{ $thumbnail.Permalink }}&quot; /&gt;

@@ -1,25 +1,25 @@
 {{/* Copyright (C) 2026 ZeroDream */}}
 {{/* https://github.com/zero-dream */}}
 
-{{ $data := .data }}
+{{ $ctx := .ctx }}
 {{ $image := .image }}
 {{ $result := $image }}
 
-{{ $enable := $data.Param "watermark.enable" }}
+{{ $enable := $ctx.Param "watermark.enable" }}
 {{ if $enable }}
-	{{ $path := $data.Param "watermark.path" }}
+	{{ $path := $ctx.Param "watermark.path" }}
 	{{ $mark := resources.Get $path }}
 
-	{{ $size := $data.Param "watermark.size" }}
+	{{ $size := $ctx.Param "watermark.size" }}
 	{{ $markHeight := int (mul $image.Height $size) }}
 	{{ $resizedMark := ($mark.Resize (printf "x%d" $markHeight)) }}
 
-	{{ $x := float ($data.Param "watermark.x") }}
-	{{ $y := float ($data.Param "watermark.y") }}
+	{{ $x := float ($ctx.Param "watermark.x") }}
+	{{ $y := float ($ctx.Param "watermark.y") }}
 	{{ $offsetX := int (mul $x (sub $image.Width $resizedMark.Width)) }}
 	{{ $offsetY := int (mul $y (sub $image.Height $resizedMark.Height)) }}
 
-	{{ $opacity := float ($data.Param "watermark.opacity") }}
+	{{ $opacity := float ($ctx.Param "watermark.opacity") }}
 	{{ $opaqueMark := $resizedMark.Filter (images.Opacity $opacity) }}
 
 	{{ $result = $image.Filter (images.Overlay $opaqueMark $offsetX $offsetY) }}

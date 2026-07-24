@@ -1,2 +1,5 @@
-{{ $pages := where . "Params.private" "!=" true }}
+{{ $pages := $ }}
+
+{{ $pages = where $pages "Params.private" "!=" true }}
+
 {{ return $pages }}

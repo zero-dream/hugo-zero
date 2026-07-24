@@ -1,25 +1,32 @@
-{{ range where site.Pages.ByDate.Reverse "Params.featured" "==" true }}
-	{{ $albumData := partial "utils/get-album.html" (dict "data" . "type" "featured") }}
-	{{ if $albumData }}
-		{{ $thumbnailSpec := site.Params.imageSpec.featured }}
-		{{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
+{{ $albums := slice }}
+{{ $thumbnailSpec := site.Params.imageSpec.featured }}
+{{ range $page := partial "utils/get-featured.html" }}
+	{{ $album := partial "utils/get-album.html" (dict "ctx" $page) }}
+	{{ with $album }}
+		{{ $thumbnail := .cover.Filter (images.Process $thumbnailSpec) }}
 		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
-		<section class="featured">
-			<a class="featured-card" href="{{ .RelPermalink }}" title="{{ .Title }}">
-				<figure style="background-color: {{ $color }};">
-					<img loading="lazy" decoding="async" src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="{{ .Title }}" />
+		{{ $albums = $albums | append (dict
+			"page" $page
+			"thumbnail" $thumbnail
+			"color" $color
+			"countText" .countText
+			)
+		}}
+	{{ end }}
+{{ end }}
+
+{{ with $albums }}
+	<section class="featured">
+		{{ range . }}
+			<a class="featured-card" href="{{ .page.RelPermalink }}" title="{{ .page.Title }}">
+				<figure style="background-color: {{ .color }};">
+					<img loading="lazy" decoding="async" src="{{ .thumbnail.RelPermalink }}" width="{{ .thumbnail.Width }}" height="{{ .thumbnail.Height }}" alt="{{ .page.Title }}" />
 				</figure>
-				<div>
-					<h2>{{ .Title }}</h2>
-					<p>
-						{{ if gt $albumData.albumCount 0 }}
-							{{ T "albumCount" (dict "count" ($albumData.albumCount | lang.FormatNumber 0) "photoCount" ($albumData.imageCount | lang.FormatNumber 0 | lang.Translate "photoCount")) }}
-						{{ else }}
-							{{ T "photoCount" ($albumData.imageCount | lang.FormatNumber 0) }}
-						{{ end }}
-					</p>
+				<div class="card-body">
+					<h2>{{ .page.Title }}</h2>
+					<p>{{ .countText }}</p>
 				</div>
 			</a>
-		</section>
-	{{ end }}
+		{{ end }}
+	</section>
 {{ end }}

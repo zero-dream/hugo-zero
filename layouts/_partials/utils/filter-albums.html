@@ -1,0 +1,14 @@
+{{ $pages := $ }}
+{{ $albums := slice }}
+
+{{ $pages = partial "utils/filter-pages.html" $pages }}
+{{ $pages = partial "utils/filter-bundle.html" $pages }}
+
+{{ range $pages }}
+	{{ $album := partial "utils/get-album.html" (dict "ctx" .) }}
+	{{ with $album }}
+		{{ $albums = $albums | append . }}
+	{{ end }}
+{{ end }}
+
+{{ return $albums }}

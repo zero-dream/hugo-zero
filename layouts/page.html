@@ -1,0 +1,43 @@
+{{ define "main" }}
+{{ partial "components/title.html" . }}
+{{ partial "components/prose.html" . }}
+{{ partial "components/gallery.html" . }}
+{{ partial "components/related.html" . }}
+{{ end }}
+
+{{ define "head-assets" }}
+{{ $sassVars := dict }}
+{{ $buildVars := dict }}
+{{ partial "imports/css-sass.html" (dict "path" "scss/prose.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
+
+{{ $sassVars := dict }}
+{{ $buildVars := dict }}
+{{ $params := dict
+	"gutterH" ($.Param "gallery.justified.gutterH")
+	"gutterV" ($.Param "gallery.justified.gutterV")
+	"rowHeight" ($.Param "gallery.justified.rowHeight")
+	"rowHeightTolerance" ($.Param "gallery.justified.rowHeightTolerance")
+}}
+{{ partial "imports/css-sass.html" (dict "path" "scss/gallery.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
+{{ partial "imports/js-esm.html" (dict "path" "js/gallery.js" "params" $params) }}
+
+{{ $enableDownload := $.Param "download.enable" }}
+{{ $enableCaption := $.Param "gallery.photoSwipe.caption.enable" }}
+{{ $enableFileInfo := $.Param "gallery.photoSwipe.fileInfo.enable" }}
+{{ $sassVars := dict }}
+{{ $buildVars := dict }}
+{{ $params := dict
+	"closeTitle" (T "closeTitle")
+	"zoomTitle" (T "zoomTitle")
+	"arrowPrevTitle" (T "arrowPrevTitle")
+	"arrowNextTitle" (T "arrowNextTitle")
+	"errorMsg" (T "unableLoad")
+	"downloadTitle" (T "downloadTitle")
+	"fileInfoTitle" (T "fileInfoTitle")
+	"enableDownload" $enableDownload
+	"enableCaption" $enableCaption
+	"enableFileInfo" $enableFileInfo
+}}
+{{ partial "imports/css-sass.html" (dict "path" "scss/photoswipe.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
+{{ partial "imports/js-esm.html" (dict "path" "js/photoswipe.js" "params" $params) }}
+{{ end }}

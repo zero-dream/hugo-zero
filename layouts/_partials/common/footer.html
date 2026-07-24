@@ -1,10 +1,16 @@
 <footer>
-	{{ partialCached "icons/social.html" . }}
+	{{ partialCached "icons/social.html" $ }}
 	<section>
 		<span>
-			{{ .Site.Copyright | markdownify }}
+			{{ with $.Site.Copyright }}
+				{{ . | markdownify }} · 
+			{{ end }}
+			{{/* Note: Please do not modify or delete the following Powered content! */}}
+			Powered by 
+			<a target="_blank" rel="noopener noreferrer" href="https://github.com/gohugoio/hugo/">Hugo</a> & 
+			<a target="_blank" rel="noopener noreferrer" href="https://github.com/zero-dream/hugo-gallery/">ZeroDream</a>
 		</span>
-		{{ range .Site.Menus.footer }}
+		{{ range $.Site.Menus.footer }}
 			<a {{ with .Params.rel }}rel="{{ . }}"{{ end }} href="{{ .URL }}">
 				{{ .Name }}
 			</a>

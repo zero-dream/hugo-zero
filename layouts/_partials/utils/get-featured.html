@@ -1,0 +1,6 @@
+{{ $pages := slice }}
+
+{{ $pages = where site.Pages.ByDate.Reverse "Params.featured" "==" true }}
+{{ $pages = partial "utils/filter-bundle.html" $pages }}
+
+{{ return $pages }}

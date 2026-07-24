@@ -1,10 +1,21 @@
-{{ $data := .data }}
+{{ $ctx := .ctx }}
 {{ $images := .images }}
 
 {{ $cover := (index $images 0).image }}
-{{ $resources := $data.Resources.ByType "image" }}
+{{ $resources := $ctx.Resources.ByType "image" }}
 {{ range first 1 (where $resources "Params.cover" "==" true) }}
 	{{ $cover = . }}
+{{ end }}
+
+{{ if not $cover }}
+	{{ if eq $ctx.BundleType "branch" }}
+		{{ $pages = partial "utils/filter-bundle.html" $ctx.Pages }}
+		{{ $page := index $pages 0 }}
+		{{ with $page }}
+			{{ $imgs := partial "utils/get-images.html" . }}
+			{{ $cover = partial "utils/get-cover.html" (dict "ctx" . "images" $imgs) }}
+		{{ end }}
+	{{ end }}
 {{ end }}
 
 {{ return $cover }}

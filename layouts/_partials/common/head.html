@@ -1,12 +1,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>{{ with .Title }}{{ . }} -{{ end }} {{ .Site.Title }}</title>
-<link rel="canonical" href="{{ .Permalink }}" />
+<title>{{ with $.Title }}{{ . }} -{{ end }} {{ .Site.Title }}</title>
+<link rel="canonical" href="{{ $.Permalink }}" />
 <link rel="icon" type="image/svg+xml" href="{{ relURL (printf "%s/favicons/favicon.svg" hugo.Data.config.publishDir) }}" />
 <link rel="icon" type="image/png" href="{{ relURL (printf "%s/favicons/favicon.png" hugo.Data.config.publishDir) }}" />
 <link rel="apple-touch-icon" sizes="180x180" href="{{ relURL (printf "%s/favicons/apple-touch-icon.png" hugo.Data.config.publishDir) }}" />
 
-<meta name="description" content="{{ with .Description }}{{ . | markdownify | plainify }}{{ else }}{{ with site.Params.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}" />
+<meta name="description" content="{{ with $.Description }}{{ . | markdownify | plainify }}{{ else }}{{ with site.Params.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}" />
 
 {{ if $.Keywords }}
 	<meta name="keywords" content="{{ delimit $.Params.Keywords `, ` }}" />
@@ -18,16 +18,17 @@
 	<meta name="robots" content="index, follow" />
 {{ end }}
 
-{{ range .AlternativeOutputFormats }}
-	{{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{ range $.AlternativeOutputFormats }}
+	{{ printf "<link rel=%q type=%q href=%q title=%q />" .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 {{ end }}
 
-{{ partial "common/opengraph.html" . }}
+{{ partial "common/opengraph.html" $ }}
 
 {{ $params := dict "buildTime" now.Unix "defaultTheme" site.Params.defaultTheme }}
-{{ partial "import/js-iife.html" (dict "path" "js/common/init.js" "params" $params) }}
+{{ partial "imports/js-iife.html" (dict "path" "js/common/init.js" "params" $params) }}
 
-{{ $vars := dict }}
+{{ $sassVars := dict }}
+{{ $buildVars := dict }}
 {{ $params := dict }}
-{{ partial "import/css-sass.html" (dict "path" "scss/common/main.scss" "vars" $vars) }}
-{{ partial "import/js-esm.html" (dict "path" "js/common/main.js" "params" $params) }}
+{{ partial "imports/css-sass.html" (dict "path" "scss/common/main.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
+{{ partial "imports/js-esm.html" (dict "path" "js/common/main.js" "params" $params) }}
