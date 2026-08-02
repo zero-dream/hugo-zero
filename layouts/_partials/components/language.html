@@ -1,0 +1,7 @@
+<div class="language">
+	{{ range .Translations }}
+		<a class="btn btn-pill" href="{{ .RelPermalink }}" hreflang="{{ .Language.Locale }}">{{ .Language.Label }}</a>
+	{{ else }}
+		<span class="text-muted">{{ T "noData" }}</span>
+	{{ end }}
+</div>

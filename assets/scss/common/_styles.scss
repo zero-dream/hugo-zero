@@ -81,6 +81,20 @@ body > header > nav {
   }
 }
 
+#lang-toggle {
+  & > .modal-box {
+    & > .modal-body {
+      & > .language {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        gap: var(--gap-4);
+      }
+    }
+  }
+}
+
 body > header > menu {
   @include fonts.text-xl;
   @include fonts.bold;

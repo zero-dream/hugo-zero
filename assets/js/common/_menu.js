@@ -14,7 +14,7 @@ if (toggleEl) {
       navEl.classList.add("blur-01");
       menuEl.classList.remove("visible");
       menuEl.style.opacity = "0";
-      menuEl.style.transform = "translateY(-20%)";
+      menuEl.style.transform = "translateY(-10%)";
       menuEl.style.visibility = "hidden";
     } else {
       bodyEl.style.overflow = "hidden";
@@ -22,7 +22,7 @@ if (toggleEl) {
       menuEl.classList.add("visible");
       menuEl.style.display = "flex";
       menuEl.style.opacity = "0";
-      menuEl.style.transform = "translateY(-20%)";
+      menuEl.style.transform = "translateY(-10%)";
       menuEl.style.visibility = "hidden";
       menuEl.offsetHeight;
       menuEl.style.opacity = "1";

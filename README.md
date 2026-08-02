@@ -501,6 +501,12 @@ If related content is available for your site (e.g. when keywords or tags are us
 
 Read more about this in the [Hugo Docs](https://gohugo.io/configuration/related-content/).
 
+### Language
+
+Configure language.
+
+`enable`: (bool) Whether to display the language switcher.
+
 ### Social Icons
 
 Add social icons on the bottom of each page.

@@ -46,6 +46,8 @@ params:
     limit: 3
 
   # site.Params
+  language:
+    enable: false
   imageSpec:
     rssCover: "fit 1200x1200"
     openGraph: "fill 1200x630"

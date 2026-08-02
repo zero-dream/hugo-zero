@@ -2,12 +2,14 @@ languages:
   en:
     disabled: false
     weight: 1
+    direction: ltr
     label: English
     locale: "en-us"
     timeZone: "Etc/UTC"
   zh:
     disabled: true
     weight: 2
+    direction: ltr
     label: 简体中文
     locale: "zh-cn"
     timeZone: "Asia/Shanghai"
