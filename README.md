@@ -33,8 +33,9 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 - Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
 - Photoswipe and lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
 - Prose typography with [tailwindlabs/tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography)
-- Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
 - Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
+- Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
+- Some icons with bootstrap [twbs/icons](https://github.com/twbs/icons)
 
 ### Font Family
 
@@ -236,6 +237,8 @@ params:
 ---
 ```
 
+**Note:** Please make sure that the [`featured`](#featured) feature is enabled.
+
 ### Album Cover
 
 By default, the cover image of an album is the first image in its folder.
@@ -306,7 +309,7 @@ params:
 
 ### Album
 
-#### Sort
+#### Album Sort
 
 The default sort order for page collections, follows this priority:
 
@@ -315,9 +318,9 @@ The default sort order for page collections, follows this priority:
 - linkTitle falling back to title (ascending)
 - logical path (ascending)
 
-### Image
+### Resource
 
-#### Sort
+#### Resource Sort
 
 **Support:** cascade;
 
@@ -325,32 +328,34 @@ Used to sort images in the gallery.
 
 The first element has the highest priority.
 
-`key`: (string) Sort by. Values: title; name; params.weight; params.date;
+`key`: (string) Sort by. Value: title; name; params.weight; params.date;
 
-`order`: (string) Sort order. Values: asc(ascending); desc(descending);
+`order`: (string) Sort order. Value: asc(ascending); desc(descending);
 
 Sort mainly by date in descending order:
 
 ```yaml
 params:
-  image:
-    sort:
-      - { key: "params.weight", order: "asc" }
-      - { key: "params.date", order: "desc" }
-      - { key: "title", order: "asc" }
-      - { key: "name", order: "asc" }
+  resource:
+    image:
+      sort:
+        - { key: "params.weight", order: "asc" }
+        - { key: "params.date", order: "desc" }
+        - { key: "title", order: "asc" }
+        - { key: "name", order: "asc" }
 ```
 
 Sort mainly by title in ascending order:
 
 ```yaml
 params:
-  image:
-    sort:
-      - { key: "params.weight", order: "asc" }
-      - { key: "title", order: "asc" }
-      - { key: "params.date", order: "desc" }
-      - { key: "name", order: "asc" }
+  resource:
+    image:
+      sort:
+        - { key: "params.weight", order: "asc" }
+        - { key: "title", order: "asc" }
+        - { key: "params.date", order: "desc" }
+        - { key: "name", order: "asc" }
 ```
 
 Front matter:
@@ -388,11 +393,11 @@ resources:
 
 Show image Exif data in the bottom bar of the lightbox.
 
-`caption.enable`: (float) Whether to display caption on the lightbox.
+`enable`: (float) Whether to enable the caption feature.
 
-`caption.data`: (slice) Display [`image Exif`](#image-exif) data.
+`items`: (slice) Display [`image Exif`](#image-exif) items.
 
-`caption.data.format`: (string) Supports [`string function`](#execute-string-function).
+`items.format`: (string) Supports [`string function`](#execute-string-function).
 
 ```yaml
 params:
@@ -400,7 +405,7 @@ params:
     photoSwipe:
       caption:
         enable: true
-        data:
+        items:
           - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
           - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
           - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
@@ -414,13 +419,13 @@ params:
 
 Show the file information of the image in the bottom bar of the lightbox.
 
-`fileInfo.enable`: (float) Whether to display file info on the lightbox.
+`enable`: (float) Whether to enable the file info feature.
 
-`fileInfo.firstBigger`: (float) Making the font of the first line bigger can make the title stand out more.
+`firstBigger`: (float) Making the font of the first line bigger can make the title stand out more.
 
-`fileInfo.data`: (slice) Display [`image Exif`](#image-exif) data.
+`items`: (slice) Display [`image Exif`](#image-exif) items.
 
-`fileInfo.data.format`: (string) Supports [`string function`](#execute-string-function).
+`items.format`: (string) Supports [`string function`](#execute-string-function).
 
 ```yaml
 params:
@@ -429,7 +434,7 @@ params:
       fileInfo:
         enable: true
         firstBigger: true
-        data:
+        items:
           - { format: "${Title-title}" }
           - { format: '${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}' }
           - { format: "${FileExt} · ${Megapixel} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
@@ -500,7 +505,7 @@ params:
 
 Configure related content.
 
-`enable`: (bool) Whether to enable related content.
+`enable`: (bool) Whether to enable the related content feature.
 
 `limit`: (int) Limit on the amount of related content.
 
@@ -515,26 +520,53 @@ If related content is available for your site (e.g. when keywords or tags are us
 
 Read more about this in the [Hugo Docs](https://gohugo.io/configuration/related-content/).
 
+### Theme
+
+Configure theme.
+
+`color`: (string) Choose a main color for the theme. Value: [tailwindcss-colors](https://tailwindcss.com/docs/colors);
+
+`scheme`: (string) Control the color scheme of the theme. Value: auto; light; dark;
+
+`font`: (map) Set the font of the theme. Default: [`font-family`](#font-family);
+
 ### Language
 
 Configure language.
 
-`enable`: (bool) Whether to display the language switcher.
+`enable`: (bool) Whether to enable the language switcher feature.
 
-### Social Icons
+### Social
 
-Add social icons on the bottom of each page.
+Add social links to the footer.
 
-`Icons`: twitter instagram linkedin website mastodon pixelfed mixcloud flickr 500px
+`enable`: (bool) Whether to enable the social links feature.
+
+`items`: (slice) Display social links.
+
+`items.name`: Value: envelope-fill; github; mastodon; twitter; twitter-x; youtube; facebook; instagram; wechat; tencent-qq;
 
 ```yaml
 params:
-  socialIcon:
-    github: "https://github.com/zero-dream/hugo-gallery/"
-    facebook: "https://www.facebook.com/"
-    youtube: "https://www.youtube.com/"
-    email: "mailto:user@example.com"
-    whatsapp: "1234567890"
+  social:
+    enable: true
+    items:
+      - { name: "github", link: "https://github.com/zero-dream/hugo-gallery/" }
+      - { name: "envelope-fill", link: "mailto:user@example.com" }
+      - { name: "youtube", link: "https://www.youtube.com/" }
+      - { name: "facebook", link: "https://www.facebook.com/" }
+```
+
+### Featured
+
+Add featured albums to the homepage.
+
+`enable`: (bool) Whether to enable the featured feature.
+
+```yaml
+params:
+  featured:
+    enable: true
 ```
 
 ## Custom

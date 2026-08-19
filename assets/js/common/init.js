@@ -7,13 +7,13 @@ import params from "@params";
 const themeList = ["auto", "light", "dark"];
 
 const buildTime = params.buildTime;
-const defaultTheme = params.defaultTheme;
+const themeScheme = params.themeScheme;
 
 // Window
 
 zeroGallery = window.zeroGallery = {};
 zeroGallery.buildTime = buildTime;
-zeroGallery.defaultTheme = defaultTheme;
+zeroGallery.themeScheme = themeScheme;
 zeroGallery.themeList = themeList;
 
 // ZeroTmp
@@ -43,7 +43,7 @@ const setTheme = (theme) => {
 };
 zeroGallery.setTheme = setTheme;
 
-const currTheme = localStorage.getItem("currTheme") || defaultTheme;
+const currTheme = localStorage.getItem("currTheme") || themeScheme;
 setTheme(currTheme);
 
 // InvertProse

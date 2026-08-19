@@ -5,6 +5,8 @@
 
 {{ $modalSize := .modalSize }}
 {{ $triggerText := .triggerText }}
+{{ $triggerClass := .triggerClass | default "btn btn-primary" }}
+
 {{ $closeClick := .closeClick }}
 {{ $confirmClick := .confirmClick }}
 {{ $cancelClick := .cancelClick }}
@@ -15,7 +17,7 @@
 
 {{ with $triggerText }}
 	<div class="modal-trigger">
-		<button class="btn trigger" aria-expanded="false">
+		<button class="{{ $triggerClass }}" aria-expanded="false">
 			{{ . }}
 		</button>
 		<script>
@@ -25,23 +27,25 @@
 	</div>
 {{ end }}
 
-<dialog class="modal" id="{{ $id }}">
+<dialog id="{{ $id }}" class="modal">
 	<script>
 		window.zeroTmp.var.modalEl = document.currentScript.parentElement;
 	</script>
-	<div class="modal-box {{ $modalSize }}">
+	<div class="modal-box" style="{{ if $modalSize }}max-width: var({{ $modalSize | safeCSS }});{{ end }}">
 
 		{{ with $closeClick }}
-			<button class="close btn btn-circle btn-text no-hover" type="button">
-				<span class="icon">
-					{{ partial "icons/hero.html" (dict "name" "x-mark" "type" "outline") }}
-				</span>
-			</button>
+			<div class="modal-close">
+				<button class="btn btn-circle btn-ghost" type="button">
+					<span class="icon">
+						{{ partial "icons/hero.html" (dict "name" "outline/x-mark" "type" "safeHTML") }}
+					</span>
+				</button>
 			<script>
 				window.zeroTmp.var.closeBtn = {};
 				window.zeroTmp.var.closeBtn.click = {{ partial "funcs/strings/split-escape.html" . }};
 				window.zeroTmp.var.closeBtn.elem = document.currentScript.previousElementSibling;
 			</script>
+			</div>
 		{{ end }}
 
 		<div class="modal-header">
@@ -54,8 +58,8 @@
 
 		<div class="modal-footer">
 			{{ with $cancelClick }}
-				<div>
-					<button class="cancel btn btn-block" type="button">
+				<div class="modal-cancel">
+					<button class="btn btn-secondary" type="button">
 						{{ T "cancelTitle" }}
 					</button>
 					<script>
@@ -66,8 +70,8 @@
 				</div>
 			{{ end }}
 			{{ with $confirmClick }}
-				<div>
-					<button class="confirm btn btn-block" type="button">
+				<div class="modal-confirm">
+					<button class="btn btn-primary" type="button">
 						{{ T "confirmTitle" }}
 					</button>
 					<script>

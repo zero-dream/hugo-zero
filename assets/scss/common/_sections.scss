@@ -10,6 +10,7 @@ body > main > section {
 }
 
 body > main > section.fj-gallery {
+  user-select: none;
   overflow: visible;
 
   & > .fj-gallery-item {
@@ -31,7 +32,6 @@ body > main > section.fj-gallery {
       }
 
       & > .image-caption {
-        user-select: none;
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
@@ -47,7 +47,7 @@ body > main > section.fj-gallery {
         & > .caption-text {
           @include fonts.text-xs;
           text-align: center;
-          color: var(--color-text-1-white);
+          color: var(--color-text-regular-high);
         }
 
         & > .caption-bg {
@@ -83,7 +83,7 @@ body > main > section.fj-gallery {
 
           & > .caption-bg {
             @extend %blur-image-caption;
-            background: #{"rgb(128 60 60 / 30%)"};
+            background: color-mix(in srgb, var(--color-focus-outline) 30%, transparent);
           }
         }
       }
@@ -102,6 +102,7 @@ body > .pswp > section.pswp__scroll-wrap {
 }
 
 body > main > section.albums {
+  user-select: none;
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   gap: var(--gap-8) var(--gap-6);
@@ -139,7 +140,6 @@ body > main > section.albums {
     }
 
     & > .card-body {
-      user-select: none;
       display: flex;
       flex-flow: column nowrap;
       flex: 1 1 auto;
@@ -153,13 +153,14 @@ body > main > section.albums {
 
       & > p {
         @include fonts.text-sm;
-        color: var(--color-text-2);
+        color: var(--color-text-secondary);
       }
     }
   }
 }
 
 body > main > section.featured {
+  user-select: none;
   display: flex;
   flex-flow: column nowrap;
   gap: var(--gap-main);
@@ -168,7 +169,7 @@ body > main > section.featured {
     aspect-ratio: 1/1;
     position: relative;
     width: 100%;
-    color: var(--color-text-1);
+    color: var(--color-text-regular);
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     overflow: hidden;
 
@@ -193,7 +194,6 @@ body > main > section.featured {
     }
 
     & > .card-body {
-      user-select: none;
       position: absolute;
       bottom: 0;
       display: flex;
@@ -222,6 +222,7 @@ body > main > section.featured {
 }
 
 body > main > section.taxonomies {
+  user-select: none;
   display: flex;
   flex-flow: column nowrap;
   gap: var(--gap-8);
@@ -231,7 +232,7 @@ body > main > section.taxonomies {
       @include fonts.text-2xl;
       @include fonts.bold;
       margin-bottom: 1rem;
-      color: var(--color-text-2);
+      color: var(--color-text-secondary);
     }
 
     & > .term-list {
@@ -241,7 +242,6 @@ body > main > section.taxonomies {
 
       & > .card-term {
         @include sizes.rounded-2xl;
-        user-select: none;
         display: flex;
         flex-flow: column nowrap;
         gap: var(--gap-2);
@@ -256,13 +256,58 @@ body > main > section.taxonomies {
 
         & > .card-body {
           @include fonts.text-sm;
-          color: var(--color-text-2);
+          color: var(--color-text-secondary);
         }
 
         &:hover {
           background-color: var(--color-card-hover);
         }
       }
+    }
+  }
+}
+
+body > footer > section {
+  margin: 0 auto 0;
+}
+
+body > footer > section.socials {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-2);
+
+  & > a > svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+body > footer > section.footer-bottom {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-2) var(--gap-4);
+
+  & > nav#footer-menu {
+    & > ul {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--gap-4);
+    }
+  }
+
+  a {
+    &:hover {
+      color: var(--color-text-primary);
+      text-underline-offset: var(--gap-1);
+      text-decoration: underline;
+      text-decoration-style: solid;
+      text-decoration-thickness: 1px;
     }
   }
 }

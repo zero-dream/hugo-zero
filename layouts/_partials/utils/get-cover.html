@@ -1,7 +1,7 @@
 {{ $ctx := .ctx }}
 {{ $images := .images }}
 
-{{ $cover := (index $images 0).image }}
+{{ $cover := (index $images 0).resource }}
 {{ $resources := $ctx.Resources.ByType "image" }}
 {{ range first 1 (where $resources "Params.cover" "==" true) }}
 	{{ $cover = . }}
@@ -12,7 +12,7 @@
 		{{ $pages = partial "utils/filter-bundle.html" $ctx.Pages }}
 		{{ $page := index $pages 0 }}
 		{{ with $page }}
-			{{ $imgs := partial "utils/get-images.html" . }}
+			{{ $imgs := partial "utils/get-resources.html" (dict "ctx" . "type" "image") }}
 			{{ $cover = partial "utils/get-cover.html" (dict "ctx" . "images" $imgs) }}
 		{{ end }}
 	{{ end }}

@@ -5,7 +5,6 @@ params:
   author:
     name: "YourName"
     email: "user@example.com"
-  defaultTheme: "auto" # Value: auto; light; dark;
 
   # .Param
   download:
@@ -13,18 +12,19 @@ params:
     imageSpec: "fit 3200x3200"
   album:
     imageSpec:
-      thumbnail: "fill 1200x1200"
-  image:
-    sort:
-      - { key: "params.weight", order: "asc" }
-      - { key: "params.date", order: "desc" }
-      - { key: "title", order: "asc" }
-      - { key: "name", order: "asc" }
+      thumbnail: "fill 900x600"
+  resource:
+    image:
+      sort:
+        - { key: "params.weight", order: "asc" }
+        - { key: "params.date", order: "desc" }
+        - { key: "title", order: "asc" }
+        - { key: "name", order: "asc" }
   gallery:
     photoSwipe:
       caption:
         enable: true
-        data:
+        items:
           - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
           - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
           - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
@@ -33,7 +33,7 @@ params:
       fileInfo:
         enable: true
         firstBigger: true
-        data:
+        items:
           - { format: "${Title-title}" }
           - { format: '${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}' }
           - { format: "${FileExt} · ${Megapixel} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
@@ -48,7 +48,7 @@ params:
       lightbox: "fit 1920x1920"
   watermark:
     enable: true
-    path: "images/watermark/watermark.png" # assets/...
+    path: "images/watermark/watermark.png" # Path: assets/...
     opacity: 0.2
     size: 0.05
     x: 0.5
@@ -59,6 +59,8 @@ params:
 
   # site.Params
   theme:
+    color: "indigo"
+    scheme: "auto" # Value: auto; light; dark;
     font:
       sans:
         family: ["SourceSans3VF", "Source Han Sans VF"]
@@ -67,14 +69,18 @@ params:
   language:
     enable: false
   imageSpec:
-    rssCover: "fit 1200x1200"
+    rssCover: "fill 900x600"
     openGraph: "fill 1200x630"
-    featured: "fill 1600x900"
-  socialIcon:
-    github: "https://github.com/zero-dream/hugo-gallery/"
-    facebook: "https://www.facebook.com/"
-    youtube: "https://www.youtube.com/"
-    email: "mailto:user@example.com"
-    whatsapp: "1234567890"
+  social:
+    enable: true
+    items:
+      - { name: "github", link: "https://github.com/zero-dream/hugo-gallery/" }
+      - { name: "envelope-fill", link: "mailto:user@example.com" }
+      - { name: "youtube", link: "https://www.youtube.com/" }
+      - { name: "facebook", link: "https://www.facebook.com/" }
+  featured:
+    enable: true
+    imageSpec:
+      thumbnail: "fill 1600x900"
   cssBuild:
     target: ["chrome115", "edge115", "firefox116", "ios16.4", "opera101", "safari16.4"]

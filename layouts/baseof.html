@@ -3,7 +3,7 @@
 {{ $params := dict }}
 
 <!doctype html>
-<html class="{{ site.Params.defaultTheme }}" lang="{{ site.Language.Locale | default "en" }}">
+<html class="{{ site.Params.theme.scheme }}" lang="{{ site.Language.Locale | default "en" }}">
 	<head>
 		{{ partial "common/head.html" . }}
 		{{ block "head-assets" . }}{{ end }}
@@ -13,9 +13,7 @@
 	</head>
 	<body>
 		{{ block "header" . }}{{ partial "common/header.html" . }}{{ end }}
-		<main>
-			{{ block "main" . }}{{ end }}
-		</main>
-		{{ block "footer" . }}{{ partialCached "common/footer.html" . }}{{ end }}
+		<main>{{ block "main" . }}{{ end }}</main>
+		{{ block "footer" . }}{{ partial "common/footer.html" . }}{{ end }}
 	</body>
 </html>

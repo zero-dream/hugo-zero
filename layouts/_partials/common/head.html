@@ -24,16 +24,17 @@
 
 {{ partial "common/opengraph.html" $ }}
 
-{{ $params := dict "buildTime" now.Unix "defaultTheme" site.Params.defaultTheme }}
+{{ $params := dict "buildTime" now.Unix "themeScheme" site.Params.theme.scheme }}
 {{ partial "imports/js-iife.html" (dict "path" "js/common/init.js" "params" $params) }}
 
 {{ $sansFontFamily := partial "funcs/strings/join-quoted.html" (dict "slice" site.Params.theme.font.sans.family "delimiter" ",") }}
 {{ $monoFontFamily := partial "funcs/strings/join-quoted.html" (dict "slice" site.Params.theme.font.mono.family "delimiter" ",") }}
-{{ $sassVars := dict }}
-{{ $buildVars := (dict
+{{ $sassVars := dict
+	"default-theme-color" (site.Params.theme.color)
+}}
+{{ $buildVars := dict
 	"default-font-family" $sansFontFamily
 	"default-mono-font-family" $monoFontFamily
-	)
 }}
 {{ $params := dict }}
 {{ partial "imports/css-sass.html" (dict "path" "scss/common/main.scss" "sassVars" $sassVars "buildVars" $buildVars) }}

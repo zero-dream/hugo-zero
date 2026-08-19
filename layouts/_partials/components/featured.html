@@ -1,32 +1,37 @@
-{{ $albums := slice }}
-{{ $thumbnailSpec := site.Params.imageSpec.featured }}
-{{ range $page := partial "utils/get-featured.html" }}
-	{{ $album := partial "utils/get-album.html" (dict "ctx" $page) }}
-	{{ with $album }}
-		{{ $thumbnail := .cover.Filter (images.Process $thumbnailSpec) }}
-		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
-		{{ $albums = $albums | append (dict
-			"page" $page
-			"thumbnail" $thumbnail
-			"color" $color
-			"countText" .countText
-			)
-		}}
-	{{ end }}
-{{ end }}
+{{ $enable := site.Params.featured.enable }}
+{{ if $enable }}
 
-{{ with $albums }}
-	<section class="featured">
-		{{ range . }}
-			<a class="featured-card" href="{{ .page.RelPermalink }}" title="{{ .page.Title }}">
-				<figure style="background-color: {{ .color }};">
-					<img loading="lazy" decoding="async" src="{{ .thumbnail.RelPermalink }}" width="{{ .thumbnail.Width }}" height="{{ .thumbnail.Height }}" alt="{{ .page.Title }}" />
-				</figure>
-				<div class="card-body">
-					<h2>{{ .page.Title }}</h2>
-					<p>{{ .countText }}</p>
-				</div>
-			</a>
+	{{ $albums := slice }}
+	{{ $thumbnailSpec := site.Params.featured.imageSpec.thumbnail }}
+	{{ range $page := partial "utils/get-featured.html" }}
+		{{ $album := partial "utils/get-album.html" (dict "ctx" $page) }}
+		{{ with $album }}
+			{{ $thumbnail := .cover.Filter (images.Process $thumbnailSpec) }}
+			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+			{{ $albums = $albums | append (dict
+				"page" $page
+				"thumbnail" $thumbnail
+				"color" $color
+				"countText" .countText
+				)
+			}}
 		{{ end }}
-	</section>
+	{{ end }}
+
+	{{ with $albums }}
+		<section class="featured">
+			{{ range . }}
+				<a class="featured-card" href="{{ .page.RelPermalink }}" title="{{ .page.Title }}">
+					<figure style="background-color: {{ .color }};">
+						<img loading="lazy" decoding="async" src="{{ .thumbnail.RelPermalink }}" width="{{ .thumbnail.Width }}" height="{{ .thumbnail.Height }}" alt="{{ .page.Title }}" />
+					</figure>
+					<div class="card-body">
+						<h2>{{ .page.Title }}</h2>
+						<p>{{ .countText }}</p>
+					</div>
+				</a>
+			{{ end }}
+		</section>
+	{{ end }}
+
 {{ end }}

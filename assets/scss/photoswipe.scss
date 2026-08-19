@@ -42,7 +42,7 @@ div.pswp__img--placeholder {
   & > .pswp__error-msg {
     @include fonts.text-base;
     margin: auto;
-    color: var(--color-text-1-white);
+    color: var(--color-text-regular-high);
   }
 }
 
@@ -74,7 +74,7 @@ div.pswp__img--placeholder {
       fill: none;
       stroke: currentColor;
       stroke-width: 1.5;
-      color: var(--color-text-1-white);
+      color: var(--color-text-regular-high);
       width: var(--pswp-icon-size);
       height: var(--pswp-icon-size);
     }
@@ -120,7 +120,7 @@ div.pswp__img--placeholder {
   position: fixed;
   inset: 0 0 auto 0;
   min-height: 4rem;
-  color: var(--color-text-1-white);
+  color: var(--color-text-regular-high);
   padding: var(--gap-2);
 
   & > .pswp__counter {
@@ -147,7 +147,7 @@ div.pswp__img--placeholder {
       opacity: 0;
       position: absolute;
       fill: currentColor;
-      color: var(--color-text-1-white);
+      color: var(--color-text-regular-high);
       transition: opacity 0.3s var(--pswp-transition-func-01);
       animation: pswp-clockwise 600ms linear infinite;
     }
@@ -165,7 +165,7 @@ div.pswp__img--placeholder {
   gap: var(--gap-6);
   position: fixed;
   inset: auto 0 0 0;
-  color: var(--color-text-1-white);
+  color: var(--color-text-regular-high);
   padding: var(--gap-2);
 
   & > .bar-caption {
@@ -178,7 +178,7 @@ div.pswp__img--placeholder {
         text-align: center;
         vertical-align: middle;
         border: none;
-        border-left: 1px solid var(--color-text-2-white);
+        border-left: 1px solid var(--color-text-secondary-high);
 
         &:first-child {
           border-left: none;

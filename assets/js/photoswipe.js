@@ -3,7 +3,7 @@ import PhotoSwipeLightbox from "lib/photoswipe/photoswipe-lightbox.esm.js";
 import PhotoSwipe from "lib/photoswipe/photoswipe.esm.js";
 
 const bodyEl = document.body;
-const prevBodyOverflow = document.body.style.overflow;
+let savedBodyOverflow;
 const galleryEl = document.getElementById("gallery");
 
 const modal = window.zeroGallery.modal;
@@ -36,6 +36,8 @@ if (galleryEl) {
   let bottomBarEl;
   lightbox.on("uiRegister", () => {
     const pswp = lightbox.pswp;
+
+    savedBodyOverflow = bodyEl.style.overflow;
     bodyEl.style.overflow = "hidden";
 
     pswp.ui.uiElementsData = pswp.ui.uiElementsData.filter((el) => {
@@ -252,14 +254,14 @@ if (galleryEl) {
     });
   });
 
-  lightbox.on("close", () => {
-    bodyEl.style.overflow = prevBodyOverflow;
-    history.replaceState("", document.title, window.location.pathname);
-  });
-
   lightbox.on("change", () => {
     const target = lightbox.pswp.currSlide?.data?.element?.dataset["pswpTarget"];
     history.replaceState("", document.title, "#" + target);
+  });
+
+  lightbox.on("close", () => {
+    bodyEl.style.overflow = savedBodyOverflow;
+    history.replaceState("", document.title, window.location.pathname);
   });
 
   lightbox.init();

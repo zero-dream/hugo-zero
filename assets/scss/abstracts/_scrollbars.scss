@@ -23,9 +23,9 @@
     border-radius: 2px;
   }
   &:hover::-webkit-scrollbar-thumb {
-    background: var(--color-text-2-white);
+    background: var(--color-text-secondary-high);
   }
   &:hover {
-    scrollbar-color: var(--color-text-2-white) transparent;
+    scrollbar-color: var(--color-text-secondary-high) transparent;
   }
 }

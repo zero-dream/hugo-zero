@@ -1,0 +1,27 @@
+{{ $enable := site.Params.social.enable }}
+{{ if $enable }}
+
+	{{ $items := slice }}
+	{{ range site.Params.social.items }}
+		{{ $icon := partial "icons/bootstrap.html" (dict "name" .name "type" "safeHTML") }}
+		{{ if $icon }}
+			{{ $items = $items | append (dict
+				"name" .name
+				"link" .link
+				"icon" $icon
+				)
+			}}
+		{{ end }}
+	{{ end }}
+
+	{{ with $items }}
+		<section class="socials">
+			{{ range . }}
+				<a class="btn btn-square" target="_blank" rel="noopener noreferrer" href="{{ .link }}">
+					{{ .icon }}
+				</a>
+			{{ end }}
+		</section>
+	{{ end }}
+
+{{ end }}

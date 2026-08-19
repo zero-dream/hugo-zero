@@ -23,19 +23,60 @@
   gap: var(--gap-2);
   flex-flow: row nowrap;
   flex-shrink: 0;
-
+  border: 1px solid transparent;
   padding: var(--gap-2) var(--gap-4);
-  background-color: var(--color-btn-bg);
 
   transition-property: color, background-color, border-color, box-shadow;
   transition-duration: 0.2s;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
+  &.btn-primary {
+    color: var(--color-text-regular-high);
+    background-color: var(--color-btn-bg);
+    border-color: var(--color-btn-bg);
+
+    &:not([disabled]):hover,
+    &:focus-visible {
+      background-color: var(--color-btn-hover);
+      border-color: var(--color-btn-hover);
+    }
+  }
+
+  &.btn-secondary {
+    color: var(--color-text-primary);
+    background-color: transparent;
+    border-color: var(--color-btn-bg);
+
+    &:not([disabled]):hover,
+    &:focus-visible {
+      color: var(--color-text-regular-high);
+      background-color: var(--color-btn-hover);
+      border-color: var(--color-btn-hover);
+    }
+  }
+
+  &.btn-ghost {
+    color: var(--color-text-regular);
+    background-color: transparent;
+  }
+
+  &.btn-link {
+    font-size: inherit;
+    vertical-align: baseline;
+    color: var(--color-btn-bg);
+    background-color: transparent;
+    padding-block: 0;
+  }
+
+  &.btn-block {
+    width: 100%;
+  }
+
   &.btn-square {
+    @include sizes.rounded-xs;
     width: 2.5rem;
     height: 2.5rem;
     padding-inline: 0;
-    border-radius: 0.25rem;
   }
 
   &.btn-circle {
@@ -49,31 +90,12 @@
     @include sizes.rounded-full;
   }
 
-  &.btn-text {
-    background-color: transparent;
-    border: none;
-  }
-
-  &.btn-block {
-    width: 100%;
-  }
-
-  &:not(.no-hover):not([disabled]):hover {
-    background-color: var(--color-btn-hover);
-  }
-
-  &:not([disabled]):active {
-    translate: 0 1px;
-  }
-
   &:disabled {
     cursor: not-allowed;
   }
 
-  &:focus-visible {
-    isolation: isolate;
-    outline: 2px solid var(--color-focus-outline);
-    outline-offset: 0;
+  &:not([disabled]):active {
+    translate: 0 1px;
   }
 }
 
@@ -119,7 +141,11 @@
     width: 100%;
     padding: var(--gap-4);
 
-    & > button.close {
+    @media (min-width: vars.$breakpoint-sm) {
+      max-width: var(--size-lg);
+    }
+
+    & > div.modal-close {
       position: absolute;
       inset: 0 0 auto auto;
       margin: var(--gap-2);
@@ -133,29 +159,32 @@
       & > h3 {
         @include fonts.text-base;
         @include fonts.bold;
-        color: var(--color-text-1);
+        color: var(--color-text-regular);
         text-align: center;
       }
     }
 
     & > .modal-footer {
-      color: var(--color-text-1);
       display: flex;
       flex-flow: row nowrap;
       justify-content: center;
       align-items: center;
       width: 100%;
+      color: var(--color-text-regular);
       gap: var(--gap-4);
 
       & > * {
         flex: 1;
+        min-width: 0;
+
+        @media (min-width: vars.$breakpoint-sm) {
+          flex: 0 1 260px;
+        }
+
+        & > * {
+          width: 100%;
+        }
       }
     }
-  }
-}
-
-@media (min-width: vars.$breakpoint-sm) {
-  .modal-box {
-    @include sizes.max-w-lg;
   }
 }

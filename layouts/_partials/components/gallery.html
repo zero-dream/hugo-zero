@@ -1,6 +1,6 @@
-{{ $images := partial "utils/get-images.html" $ }}
+{{ $images := partial "utils/get-resources.html" (dict "ctx" $ "type" "image") }}
 {{ with $images }}
-	<section class="fj-gallery hidden" id="gallery">
+	<section id="gallery" class="fj-gallery hidden">
 		{{ $publishResources := $.Param "build.publishResources" }}
 		{{ $enableDownload := $.Param "download.enable" }}
 		{{ $downImageSpec := $.Param "download.imageSpec" }}
@@ -10,7 +10,7 @@
 		{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
 
 		{{ range . }}
-			{{ $image := .image }}
+			{{ $image := .resource }}
 			{{ $name := .name }}
 			{{ $title := .title }}
 			{{ $params := .params }}
@@ -50,10 +50,10 @@
 								<table>
 									<tbody>
 										<tr>
-											{{ $captionData := slice }}
-											{{ range $caption.data }}{{ $captionData = $captionData | append .format }}{{ end }}
-											{{ $captions := partial "funcs/images/parse-meta.html" (dict "image" $downImage "data" $captionData "default" "-") }}
-											{{ range $index, $value := $caption.data }}
+											{{ $items := slice }}
+											{{ range $caption.items }}{{ $items = $items | append .format }}{{ end }}
+											{{ $captions := partial "funcs/images/parse-meta.html" (dict "image" $downImage "items" $items "default" "-") }}
+											{{ range $index, $value := $caption.items }}
 												{{ $caption := index $captions $index }}
 												<td style="min-width: {{ $value.minWidth }};">
 													<pre>{{ $caption }}</pre>
@@ -69,9 +69,9 @@
 					{{ if $fileInfo.enable }}
 						<div class="hidden pswp-fileinfo">
 							<div class="bar-fileinfo {{ if $fileInfo.firstBigger }}fileinfo-first-bigger{{ end }}">
-								{{ $fileInfoData := slice }}
-								{{ range $fileInfo.data }}{{ $fileInfoData = $fileInfoData | append .format }}{{ end }}
-								{{ with partial "funcs/images/parse-meta.html" (dict "image" $downImage "data" $fileInfoData "default" "") }}
+								{{ $items := slice }}
+								{{ range $fileInfo.items }}{{ $items = $items | append .format }}{{ end }}
+								{{ with partial "funcs/images/parse-meta.html" (dict "image" $downImage "items" $items "default" "") }}
 									{{ range . }}<pre>{{ . }}</pre>{{ end }}
 								{{ else }}
 									<span>None</span>

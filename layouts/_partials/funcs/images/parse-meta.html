@@ -2,13 +2,13 @@
 {{/* https://github.com/zero-dream */}}
 
 {{ $image := .image }}
-{{ $data := .data }}
+{{ $items := .items }}
 {{ $default := .default }}
 {{ $result := slice }}
 
-{{ $metas := partial "funcs/images/get-meta.html" (dict "image" $image "format" "display") }}
-{{ with $metas }}
-	{{ range $format := $data }}
+{{ $meta := partial "funcs/images/get-meta.html" (dict "image" $image "format" "display") }}
+{{ with $meta }}
+	{{ range $format := $items }}
 
 		{{ $matches := findRESubmatch `\$\{([^}]+)\}` $format }}
 		{{ range $matches }}
@@ -17,7 +17,7 @@
 			{{ $parts := partial "funcs/strings/split-escape.html" $1 }}
 
 			{{ $keys := split (index $parts 0) "." }}
-			{{ with index $metas $keys }}
+			{{ with index $meta $keys }} {{/* Skip zero time. */}}
 				{{ $value := . }}
 				{{ with (index $parts 1) }}
 					{{ $params := after 2 $parts }}

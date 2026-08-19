@@ -11,13 +11,13 @@
 		{{ $exifEntries = merge $exifEntries (dict $key $value) }}
 	{{ end }}
 	{{ $title := partial "funcs/paths/remove-ext.html" (dict "path" $image.Title) }}
-	{{ $smartDate := $image.Params.date | default $image.Meta.Date }}
+	{{ $smartDate := time.AsTime $image.Params.date | default $image.Meta.Date }}
 	{{ $fileExt := index (split $image.MediaType "/") 1 }}
 	{{ $resolution := printf "%d*%d" $image.Width $image.Height }}
 	{{ $megapixel := div (mul (float $image.Width) (float $image.Height)) (float 1000000) }}
 	{{ $fileSize := len $image.Content }}
 
-	{{ $metas := dict
+	{{ $meta := dict
 		"Title" $title
 		"Params" $image.Params
 		"SmartDate" $smartDate
@@ -34,16 +34,16 @@
 	}}
 
 	{{ if eq $format "none" }}
-		{{ $result = $metas }}
+		{{ $result = $meta }}
 	{{ else if eq $format "display" }}
-		{{ $newMetas := $metas }}
+		{{ $newMeta := $meta }}
 		{{ $modifiedDict := dict }}
 
 		{{ $calcDict := dict
-			"Exif.BrightnessValue" $metas.Exif.BrightnessValue
-			"Exif.FNumber" $metas.Exif.FNumber
-			"Exif.FocalLength" $metas.Exif.FocalLength
-			"Exif.ExposureTime" $metas.Exif.ExposureTime
+			"Exif.BrightnessValue" $meta.Exif.BrightnessValue
+			"Exif.FNumber" $meta.Exif.FNumber
+			"Exif.FocalLength" $meta.Exif.FocalLength
+			"Exif.ExposureTime" $meta.Exif.ExposureTime
 		}}
 		{{ range $key, $value := $calcDict }}
 			{{ with $value }}
@@ -56,9 +56,9 @@
 		{{ $modifiedDict = merge $modifiedDict (dict "Exif.ExposureTime" $exposureTime) }}
 
 		{{ range $key, $value := $modifiedDict }}
-			{{ $newMetas = partial "funcs/collections/set-nested.html" (dict "data" $newMetas "key" $key "value" $value) }}
+			{{ $newMeta = partial "funcs/collections/set-nested.html" (dict "data" $newMeta "key" $key "value" $value) }}
 		{{ end }}
-		{{ $result = $newMetas }}
+		{{ $result = $newMeta }}
 	{{ end }}
 {{ end }}
 

@@ -1,10 +1,11 @@
 const bodyEl = document.body;
-const prevBodyOverflow = document.body.style.overflow;
+let savedBodyOverflow;
 
 const modal = (window.zeroGallery.modal = {});
 const modalList = window.zeroTmp.modal.list;
 
 modal.openModal = (props) => {
+  savedBodyOverflow = bodyEl.style.overflow;
   bodyEl.style.overflow = "hidden";
   if (props.trigger) props.trigger.elem.setAttribute("aria-expanded", "true");
   props.modalEl.showModal();
@@ -14,7 +15,7 @@ modal.openModal = (props) => {
 };
 
 modal.closeModal = (props) => {
-  bodyEl.style.overflow = prevBodyOverflow;
+  bodyEl.style.overflow = savedBodyOverflow;
   if (props.trigger) props.trigger.elem.setAttribute("aria-expanded", "false");
   props.modalEl.close();
 };

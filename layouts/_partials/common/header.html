@@ -1,10 +1,25 @@
 {{ $enableLanguage := site.Params.language.enable }}
 
 <header id="header">
-	<nav class="blur-01">
+	{{ with site.Menus.main }}
+		<nav id="main-menu" class="blur-02">
+			<ul>
+				{{ range . }}
+					<li itemscope itemtype="http://www.schema.org/SiteNavigationElement">
+						<a itemprop="url" href="{{ .URL }}" {{ if or (page.IsMenuCurrent .Menu .) (page.HasMenuCurrent .Menu .) }}aria-current="page"{{ end }}>
+							<span itemprop="name">{{ .Name }}</span>
+						</a>
+					</li>
+				{{ end }}
+			</ul>
+		</nav>
+	{{ end }}
+
+	<nav id="main-navbar" class="blur-01">
+
 		<ul>
 			<li>
-				<a class="header-title btn btn-text no-hover" href="{{ $.Site.Home.RelPermalink }}">
+				<a class="header-title btn btn-ghost" href="{{ $.Site.Home.RelPermalink }}">
 					{{ $.Site.Title }}
 				</a>
 			</li>
@@ -13,30 +28,30 @@
 		<ul>
 			{{ if $enableLanguage }}
 				<li>
-					<button class="btn btn-text no-hover" id="lang-toggle" type="button" title="{{ T "language" }}">
+					<button id="lang-toggle" class="btn btn-ghost" type="button" title="{{ T "language" }}">
 						<span class="icon">
-							{{ partial "icons/hero.html" (dict "name" "language" "type" "outline") }}
+							{{ partial "icons/hero.html" (dict "name" "outline/language" "type" "safeHTML") }}
 						</span>
 					</button>
+					{{ partial "components/modal.html" (dict
+						"id" "lang-toggle"
+						"title" (T "language")
+						"body" (partial "components/languages.html" $)
+						"closeClick" "sys.close"
+						)
+					}}
 				</li>
-				{{ partial "components/modal.html" (dict
-					"id" "lang-toggle"
-					"title" (T "language")
-					"body" (partial "components/language.html" $)
-					"closeClick" "sys.close"
-					)
-				}}
 			{{ end }}
 			<li>
-				<button class="btn btn-text no-hover" id="theme-toggle" type="button" title="{{ T "theme" }}">
+				<button id="theme-toggle" class="btn btn-ghost" type="button" title="{{ T "theme" }}">
 					<span class="icon icon-themeToggle-auto">
-						{{ partial "icons/hero.html" (dict "name" "clock" "type" "outline") }}
+						{{ partial "icons/hero.html" (dict "name" "outline/clock" "type" "safeHTML") }}
 					</span>
 					<span class="icon icon-themeToggle-light hidden">
-						{{ partial "icons/hero.html" (dict "name" "sun" "type" "outline") }}
+						{{ partial "icons/hero.html" (dict "name" "outline/sun" "type" "safeHTML") }}
 					</span>
 					<span class="icon icon-themeToggle-dark hidden">
-						{{ partial "icons/hero.html" (dict "name" "moon" "type" "outline") }}
+						{{ partial "icons/hero.html" (dict "name" "outline/moon" "type" "safeHTML") }}
 					</span>
 				</button>
 				<script>
@@ -45,18 +60,17 @@
 			</li>
 			{{ if site.Menus.main }}
 				<li>
-					<button class="btn btn-text no-hover" id="menu-toggle" aria-expanded="false" type="button" title="{{ T "menu" }}">
+					<button id="menu-toggle" class="btn btn-ghost" aria-expanded="false" type="button" title="{{ T "menu" }}">
 						<span class="icon icon-menuToggle-bars">
-							{{ partial "icons/hero.html" (dict "name" "bars-3" "type" "outline") }}
+							{{ partial "icons/hero.html" (dict "name" "outline/bars-3" "type" "safeHTML") }}
 						</span>
 						<span class="icon icon-menuToggle-xmark hidden">
-							{{ partial "icons/hero.html" (dict "name" "x-mark" "type" "outline") }}
+							{{ partial "icons/hero.html" (dict "name" "outline/x-mark" "type" "safeHTML") }}
 						</span>
 					</button>
 				</li>
 			{{ end }}
 		</ul>
-	</nav>
 
-	{{ partial "common/menu.html" $ }}
+	</nav>
 </header>

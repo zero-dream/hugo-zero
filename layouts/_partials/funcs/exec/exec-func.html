@@ -3,7 +3,7 @@
 
 {{ $value := .value }}
 {{ $func := .func }}
-{{ $params := .params | default slice }}
+{{ $params := .params }}
 {{ $result := $value }}
 
 {{ $result = partial (printf "funcs/exec/handle/%s" $func) (dict "value" $value "params" $params) }}

@@ -1,25 +1,23 @@
 params:
-  # General
-  defaultTheme: "auto" # Value: auto; light; dark;
-
   # .Param
   download:
     enable: true
     imageSpec: "fit 3200x3200"
   album:
     imageSpec:
-      thumbnail: "fill 1200x1200"
-  image:
-    sort:
-      - { key: "params.weight", order: "asc" }
-      - { key: "params.date", order: "desc" }
-      - { key: "title", order: "asc" }
-      - { key: "name", order: "asc" }
+      thumbnail: "fill 900x600"
+  resource:
+    image:
+      sort:
+        - { key: "params.weight", order: "asc" }
+        - { key: "params.date", order: "desc" }
+        - { key: "title", order: "asc" }
+        - { key: "name", order: "asc" }
   gallery:
     photoSwipe:
       caption:
         enable: true
-        data:
+        items:
           - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
           - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
           - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
@@ -28,7 +26,7 @@ params:
       fileInfo:
         enable: true
         firstBigger: true
-        data:
+        items:
           - { format: "${Title-title}" }
           - { format: '${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}' }
           - { format: "${FileExt} · ${Megapixel} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
@@ -47,6 +45,8 @@ params:
 
   # site.Params
   theme:
+    color: "indigo"
+    scheme: "auto" # Value: auto; light; dark;
     font:
       sans:
         family: ["SourceSans3VF", "Source Han Sans VF"]
@@ -55,8 +55,11 @@ params:
   language:
     enable: false
   imageSpec:
-    rssCover: "fit 1200x1200"
+    rssCover: "fill 900x600"
     openGraph: "fill 1200x630"
-    featured: "fill 1600x900"
+  featured:
+    enable: true
+    imageSpec:
+      thumbnail: "fill 1600x900"
   cssBuild:
     target: ["chrome115", "edge115", "firefox116", "ios16.4", "opera101", "safari16.4"]

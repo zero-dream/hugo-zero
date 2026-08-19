@@ -3,7 +3,7 @@
 
 {{ if $ctx.BundleType }}
 
-	{{ $images := partial "utils/get-images.html" $ctx }}
+	{{ $images := partial "utils/get-resources.html" (dict "ctx" $ctx "type" "image") }}
 	{{ $cover := partial "utils/get-cover.html" (dict "ctx" $ctx "images" $images) }}
 
 	{{ if $cover }}

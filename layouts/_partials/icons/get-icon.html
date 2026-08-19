@@ -1,0 +1,15 @@
+{{ $path := .path }}
+{{ $type := .type }}
+{{ $result := "" }}
+
+{{ $icon := resources.Get $path }}
+
+{{ if eq $type "resource" }}
+	{{ $result = $icon }}
+{{ else if eq $type "safeHTML" }}
+	{{ with $icon }}
+		{{ $result = $icon.Content | safeHTML }}
+	{{ end }}
+{{ end }}
+
+{{ return $result }}

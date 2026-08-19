@@ -2,7 +2,7 @@
 {{ $type := .type }}
 {{ $result := "" }}
 
-{{ $path := printf "lib/tailwindcss/heroicons/%s.svg" $name }}
+{{ $path := printf "lib/bootstrap/icons/%s.svg" $name }}
 {{ $result := partial "icons/get-icon.html" (dict "path" $path "type" $type) }}
 
 {{ return $result }}
