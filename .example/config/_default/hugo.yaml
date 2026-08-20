@@ -7,7 +7,8 @@ defaultContentLanguage: "en"
 baseURL: "https://example.org/"
 
 title: "Gallery"
-copyright: '© {{< link-blank text="ZeroDream" href="https://github.com/zero-dream/" >}}'
+copyright: >
+  © {{< year-range start=2026 >}} {{< link-blank text="ZeroDream" href="https://github.com/zero-dream/" >}}
 
 module:
   hugoVersion:

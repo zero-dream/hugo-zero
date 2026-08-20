@@ -1,0 +1,11 @@
+{{/* Copyright (C) 2026 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $start := .Get "start" }}
+
+{{ $current := now.Year }}
+{{ if lt $start $current }}
+	{{ printf "%d-%d" $start $current }}
+{{ else }}
+	{{ printf "%d" $start }}
+{{ end }}
