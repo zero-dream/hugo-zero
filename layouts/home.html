@@ -4,6 +4,7 @@
 {{ partial "components/categories.html" }}
 {{ partial "components/featured.html" . }}
 {{ partial "components/albums.html" (dict "ctx" .) }}
+{{ partial "pagination.html" . }}
 {{ end }}
 
 {{ define "head-assets" }}

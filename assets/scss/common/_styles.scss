@@ -1,7 +1,10 @@
+@use "../../lib/tailwindcss/sizes" as sizes;
 @use "../../lib/tailwindcss/fonts" as fonts;
 
 @use "../abstracts/styles";
 @use "../abstracts/scrollbars";
+
+@use "components";
 
 html {
   height: 100%;
@@ -173,24 +176,7 @@ body > main > ul.pagination {
   margin: 0 auto var(--gap-main);
 
   & > li.page-item {
-    &:not(:first-child) {
-      border-left: 1px solid var(--color-text-secondary);
-    }
-
-    &:first-child > a.page-link {
-      border-top-left-radius: var(--radius-lg);
-      border-bottom-left-radius: var(--radius-lg);
-    }
-
-    &:last-child > a.page-link {
-      border-top-right-radius: var(--radius-lg);
-      border-bottom-right-radius: var(--radius-lg);
-    }
-
-    & > a.page-link {
-      @extend .btn;
-      @include sizes.rounded-none;
-    }
+    @extend .hugo-pagination;
   }
 }
 

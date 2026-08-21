@@ -99,6 +99,61 @@
   }
 }
 
+.hugo-pagination {
+  & > * {
+    @extend .btn, .btn-secondary;
+    @include sizes.rounded-none;
+  }
+
+  &.disabled > * {
+    cursor: not-allowed;
+    color: var(--color-text-secondary);
+    background-color: transparent;
+    border-color: var(--color-btn-bg);
+
+    &:hover {
+      color: var(--color-text-secondary);
+      background-color: transparent;
+      border-color: var(--color-btn-bg);
+    }
+
+    &:active {
+      translate: 0 0;
+    }
+  }
+
+  &.active > * {
+    cursor: not-allowed;
+    color: var(--color-text-regular-high);
+    background-color: var(--color-btn-bg);
+    border-color: var(--color-btn-bg);
+
+    &:hover {
+      color: var(--color-text-regular-high);
+      background-color: var(--color-btn-bg);
+      border-color: var(--color-btn-bg);
+    }
+
+    &:active {
+      translate: 0 0;
+    }
+  }
+
+  &:not(:first-child) > * {
+    border-left: 0;
+  }
+
+  &:first-child > * {
+    border-top-left-radius: var(--radius-full);
+    border-bottom-left-radius: var(--radius-full);
+  }
+
+  &:last-child > * {
+    border-top-right-radius: var(--radius-full);
+    border-bottom-right-radius: var(--radius-full);
+  }
+}
+
 .modal {
   @extend %blur-modal;
   user-select: none;

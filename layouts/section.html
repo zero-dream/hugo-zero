@@ -2,6 +2,7 @@
 {{ partial "components/title.html" . }}
 {{ partial "components/prose.html" . }}
 {{ partial "components/albums.html" (dict "ctx" .) }}
+{{ partial "pagination.html" . }}
 {{ end }}
 
 {{ define "head-assets" }}

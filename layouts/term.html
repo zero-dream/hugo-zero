@@ -1,6 +1,7 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
 {{ partial "components/albums.html" (dict "ctx" .) }}
+{{ partial "pagination.html" . }}
 {{ end }}
 
 {{ define "head-assets" }}

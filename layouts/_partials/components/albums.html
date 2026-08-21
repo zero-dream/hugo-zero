@@ -5,7 +5,12 @@
 {{ if $related }}
 	{{ $pages = $related }}
 {{ else }}
-	{{ $pages = $ctx.Pages }}
+	{{ if $ctx.IsNode }}
+		{{ $paginator := $ctx.Paginate $ctx.Pages }}
+		{{ $pages = $paginator.Pages }}
+	{{ else }}
+		{{ $pages = $ctx.Pages }}
+	{{ end }}
 {{ end }}
 
 {{ $albums := partial "utils/filter-albums.html" $pages }}
