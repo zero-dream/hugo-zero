@@ -29,7 +29,7 @@ params:
         items:
           - { format: "${Title-title}" }
           - { format: '${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}' }
-          - { format: "${FileExt} · ${Megapixel} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
+          - { format: "${FileExt} · ${Megapixel-printf-%0.2f} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
           - { format: "${Exif.Make} ${Exif.Model}" }
     justified:
       gutterH: 10
