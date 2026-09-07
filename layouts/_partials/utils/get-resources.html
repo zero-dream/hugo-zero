@@ -7,7 +7,7 @@
 
 {{ range $resources }}
 	{{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
-	{{ with .Params.date }}
+	{{ with .Params.zerohugo.date }}
 		{{ $date = time.AsTime . }}
 	{{ else }}
 		{{ if reflect.IsImageResourceWithMeta . }}
@@ -16,7 +16,9 @@
 			{{ end }}
 		{{ end }}
 	{{ end }}
-	{{ $params := merge .Params (dict "date" $date) }}
+
+	{{ $params := .Params }}
+	{{ $params = partial "funcs/collections/set-nested.html" (dict "data" $params "key" "zerohugo.date" "value" $date) }}
 
 	{{ $result = $result | append (dict
 		"resource" .
@@ -27,7 +29,7 @@
 	}}
 {{ end }}
 
-{{ $sort := index ($ctx.Param "resource") $type "sort" }}
+{{ $sort := index ($ctx.Param "zerohugo.resource") $type "sort" }}
 {{ range $sort | collections.Reverse }}
 	{{ $result = sort $result .key .order }}
 {{ end }}

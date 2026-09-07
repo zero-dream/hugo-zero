@@ -11,7 +11,7 @@
 		{{ $exifEntries = merge $exifEntries (dict $key $value) }}
 	{{ end }}
 	{{ $title := partial "funcs/paths/remove-ext.html" (dict "path" $image.Title) }}
-	{{ $smartDate := time.AsTime $image.Params.date | default $image.Meta.Date }}
+	{{ $smartDate := time.AsTime $image.Params.zerohugo.date | default $image.Meta.Date }}
 	{{ $fileExt := index (split $image.MediaType "/") 1 }}
 	{{ $resolution := printf "%d*%d" $image.Width $image.Height }}
 	{{ $megapixel := div (mul (float $image.Width) (float $image.Height)) (float 1000000) }}

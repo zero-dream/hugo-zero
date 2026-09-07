@@ -8,7 +8,8 @@ menu:
     weight: 1
 
 params:
-  rss_ignore: true
+  zerohugo:
+    ignoreRSS: true
 ---
 
 ● Powered by {{< link-blank text="Hugo" href="https://github.com/gohugoio/hugo/" >}}.

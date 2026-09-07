@@ -1,14 +1,14 @@
 <meta property="og:url" content="{{ $.Permalink }}" />
 
-{{ with or site.Title site.Params.title | plainify }}
+{{ with or site.Title site.Params.zerohugo.title | plainify }}
 	<meta property="og:site_name" content="{{ . }}" />
 {{ end }}
 
-{{ with or $.Title site.Title site.Params.title | plainify }}
+{{ with or $.Title site.Title site.Params.zerohugo.title | plainify }}
 	<meta property="og:title" content="{{ . }}" />
 {{ end }}
 
-{{ with or $.Description $.Summary site.Params.description | plainify | htmlUnescape }}
+{{ with or $.Description $.Summary site.Params.zerohugo.description | plainify | htmlUnescape }}
 	<meta property="og:description" content="{{ trim . "\n\r\t " }}" />
 {{ end }}
 
@@ -37,7 +37,7 @@
 
 {{ $album := partial "utils/get-album.html" (dict "ctx" $) }}
 {{ with $album.cover }}
-	{{ $imageSpec := printf "fit %s" (site.Params.imageSpec.openGraph) }}
+	{{ $imageSpec := printf "fit %s" (site.Params.zerohugo.imageSpec.openGraph) }}
 	{{ $image := .Filter (images.Process $imageSpec) }}
 	<meta property="og:image" content="{{ $image.Permalink }}" />
 {{ end }}

@@ -8,7 +8,8 @@ menu:
     weight: 2
 
 params:
-  rss_ignore: true
+  zerohugo:
+    ignoreRSS: true
 ---
 
 A uniquely styled Hugo photo gallery theme.

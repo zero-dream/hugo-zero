@@ -13,17 +13,17 @@
 {{ $sassVars := dict }}
 {{ $buildVars := dict }}
 {{ $params := dict
-	"gutterH" ($.Param "gallery.justified.gutterH")
-	"gutterV" ($.Param "gallery.justified.gutterV")
-	"rowHeight" ($.Param "gallery.justified.rowHeight")
-	"rowHeightTolerance" ($.Param "gallery.justified.rowHeightTolerance")
+	"gutterH" ($.Param "zerohugo.gallery.justified.gutterH")
+	"gutterV" ($.Param "zerohugo.gallery.justified.gutterV")
+	"rowHeight" ($.Param "zerohugo.gallery.justified.rowHeight")
+	"rowHeightTolerance" ($.Param "zerohugo.gallery.justified.rowHeightTolerance")
 }}
 {{ partial "imports/css-sass.html" (dict "path" "scss/gallery.scss" "sassVars" $sassVars "buildVars" $buildVars) }}
 {{ partial "imports/js-esm.html" (dict "path" "js/gallery.js" "params" $params) }}
 
-{{ $enableDownload := $.Param "download.enable" }}
-{{ $enableCaption := $.Param "gallery.photoSwipe.caption.enable" }}
-{{ $enableFileInfo := $.Param "gallery.photoSwipe.fileInfo.enable" }}
+{{ $enableDownload := $.Param "zerohugo.download.enable" }}
+{{ $enableCaption := $.Param "zerohugo.gallery.photoSwipe.caption.enable" }}
+{{ $enableFileInfo := $.Param "zerohugo.gallery.photoSwipe.fileInfo.enable" }}
 {{ $sassVars := dict }}
 {{ $buildVars := dict }}
 {{ $params := dict

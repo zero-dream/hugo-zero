@@ -3,7 +3,7 @@
 {{ $params := dict }}
 
 <!doctype html>
-<html class="{{ site.Params.theme.scheme }}" lang="{{ site.Language.Locale | default "en" }}">
+<html class="{{ site.Params.zerohugo.theme.scheme }}" lang="{{ site.Language.Locale | default "en" }}">
 	<head>
 		{{ partial "common/head.html" . }}
 		{{ block "head-assets" . }}{{ end }}

@@ -208,7 +208,8 @@ The album will be built by Hugo, and it can be accessed using the corresponding 
 ---
 title: "Private Album"
 params:
-  private: true
+  zerohugo:
+    private: true
 ---
 ```
 
@@ -222,7 +223,8 @@ Albums (and also taxonomy pages like categories) can be marked as `featured`:
 ---
 title: "Featured Album"
 params:
-  featured: true
+  zerohugo:
+    featured: true
 ---
 ```
 
@@ -232,8 +234,9 @@ When used in combination with `private` this album is only shown as featured alb
 ---
 title: "Featured Album"
 params:
-  private: true
-  featured: true
+  zerohugo:
+    private: true
+    featured: true
 ---
 ```
 
@@ -251,7 +254,8 @@ title: "Nature"
 resources:
   - src: "tree.jpeg"
     params:
-      cover: true
+      zerohugo:
+        cover: true
 ---
 ```
 
@@ -263,8 +267,9 @@ title: "Nature"
 resources:
   - src: "nature-cover.jpeg"
     params:
-      cover: true
-      hidden: true
+      zerohugo:
+        cover: true
+        hidden: true
 ---
 ```
 
@@ -302,9 +307,10 @@ Explicitly set whether the download feature is enabled.
 
 ```yaml
 params:
-  download:
-    enable: true
-    imageSpec: "fit 3200x3200"
+  zerohugo:
+    download:
+      enable: true
+      imageSpec: "fit 3200x3200"
 ```
 
 ### Album
@@ -328,7 +334,7 @@ Used to sort images in the gallery.
 
 The first element has the highest priority.
 
-`key`: (string) Sort by. Value: title; name; params.weight; params.date;
+`key`: (string) Sort by. Value: title; name; params.zerohugo.weight; params.zerohugo.date;
 
 `order`: (string) Sort order. Value: asc(ascending); desc(descending);
 
@@ -336,26 +342,28 @@ Sort mainly by date in descending order:
 
 ```yaml
 params:
-  resource:
-    image:
-      sort:
-        - { key: "params.weight", order: "asc" }
-        - { key: "params.date", order: "desc" }
-        - { key: "title", order: "asc" }
-        - { key: "name", order: "asc" }
+  zerohugo:
+    resource:
+      image:
+        sort:
+          - { key: "params.zerohugo.weight", order: "asc" }
+          - { key: "params.zerohugo.date", order: "desc" }
+          - { key: "title", order: "asc" }
+          - { key: "name", order: "asc" }
 ```
 
 Sort mainly by title in ascending order:
 
 ```yaml
 params:
-  resource:
-    image:
-      sort:
-        - { key: "params.weight", order: "asc" }
-        - { key: "title", order: "asc" }
-        - { key: "params.date", order: "desc" }
-        - { key: "name", order: "asc" }
+  zerohugo:
+    resource:
+      image:
+        sort:
+          - { key: "params.zerohugo.weight", order: "asc" }
+          - { key: "title", order: "asc" }
+          - { key: "params.zerohugo.date", order: "desc" }
+          - { key: "name", order: "asc" }
 ```
 
 Front matter:
@@ -367,14 +375,16 @@ resources:
     name: "dog-siberian-husky"
     title: "Siberian Husky"
     params:
-      weight: 1
-      date: "2026-01-02T08:00:00+01:00"
+      zerohugo:
+        weight: 1
+        date: "2026-01-02T08:00:00+01:00"
   - src: "dog-2.jpeg"
     name: "dog-alaskan-malamute"
     title: "Alaskan Malamute"
     params:
-      weight: 2
-      date: "2026-01-02T09:00:00+01:00"
+      zerohugo:
+        weight: 2
+        date: "2026-01-02T09:00:00+01:00"
 ---
 ```
 
@@ -401,16 +411,17 @@ Show image Exif data in the bottom bar of the lightbox.
 
 ```yaml
 params:
-  gallery:
-    photoSwipe:
-      caption:
-        enable: true
-        items:
-          - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
-          - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
-          - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
-          - { format: "f ${Exif.FNumber-toType-float-%0.2f}", minWidth: "4rem" }
-          - { format: "${Exif.ExposureTime} s", minWidth: "5rem" }
+  zerohugo:
+    gallery:
+      photoSwipe:
+        caption:
+          enable: true
+          items:
+            - { format: "ISO ${Exif.ISO}", minWidth: "4rem" }
+            - { format: "${Exif.FocalLengthIn35mmFormat} mm", minWidth: "4rem" }
+            - { format: "${Exif.ExposureCompensation} ev", minWidth: "4rem" }
+            - { format: "f ${Exif.FNumber-toType-float-%0.2f}", minWidth: "4rem" }
+            - { format: "${Exif.ExposureTime} s", minWidth: "5rem" }
 ```
 
 #### PhotoSwipe FileInfo
@@ -429,16 +440,17 @@ Show the file information of the image in the bottom bar of the lightbox.
 
 ```yaml
 params:
-  gallery:
-    photoSwipe:
-      fileInfo:
-        enable: true
-        firstBigger: true
-        items:
-          - { format: "${Title-title}" }
-          - { format: '${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}' }
-          - { format: "${FileExt} · ${Megapixel-printf-%0.2f} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
-          - { format: "${Exif.Make} ${Exif.Model}" }
+  zerohugo:
+    gallery:
+      photoSwipe:
+        fileInfo:
+          enable: true
+          firstBigger: true
+          items:
+            - { format: "${Title-title}" }
+            - { format: '${SmartDate-dateFormat-2006\-01\-02 15:04:05 \-0700 MST}' }
+            - { format: "${FileExt} · ${Megapixel-printf-%0.2f} MP · ${Resolution} · ${FileSize-div-1048576-%0.2f} MB" }
+            - { format: "${Exif.Make} ${Exif.Model}" }
 ```
 
 #### Justified Layout
@@ -457,12 +469,13 @@ Justified image gallery layout settings.
 
 ```yaml
 params:
-  gallery:
-    justified:
-      gutterH: 10
-      gutterV: 10
-      rowHeight: 320
-      rowHeightTolerance: 0.25
+  zerohugo:
+    gallery:
+      justified:
+        gutterH: 10
+        gutterV: 10
+        rowHeight: 320
+        rowHeightTolerance: 0.25
 ```
 
 ### Watermark
@@ -490,13 +503,14 @@ When `x & y` are in [0, 1], the watermark will not go beyond the image boundarie
 
 ```yaml
 params:
-  watermark:
-    path: "images/watermark/watermark.png"
-    # The value range of the following field is [0,1].
-    opacity: 0.2
-    size: 0.05
-    x: 0.5
-    y: 0.5
+  zerohugo:
+    watermark:
+      path: "images/watermark/watermark.png"
+      # The value range of the following field is [0,1].
+      opacity: 0.2
+      size: 0.05
+      x: 0.5
+      y: 0.5
 ```
 
 ### Related Content
@@ -511,9 +525,10 @@ Configure related content.
 
 ```yaml
 params:
-  related:
-    enable: true
-    limit: 3
+  zerohugo:
+    related:
+      enable: true
+      limit: 3
 ```
 
 If related content is available for your site (e.g. when keywords or tags are used), related albums are shown below each gallery.
@@ -548,13 +563,14 @@ Add social links to the footer.
 
 ```yaml
 params:
-  social:
-    enable: true
-    items:
-      - { name: "github", link: "https://github.com/zero-dream/hugo-zero/" }
-      - { name: "envelope-fill", link: "mailto:user@example.com" }
-      - { name: "youtube", link: "https://www.youtube.com/" }
-      - { name: "facebook", link: "https://www.facebook.com/" }
+  zerohugo:
+    social:
+      enable: true
+      items:
+        - { name: "github", link: "https://github.com/zero-dream/hugo-zero/" }
+        - { name: "envelope-fill", link: "mailto:user@example.com" }
+        - { name: "youtube", link: "https://www.youtube.com/" }
+        - { name: "facebook", link: "https://www.facebook.com/" }
 ```
 
 ### Featured
@@ -565,8 +581,9 @@ Add featured albums to the homepage.
 
 ```yaml
 params:
-  featured:
-    enable: true
+  zerohugo:
+    featured:
+      enable: true
 ```
 
 ## Custom

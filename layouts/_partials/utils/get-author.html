@@ -1,7 +1,7 @@
 {{ $author := dict }}
 
 {{ $email := "" }}
-{{ with site.Params.author }}
+{{ with site.Params.zerohugo.author }}
 	{{ if reflect.IsMap . }}
 		{{ with .email }}
 			{{ $email = . }}
@@ -10,7 +10,7 @@
 {{ end }}
 
 {{ $name := "" }}
-{{ with site.Params.author }}
+{{ with site.Params.zerohugo.author }}
 	{{ if reflect.IsMap . }}
 		{{ with .name }}
 			{{ $name = . }}

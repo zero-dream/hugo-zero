@@ -52,7 +52,7 @@
 			{{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
 		{{ end }}
 
-		{{ $rssCoverSpec := site.Params.imageSpec.rssCover }}
+		{{ $rssCoverSpec := site.Params.zerohugo.imageSpec.rssCover }}
 		{{ range $pages }}
 			<item>
 				<title>{{ .taxonomy | title }} {{ .page.Title }}</title>

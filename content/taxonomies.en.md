@@ -10,5 +10,6 @@ menu:
     weight: -8
 
 params:
-  rss_ignore: true
+  zerohugo:
+    ignoreRSS: true
 ---

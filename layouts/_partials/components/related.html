@@ -1,4 +1,4 @@
-{{ $enableRelated := $.Param "related.enable" }}
+{{ $enableRelated := $.Param "zerohugo.related.enable" }}
 {{ if $enableRelated }}
 	{{ $related := site.RegularPages.Related $ }}
 	{{ with $related }}

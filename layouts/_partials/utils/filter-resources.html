@@ -1,5 +1,5 @@
 {{ $resources := $ }}
 
-{{ $resources = where $resources "Params.hidden" "!=" true }}
+{{ $resources = where $resources "Params.zerohugo.hidden" "!=" true }}
 
 {{ return $resources }}

@@ -12,7 +12,8 @@ menus: "main" # Display the subitems of the current page in the [main] menu.
 resources:
   - src: cover.jpeg
     params:
-      cover: true
+      zerohugo:
+        cover: true
 ---
 
 The `markdown` here will be displayed at the bottom of the album list.

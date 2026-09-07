@@ -3,7 +3,7 @@
 
 {{ $cover := (index $images 0).resource }}
 {{ $resources := $ctx.Resources.ByType "image" }}
-{{ range first 1 (where $resources "Params.cover" "==" true) }}
+{{ range first 1 (where $resources "Params.zerohugo.cover" "==" true) }}
 	{{ $cover = . }}
 {{ end }}
 

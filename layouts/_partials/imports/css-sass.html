@@ -19,7 +19,7 @@
 				"loaders" (dict ".png" "dataurl" ".svg" "dataurl")
 				"minify" (cond hugo.IsDevelopment false true)
 				"sourceMap" (cond hugo.IsDevelopment "linked" "none")
-				"target" (site.Params.cssBuild.target | default slice)
+				"target" (site.Params.zerohugo.cssBuild.target | default slice)
 				"targetPath" $targetPath
 				"vars" $buildVars
 			}}

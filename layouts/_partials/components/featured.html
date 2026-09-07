@@ -1,8 +1,8 @@
-{{ $enable := site.Params.featured.enable }}
+{{ $enable := site.Params.zerohugo.featured.enable }}
 {{ if $enable }}
 
 	{{ $albums := slice }}
-	{{ $thumbnailSpec := site.Params.featured.imageSpec.thumbnail }}
+	{{ $thumbnailSpec := site.Params.zerohugo.featured.imageSpec.thumbnail }}
 	{{ range $page := partial "utils/get-featured.html" }}
 		{{ $album := partial "utils/get-album.html" (dict "ctx" $page) }}
 		{{ with $album }}

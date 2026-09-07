@@ -11,6 +11,7 @@ menus: "main" # Display the subitems of the current page in the [main] menu.
 resources:
   - src: "nature-cover.jpeg"
     params:
-      cover: true # As the album thumbnail, if not set, the first image will be used.
-      hidden: true # Hide the image from the gallery, used only as a cover.
+      zerohugo:
+        cover: true # As the album thumbnail, if not set, the first image will be used.
+        hidden: true # Hide the image from the gallery, used only as a cover.
 ---

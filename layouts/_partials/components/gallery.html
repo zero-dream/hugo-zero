@@ -2,12 +2,12 @@
 {{ with $images }}
 	<section id="gallery" class="fj-gallery hidden">
 		{{ $publishResources := $.Param "build.publishResources" }}
-		{{ $enableDownload := $.Param "download.enable" }}
-		{{ $downImageSpec := $.Param "download.imageSpec" }}
-		{{ $caption := $.Param "gallery.photoSwipe.caption" }}
-		{{ $fileInfo := $.Param "gallery.photoSwipe.fileInfo" }}
-		{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
-		{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
+		{{ $enableDownload := $.Param "zerohugo.download.enable" }}
+		{{ $downImageSpec := $.Param "zerohugo.download.imageSpec" }}
+		{{ $caption := $.Param "zerohugo.gallery.photoSwipe.caption" }}
+		{{ $fileInfo := $.Param "zerohugo.gallery.photoSwipe.fileInfo" }}
+		{{ $thumbnailSpec := $.Param "zerohugo.gallery.imageSpec.thumbnail" }}
+		{{ $lightboxSpec := $.Param "zerohugo.gallery.imageSpec.lightbox" }}
 
 		{{ range . }}
 			{{ $image := .resource }}
@@ -54,9 +54,9 @@
 											{{ range $caption.items }}{{ $items = $items | append .format }}{{ end }}
 											{{ $captions := partial "funcs/images/parse-meta.html" (dict "image" $downImage "items" $items "default" "-") }}
 											{{ range $index, $value := $caption.items }}
-												{{ $caption := index $captions $index }}
+												{{ $content := index $captions $index }}
 												<td style="min-width: {{ $value.minWidth }};">
-													<pre>{{ $caption }}</pre>
+													<pre>{{ $content }}</pre>
 												</td>
 											{{ end }}
 										</tr>

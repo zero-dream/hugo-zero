@@ -1,8 +1,8 @@
-{{ $enable := site.Params.social.enable }}
+{{ $enable := site.Params.zerohugo.social.enable }}
 {{ if $enable }}
 
 	{{ $items := slice }}
-	{{ range site.Params.social.items }}
+	{{ range site.Params.zerohugo.social.items }}
 		{{ $icon := partial "icons/bootstrap.html" (dict "name" .name "type" "safeHTML") }}
 		{{ if $icon }}
 			{{ $items = $items | append (dict

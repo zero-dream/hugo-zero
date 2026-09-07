@@ -15,5 +15,6 @@ menus:
 resources:
   - src: "graph.jpeg"
     params:
-      cover: true # Cover of the home page is used for OpenGraph.
+      zerohugo:
+        cover: true # Cover of the home page is used for OpenGraph.
 ---

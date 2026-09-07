@@ -6,13 +6,13 @@
 <link rel="icon" type="image/png" href="{{ relURL (printf "%s/favicons/favicon.png" hugo.Data.config.publishDir) }}" />
 <link rel="apple-touch-icon" sizes="180x180" href="{{ relURL (printf "%s/favicons/apple-touch-icon.png" hugo.Data.config.publishDir) }}" />
 
-<meta name="description" content="{{ with $.Description }}{{ . | markdownify | plainify }}{{ else }}{{ with site.Params.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}" />
+<meta name="description" content="{{ with $.Description }}{{ . | markdownify | plainify }}{{ else }}{{ with site.Params.zerohugo.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}" />
 
 {{ if $.Keywords }}
 	<meta name="keywords" content="{{ delimit $.Params.Keywords `, ` }}" />
 {{ end }}
 
-{{ if $.Params.private }}
+{{ if $.Params.zerohugo.private }}
 	<meta name="robots" content="noindex, nofollow" />
 {{ else }}
 	<meta name="robots" content="index, follow" />
@@ -24,13 +24,13 @@
 
 {{ partial "common/opengraph.html" $ }}
 
-{{ $params := dict "buildTime" now.Unix "themeScheme" site.Params.theme.scheme }}
+{{ $params := dict "buildTime" now.Unix "themeScheme" site.Params.zerohugo.theme.scheme }}
 {{ partial "imports/js-iife.html" (dict "path" "js/common/init.js" "params" $params) }}
 
-{{ $sansFontFamily := partial "funcs/strings/join-quoted.html" (dict "slice" site.Params.theme.font.sans.family "delimiter" ",") }}
-{{ $monoFontFamily := partial "funcs/strings/join-quoted.html" (dict "slice" site.Params.theme.font.mono.family "delimiter" ",") }}
+{{ $sansFontFamily := partial "funcs/strings/join-quoted.html" (dict "slice" site.Params.zerohugo.theme.font.sans.family "delimiter" ",") }}
+{{ $monoFontFamily := partial "funcs/strings/join-quoted.html" (dict "slice" site.Params.zerohugo.theme.font.mono.family "delimiter" ",") }}
 {{ $sassVars := dict
-	"default-theme-color" (site.Params.theme.color)
+	"default-theme-color" (site.Params.zerohugo.theme.color)
 }}
 {{ $buildVars := dict
 	"default-font-family" $sansFontFamily

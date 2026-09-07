@@ -15,14 +15,14 @@
 
 {{ $albums := partial "utils/filter-albums.html" $pages }}
 {{ if $related }}
-	{{ $relatedLimit := $ctx.Param "related.limit" }}
+	{{ $relatedLimit := $ctx.Param "zerohugo.related.limit" }}
 	{{ $albums = $albums | first $relatedLimit }}
 {{ end }}
 
 {{ with $albums }}
 	<section class="albums">
 		{{ range . }}
-			{{ $thumbnailSpec := .page.Param "album.imageSpec.thumbnail" }}
+			{{ $thumbnailSpec := .page.Param "zerohugo.album.imageSpec.thumbnail" }}
 			{{ $thumbnail := .cover.Filter (images.Process $thumbnailSpec) }}
 			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
 			<a class="album-card" href="{{ .page.RelPermalink }}">

@@ -5,21 +5,21 @@
 {{ $image := .image }}
 {{ $result := $image }}
 
-{{ $enable := $ctx.Param "watermark.enable" }}
+{{ $enable := $ctx.Param "zerohugo.watermark.enable" }}
 {{ if $enable }}
-	{{ $path := $ctx.Param "watermark.path" }}
+	{{ $path := $ctx.Param "zerohugo.watermark.path" }}
 	{{ $mark := resources.Get $path }}
 
-	{{ $size := $ctx.Param "watermark.size" }}
+	{{ $size := $ctx.Param "zerohugo.watermark.size" }}
 	{{ $markHeight := int (mul $image.Height $size) }}
 	{{ $resizedMark := ($mark.Resize (printf "x%d" $markHeight)) }}
 
-	{{ $x := float ($ctx.Param "watermark.x") }}
-	{{ $y := float ($ctx.Param "watermark.y") }}
+	{{ $x := float ($ctx.Param "zerohugo.watermark.x") }}
+	{{ $y := float ($ctx.Param "zerohugo.watermark.y") }}
 	{{ $offsetX := int (mul $x (sub $image.Width $resizedMark.Width)) }}
 	{{ $offsetY := int (mul $y (sub $image.Height $resizedMark.Height)) }}
 
-	{{ $opacity := float ($ctx.Param "watermark.opacity") }}
+	{{ $opacity := float ($ctx.Param "zerohugo.watermark.opacity") }}
 	{{ $opaqueMark := $resizedMark.Filter (images.Opacity $opacity) }}
 
 	{{ $result = $image.Filter (images.Overlay $opaqueMark $offsetX $offsetY) }}
