@@ -1,4 +1,4 @@
-/*! hugo-gallery | https://github.com/zero-dream/hugo-gallery */
+/*! hugo-zero | https://github.com/zero-dream/hugo-zero */
 
 import params from "@params";
 

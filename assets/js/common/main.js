@@ -1,4 +1,4 @@
-/*! hugo-gallery | https://github.com/zero-dream/hugo-gallery */
+/*! hugo-zero | https://github.com/zero-dream/hugo-zero */
 
 import "./_modal.js";
 import "./_menu.js";

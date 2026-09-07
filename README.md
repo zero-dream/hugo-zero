@@ -84,7 +84,7 @@ module:
     extended: true
     min: "0.162.0"
   imports:
-    - path: "github.com/zero-dream/hugo-gallery"
+    - path: "github.com/zero-dream/hugo-zero"
 ```
 
 Start Hugo’s development server.
@@ -98,7 +98,7 @@ hugo server
 To update a module to the latest version:
 
 ```sh
-hugo mod get -u github.com/zero-dream/hugo-gallery
+hugo mod get -u github.com/zero-dream/hugo-zero
 ```
 
 ### Update All Modules
@@ -551,7 +551,7 @@ params:
   social:
     enable: true
     items:
-      - { name: "github", link: "https://github.com/zero-dream/hugo-gallery/" }
+      - { name: "github", link: "https://github.com/zero-dream/hugo-zero/" }
       - { name: "envelope-fill", link: "mailto:user@example.com" }
       - { name: "youtube", link: "https://www.youtube.com/" }
       - { name: "facebook", link: "https://www.facebook.com/" }

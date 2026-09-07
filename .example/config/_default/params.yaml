@@ -74,7 +74,7 @@ params:
   social:
     enable: true
     items:
-      - { name: "github", link: "https://github.com/zero-dream/hugo-gallery/" }
+      - { name: "github", link: "https://github.com/zero-dream/hugo-zero/" }
       - { name: "envelope-fill", link: "mailto:user@example.com" }
       - { name: "youtube", link: "https://www.youtube.com/" }
       - { name: "facebook", link: "https://www.facebook.com/" }
